@@ -6,6 +6,10 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<style>
+			:root {
+				--box-shadow: 0px 2px 10px rgba(0,0,0,0.15); 
+			}
+			
 			* {
 				margin: 0;
 				padding: 0;
@@ -16,23 +20,32 @@
 				background-color: important;
 			}
 			
+			header {
+				background-color: #000;
+				height: 150px;
+				margin-bottom: 90px;
+				color: white;
+				display: flex;
+				align-items: center;
+				padding-left: 5%;
+			}
+			
 			form  {
 				border-radius: 15px;
-				box-shadow: 0px 2px 10px rgba(0,0,0,0.15);
+				box-shadow: var(--box-shadow);
 				display: flex;
 				flex-direction: column;
-				width: 100%;
 			}
 		
 			input {
 				border: 1px solid rgba(0,0,0,0.3);
-				padding: 8px;
+				padding: 10px;
 				background-color: white;
 			}
 			
 			select {
 				border: 1px solid rgba(0,0,0,0.3);
-				padding: 10px;
+				padding: 12px;
 				background-color: rgba(0,0,0,0.01);
 			}
 			
@@ -50,10 +63,6 @@
 				align-self: center;
 			}
 			
-			.form {
-				
-			}
-			
 			.row {
 				display: flex;
 				flex-direction: column;
@@ -67,6 +76,14 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
+			}
+			
+			.main-container {
+				margin-bottom: 200px;
+			}
+			
+			.form-container {
+				padding-bottom: 40px;
 			}
 		</style>
 
@@ -93,9 +110,11 @@
 		</script>
 	</head>
 	<body>
-		<h1>Relatórios</h1>
+		<header>
+			<h1>Dados para o relatório</h1>
+		</header>
 		<div class="main-container">
-			<form class="form form-group container p-5">
+			<form class="form form-group container pt-5 pb-5 w-50">
 				<div class="form-container justify-center w-75">
 					<div class="form-box row">
 						<label for="date-input">Data</label>
@@ -154,7 +173,7 @@
 							</select>
 					</div>
 					<div class="button-box row">
-						<button type="submit" class="btn btn-success align-self-center w-50 mt-5 p-3">Enviar</button>
+						<button type="submit" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
 				</div>
 			</form>
