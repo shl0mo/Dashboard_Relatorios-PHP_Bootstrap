@@ -2,6 +2,35 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
+		<style>
+			.hidden {
+				display: none;
+			}
+		</style>
+
+		<script>
+			function handleSchedule () {
+				const motivation_classList = document.querySelector('#motivation-select').classList
+				const motivation_label_classList = document.querySelector('[for="motivation-select"]').classList
+				if (this.value == 'Sim') {
+					if (!motivation_classList.contains('hidden')) {
+						motivation_classList.add('hidden')
+						motivation_label_classList.add('hidden')
+					}
+				} else {
+					if (motivation_classList.contains('hidden')) {
+						motivation_classList.remove('hidden')
+						motivation_label_classList.remove('hidden')
+					}
+				}
+			}
+			
+			const interval = setInterval(() => {
+					if (document.contains(document.querySelector('#schedule-select'))) {
+						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
+					}
+			}, 100)
+		</script>
 	</head>
 	<body>
 		<h1>Relatórios</h1>
