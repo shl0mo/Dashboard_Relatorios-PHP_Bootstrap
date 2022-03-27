@@ -35,46 +35,49 @@
 	<body>
 		<h1>Relatórios</h1>
 		<div class="main-container">
-			<label for="date-input">Data</label>
-				<input id="date-input"type="text" value="Data de hoje" readonly/>
-			<label for="name-input">Nome completo</label>
-				<input id="name-input" type="Text"/>
-			<label for="phone-input">Telefone</label>
-				<input id="phone-input" type="text"/>
-			<label for="state-select">Estado</label>
-				<select id="state-select">
-					<option>-- Selecione --</option>
-					<option>Estado 1</option>
-					<option>Estado 2</option>
-					<option>Estado 3</option>
-				</select>
-			<label for="city-select">Cidade</label>
-				<select id="city-select">
-					<option>-- Selecione --</option>
-					<option>Cidade 1</option>
-					<option>Cidade 2</option>
-					<option>Cidade 3</option>
-				</select>
-			<label for="contact-type-select">Forma de contato</label>
-				<select id="contact-type-select">
-					<option>-- Selecione --</option>
-					<option>Tipo contato 1</option>
-					<option>Tipo contato 2</option>
-					<option>Tipo contato 2</option>
-				</select>
-			<label for="schedule-select">Agendou?</label>
-				<select id="schedule-select">
-					<option>-- Selecionar --</option>
-					<option>Sim</option>
-					<option>Não</option>
-				</select>
-			<label for="motivation-select" class="hidden">Motivo de não ter agendado</label>
-				<select id="motivation-select" class="hidden">
-					<option>--Selecione --</option>
-					<option>Motivo 1</option>
-					<option>Motivo 2</option>
-					<option>Motivo 3</option>
-				</select>
+			<form>
+				<label for="date-input">Data</label>
+					<input id="date-input"type="text" value="Data de hoje" readonly/>
+				<label for="name-input">Nome completo</label>
+					<input id="name-input" type="Text"/>
+				<label for="phone-input">Telefone</label>
+					<input id="phone-input" type="text"/>
+				<label for="state-select">Estado</label>
+					<select id="state-select">
+						<option>-- Selecione --</option>
+						<option>Estado 1</option>
+						<option>Estado 2</option>
+						<option>Estado 3</option>
+					</select>
+				<label for="city-select">Cidade</label>
+					<select id="city-select">
+						<option>-- Selecione --</option>
+						<option>Cidade 1</option>
+						<option>Cidade 2</option>
+						<option>Cidade 3</option>
+					</select>
+				<label for="contact-type-select">Forma de contato</label>
+					<select id="contact-type-select">
+						<option>-- Selecione --</option>
+						<option>Tipo contato 1</option>
+						<option>Tipo contato 2</option>
+						<option>Tipo contato 2</option>
+					</select>
+				<label for="schedule-select">Agendou?</label>
+					<select id="schedule-select">
+						<option>-- Selecionar --</option>
+						<option>Sim</option>
+						<option>Não</option>
+					</select>
+				<label for="motivation-select" class="hidden">Motivo de não ter agendado</label>
+					<select id="motivation-select" class="hidden">
+						<option>--Selecione --</option>
+						<option>Motivo 1</option>
+						<option>Motivo 2</option>
+						<option>Motivo 3</option>
+					</select>
+				<button type="submit">Enviar</button>
+			</form>
 		</div>
 	</body>
 </html>
