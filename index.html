@@ -2,9 +2,71 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			
+			body {
+				background-color: important;
+			}
+			
+			form  {
+				border-radius: 15px;
+				box-shadow: 0px 2px 10px rgba(0,0,0,0.15);
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+			}
+		
+			input {
+				border: 1px solid rgba(0,0,0,0.3);
+				padding: 8px;
+				background-color: white;
+			}
+			
+			select {
+				border: 1px solid rgba(0,0,0,0.3);
+				padding: 10px;
+				background-color: rgba(0,0,0,0.01);
+			}
+			
+			label {
+				margin-top: 30px;
+				font-size: 1.2em;
+			}
+			
 			.hidden {
 				display: none;
+			}
+			
+			.justify-center {
+				display: flex;
+				align-self: center;
+			}
+			
+			.form {
+				
+			}
+			
+			.row {
+				display: flex;
+				flex-direction: column;
+			}
+			
+			#date-input {
+				color: gray;
+			}
+			
+			.justify-center {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 		</style>
 
@@ -26,7 +88,7 @@
 			}
 			
 			const interval = setInterval(() => {
-					if (document.contains(document.querySelector('#schedule-select'))) {
+			
 						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
 					}
 			}, 100)
@@ -35,48 +97,68 @@
 	<body>
 		<h1>Relatórios</h1>
 		<div class="main-container">
-			<form>
-				<label for="date-input">Data</label>
-					<input id="date-input"type="text" value="Data de hoje" readonly/>
-				<label for="name-input">Nome completo</label>
-					<input id="name-input" type="Text"/>
-				<label for="phone-input">Telefone</label>
-					<input id="phone-input" type="text"/>
-				<label for="state-select">Estado</label>
-					<select id="state-select">
-						<option>-- Selecione --</option>
-						<option>Estado 1</option>
-						<option>Estado 2</option>
-						<option>Estado 3</option>
-					</select>
-				<label for="city-select">Cidade</label>
-					<select id="city-select">
-						<option>-- Selecione --</option>
-						<option>Cidade 1</option>
-						<option>Cidade 2</option>
-						<option>Cidade 3</option>
-					</select>
-				<label for="contact-type-select">Forma de contato</label>
-					<select id="contact-type-select">
-						<option>-- Selecione --</option>
-						<option>Tipo contato 1</option>
-						<option>Tipo contato 2</option>
-						<option>Tipo contato 2</option>
-					</select>
-				<label for="schedule-select">Agendou?</label>
-					<select id="schedule-select">
-						<option>-- Selecionar --</option>
-						<option>Sim</option>
-						<option>Não</option>
-					</select>
-				<label for="motivation-select" class="hidden">Motivo de não ter agendado</label>
-					<select id="motivation-select" class="hidden">
-						<option>--Selecione --</option>
-						<option>Motivo 1</option>
-						<option>Motivo 2</option>
-						<option>Motivo 3</option>
-					</select>
-				<button type="submit">Enviar</button>
+			<form class="form form-group container p-5">
+				<div class="form-container justify-center w-75">
+					<div class="form-box row">
+						<label for="date-input">Data</label>
+						<input id="date-input" class="w-100 ml-3 rounded" ctext" value="Data de hoje" readonly/>
+					</div>
+					<div class="form-box row">
+						<label for="name-input col">Nome completo</label>	
+						<input id="name-input col" class="w-100 ml-3 rounded" type="Text"/>
+					</div>
+					<div class="form-box row">
+						<label for="phone-input col">Telefone</label>
+						<input id="phone-input col" class="w-100 ml-3 rounded" type="text"/>
+					</div>
+					<div class="form-box row">
+						<label for="state-select col">Estado</label>
+						<select id="state-select col" class="w-100 ml-3 rounded">
+							<option>-- Selecione --</option>
+							<option>Estado 1</option>
+							<option>Estado 2</option>
+							<option>Estado 3</option>
+						</select>
+					</div>
+					<div class="form-box row">
+						<label for="city-select">Cidade</label>
+							<select id="city-select" class="w-100 ml-3 rounded">
+								<option>-- Selecione --</option>
+								<option>Cidade 1</option>
+								<option>Cidade 2</option>
+								<option>Cidade 3</option>
+							</select>
+					</div>
+					<div class="form-box row">
+						<label for="contact-type-select">Forma de contato</label>
+							<select id="contact-type-select" class="w-100 ml-3 rounded">
+								<option>-- Selecione --</option>
+								<option>Tipo contato 1</option>
+								<option>Tipo contato 2</option>
+								<option>Tipo contato 2</option>
+							</select>
+					</div>
+					<div class="form-box row">
+						<label for="schedule-select">Agendou?</label>
+							<select id="schedule-select" class="w-100 ml-3 rounded">
+								<option>-- Selecionar --</option>
+								<option>Sim</option>
+								<option>Não</option>
+							</select>
+					</div>
+					<div class="form-box row">
+						<label for="motivation-select" class="hidden">Motivo de não ter agendado</label>
+							<select id="motivation-select" class="hidden w-100 ml-3 rounded">
+								<option>--Selecione --</option>
+								<option>Motivo 1</option>
+								<option>Motivo 2</option>
+								<option>Motivo 3</option>
+							</select>
+					</div>
+					<div class="button-box row">
+						<button type="submit" class="btn btn-success align-self-center w-50 mt-5 p-3">Enviar</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	</body>
