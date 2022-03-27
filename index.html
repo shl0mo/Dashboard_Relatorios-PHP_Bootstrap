@@ -66,11 +66,7 @@
 			.row {
 				display: flex;
 				flex-direction: column;
-			}
-			
-			#date-input {
-				color: gray;
-			}
+			} 
 			
 			.justify-center {
 				display: flex;
@@ -105,7 +101,16 @@
 			}
 			
 			const interval = setInterval(() => {
+					if (document.contains(document.querySelector('#schedule-select'))) {
 						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
+						let date = new Date()
+						const year = date.getFullYear()
+						let month = date.getMonth()
+						const day = date.getDate()
+						if (String(month).length == 1) month = '0' + month
+						document.querySelector('#date-input').value = day + '/' + month + '/' + year
+						clearInterval(interval)
+					}
 			}, 100)
 		</script>
 	</head>
