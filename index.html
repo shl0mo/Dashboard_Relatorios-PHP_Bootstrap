@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<style>
 			:root {
-				--box-shadow: 0px 2px 10px rgba(0,0,0,0.15); 
+				--box-shadow: 0px 2px 10px rgba(0,0,0,0.2); 
 			}
 			
 			* {
@@ -81,9 +81,20 @@
 			.form-container {
 				padding-bottom: 40px;
 			}
+			
+			.but-test {
+				width: 200px;
+				height: 50px;
+				background-color: black;
+			}
 		</style>
 
 		<script>
+			const objStates = {
+				list_states: 'a',
+				UF: ''
+			}
+		
 			function handleSchedule () {
 				const motivation_classList = document.querySelector('#motivation-select').classList
 				const motivation_label_classList = document.querySelector('[for="motivation-select"]').classList
@@ -100,6 +111,25 @@
 				}
 			}
 			
+			function getCities () {
+				const state = document.getElementById('state-select').value
+				if (state !== '-- Selecione --') {
+					
+					$.ajax({
+						url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios'
+					})
+					
+				}
+			}
+			
+			function getStates () {
+				return $.ajax({ url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' })
+			}
+			
+			function getCities (UF) {
+				return $.ajax({ url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + UF + '/municipios' })
+			}
+			
 			const interval = setInterval(() => {
 					if (document.contains(document.querySelector('#schedule-select'))) {
 						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
@@ -109,6 +139,13 @@
 						const day = date.getDate()
 						if (String(month).length == 1) month = '0' + month
 						document.querySelector('#date-input').value = day + '/' + month + '/' + year
+						getStates().then(res => {
+							for (state of res) {
+								let option_state = document.createElement('option')
+								option_state.innerHTML = state.nome
+								document.getElementById('state-select').appendChild(option_state)
+							}
+						})
 						clearInterval(interval)
 					}
 			}, 100)
@@ -135,20 +172,14 @@
 					</div>
 					<div class="form-box row">
 						<label for="state-select col">Estado</label>
-						<select id="state-select col" class="w-100 ml-3 rounded">
+						<select id="state-select" class="w-100 ml-3 rounded">
 							<option>-- Selecione --</option>
-							<option>Estado 1</option>
-							<option>Estado 2</option>
-							<option>Estado 3</option>
 						</select>
 					</div>
 					<div class="form-box row">
 						<label for="city-select">Cidade</label>
 							<select id="city-select" class="w-100 ml-3 rounded">
 								<option>-- Selecione --</option>
-								<option>Cidade 1</option>
-								<option>Cidade 2</option>
-								<option>Cidade 3</option>
 							</select>
 					</div>
 					<div class="form-box row">
@@ -179,6 +210,8 @@
 					</div>
 					<div class="button-box row">
 						<button type="submit" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
+					</div>
+					<div class="but-test" onclick="getPlaces()">
 					</div>
 				</div>
 			</form>
