@@ -96,17 +96,17 @@
 			}
 		
 			function handleSchedule () {
-				const motivation_classList = document.querySelector('#motivation-select').classList
-				const motivation_label_classList = document.querySelector('[for="motivation-select"]').classList
+				const justification_classList = document.querySelector('#justification-select').classList
+				const justification_label_classList = document.querySelector('[for="justification-select"]').classList
 				if (this.value == 'Sim') {
-					if (!motivation_classList.contains('hidden')) {
-						motivation_classList.add('hidden')
-						motivation_label_classList.add('hidden')
+					if (!justification_classList.contains('hidden')) {
+						justification_classList.add('hidden')
+						justification_label_classList.add('hidden')
 					}
 				} else {
-					if (motivation_classList.contains('hidden')) {
-						motivation_classList.remove('hidden')
-						motivation_label_classList.remove('hidden')
+					if (justification_classList.contains('hidden')) {
+						justification_classList.remove('hidden')
+						justification_label_classList.remove('hidden')
 					}
 				}
 			}
@@ -186,7 +186,7 @@
 			<h1>Dados para o relatório</h1>
 		</header>
 		<div class="main-container">
-			<form class="form form-group container pt-5 pb-5 w-50">
+			<form method="post" class="form form-group container pt-5 pb-5 w-50">
 				<div class="form-container justify-center w-75">
 					<div class="form-box row">
 						<label for="date-input">Data</label>
@@ -194,33 +194,33 @@
 					</div>
 					<div class="form-box row">
 						<label for="name-input col">Nome completo</label>	
-						<input id="name-input col" class="w-100 ml-3 rounded" type="Text"/>
+						<input id="name-input" name="name" class="w-100 ml-3 rounded" type="Text"/>
 					</div>
 					<div class="form-box row">
 						<label for="phone-input col">Telefone</label>
-						<input id="phone-input col" class="w-100 ml-3 rounded" type="text"/>
+						<input id="phone-input col" name="phone" class="w-100 ml-3 rounded" type="text"/>
 					</div>
 					<div class="form-box row">
 						<label for="state-select col">Estado</label>
-						<select id="state-select" class="w-100 ml-3 rounded" onchange="showCities()">
+						<select id="state-select" name="state" class="w-100 ml-3 rounded" onchange="showCities()">
 							<option>-- Selecione --</option>
 						</select>
 					</div>
 					<div class="form-box row">
 						<label for="city-select">Cidade</label>
-							<select id="city-select" class="w-100 ml-3 rounded">
+							<select id="city-select" name="city" class="w-100 ml-3 rounded">
 								<option>-- Selecione --</option>
 							</select>
 					</div>
 					<div class="form-box row">
 						<label for="channel-origin">Canal de origem</label>
-							<select id="channel-origin" class="w-100 ml-3 rounded">
+							<select id="channel-origin" name="channel" class="w-100 ml-3 rounded">
 								<option>-- Selecione --</option>
 							</select>
 					</div>
 					<div class="form-box row">
 						<label for="contact-type-select">Forma de contato</label>
-							<select id="contact-type-select" class="w-100 ml-3 rounded">
+							<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded">
 								<option>-- Selecione --</option>
 								<option>Tipo contato 1</option>
 								<option>Tipo contato 2</option>
@@ -229,15 +229,15 @@
 					</div>
 					<div class="form-box row">
 						<label for="schedule-select">Agendou?</label>
-							<select id="schedule-select" class="w-100 ml-3 rounded">
+							<select id="schedule-select" name="schedule" class="w-100 ml-3 rounded">
 								<option>-- Selecionar --</option>
 								<option>Sim</option>
 								<option>Não</option>
 							</select>
 					</div>
 					<div class="form-box row">
-						<label for="motivation-select" class="hidden">Motivo de não ter agendado</label>
-							<select id="motivation-select" class="hidden w-100 ml-3 rounded">
+						<label for="justification-select" class="hidden">Motivo de não ter agendado</label>
+							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded">
 								<option>--Selecione --</option>
 								<option>Motivo 1</option>
 								<option>Motivo 2</option>
@@ -246,17 +246,31 @@
 					</div>
 					<div class="form-box row">
 						<label for="field">Área</label>
-						<select id="field" class="w-100 ml-3 rounded">
+						<select id="field" name="field" class="w-100 ml-3 rounded">
 							<option>-- Selecione --</option>
 							<option>Demartologia estética</option>
 							<option>Demartologia clínica</option>
 						</select>
 					</div>
 					<div class="button-box row">
-						<button type="submit" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
+						<button type="submit" name="enviar" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</body>
 </html>
+
+<?php
+	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+	if (isset($_POST['enviar'])) {
+		$name = $_POST['name'];
+		$phone = $_POST['phone'];
+		$state = $_POST['state'];
+		$city = $_POST['city'];
+		$channel = $_POST['channel'];
+		$contact_type = $_POST['contact-type'];
+		$schedule = $_POST['schedule'];
+		$field = $_POST['field'];
+	}
+?>
