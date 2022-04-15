@@ -130,6 +130,36 @@
 				return $.ajax({ url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + UF + '/municipios' })
 			}
 			
+			function showCities () {
+				const cities = document.querySelectorAll('#city-select option')
+				const city_select = document.getElementById('city-select')
+				const selected_state = document.getElementById('state-select').value
+				for (city of cities) {
+					city_select.remove(city)
+				}
+				let option = document.createElement('option')
+				option.innerHTML = '-- Selecione --'
+				city_select.appendChild(option)		
+				if (selected_state === '-- Selecione --') return
+				getStates().then(res => {
+					const selected_state = document.getElementById('state-select').value
+					let UF = ''
+					console.log(selected_state)
+					for (state of res) {
+						if (state.nome == selected_state) {
+							UF = state.sigla
+							getCities(UF).then(res => {
+								for (city of res) {
+									let option_city = document.createElement('option')
+									option_city.innerHTML = city.nome
+									document.getElementById('city-select').appendChild(option_city)
+								}
+							})
+						}
+					}
+				})
+			}
+			
 			const interval = setInterval(() => {
 					if (document.contains(document.querySelector('#schedule-select'))) {
 						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
@@ -172,7 +202,7 @@
 					</div>
 					<div class="form-box row">
 						<label for="state-select col">Estado</label>
-						<select id="state-select" class="w-100 ml-3 rounded">
+						<select id="state-select" class="w-100 ml-3 rounded" onchange="showCities()">
 							<option>-- Selecione --</option>
 						</select>
 					</div>
