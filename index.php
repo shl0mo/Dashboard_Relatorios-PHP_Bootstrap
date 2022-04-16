@@ -238,7 +238,7 @@
 					<div class="form-box row">
 						<label for="justification-select" class="hidden">Motivo de não ter agendado</label>
 							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded">
-								<option>--Selecione --</option>
+								<option>-- Selecione --</option>
 								<option>Motivo 1</option>
 								<option>Motivo 2</option>
 								<option>Motivo 3</option>
@@ -272,12 +272,13 @@
 		$contact_type = $_POST['contact-type'];
 		$schedule = $_POST['schedule'];
 		$justification = $_POST['justification'];
+		if ($justification == '--Selecione --') $justification = null;
+		echo '<h1>'.$justification.'</h1>';
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array('2022-15-04', $name, $phone, $city, $channel, $contact_type, $schedule, $justification, $field));
-		echo '<h1>Inserido com sucesso</h1>';
+		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1,'2022-15-04', $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field));
 	}
 ?>
