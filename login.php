@@ -21,10 +21,22 @@
 					<input type="password" class="input-login w-100 p-1 rounded" name="password" placeholder="Senha" required/>
 				</div>
 				<div class="w-25 d-flex align-items-center">
-						<button type="submit" class="btn btn-success w-100 p-1">Entrar</button>
+						<button type="submit" name="login" class="btn btn-success w-100 p-1">Entrar</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </body>
 </html>
+
+<?php
+	$pdo = new PDO('mysql:host=localhost;db_name=dados_clientes', 'root', '');
+	if (isset($_POST['login'])) {
+		$query = $pdo->prepare('SELECT * FROM usuarios');
+		$query->execute();
+		$user = $_POST['user'];
+		$password = $_POST['password'];
+		echo '<h1>'.$user.'</h1>';
+		echo '<h1>'.$password.'</h1>';
+	}
+?>
