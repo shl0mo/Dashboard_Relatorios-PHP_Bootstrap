@@ -6,90 +6,7 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-		<style>
-			:root {
-				--box-shadow: 0px 2px 10px rgba(0,0,0,0.2); 
-			}
-			
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-			
-			body {
-				background-color: important;
-			}
-			
-			header {
-				background-color: #000;
-				height: 150px;
-				margin-bottom: 90px;
-				color: white;
-				display: flex;
-				align-items: center;
-				padding-left: 5%;
-			}
-			
-			form  {
-				border-radius: 15px;
-				box-shadow: var(--box-shadow);
-				display: flex;
-				flex-direction: column;
-			}
-		
-			input {
-				border: 1px solid rgba(0,0,0,0.3);
-				padding: 10px;
-				background-color: white;
-			}
-			
-			select {
-				border: 1px solid rgba(0,0,0,0.3);
-				padding: 12px;
-				background-color: rgba(0,0,0,0.01);
-			}
-			
-			label {
-				margin-top: 30px;
-				font-size: 1.2em;
-			}
-			
-			.hidden {
-				display: none;
-			}
-			
-			.justify-center {
-				display: flex;
-				align-self: center;
-			}
-			
-			.row {
-				display: flex;
-				flex-direction: column;
-			} 
-			
-			.justify-center {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
-			
-			.main-container {
-				margin-bottom: 200px;
-			}
-			
-			.form-container {
-				padding-bottom: 40px;
-			}
-			
-			.but-test {
-				width: 200px;
-				height: 50px;
-				background-color: black;
-			}
-		</style>
-
+		<link rel="stylesheet" href="./css/style.css"/>
 		<script>
 			const objStates = {
 				list_states: 'a',
@@ -263,7 +180,7 @@
 					<div class="button-box row">
 						<button type="submit" onclick="validateData()" name="enviar" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
-					<div class="but-test" onclick="pdf()"></div>
+					<!--div class="but-test" onclick="pdf()"></div-->
 				</div>
 			</form>
 		</div>
