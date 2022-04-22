@@ -165,7 +165,7 @@
 						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
 						let date = new Date()
 						const year = date.getFullYear()
-						let month = date.getMonth()
+						let month = date.getMonth() + 1
 						const day = date.getDate()
 						if (String(month).length == 1) month = '0' + month
 						document.querySelector('#date-input').value = day + '/' + month + '/' + year
