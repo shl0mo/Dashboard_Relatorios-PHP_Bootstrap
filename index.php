@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 		<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 		<style>
 			:root {
 				--box-shadow: 0px 2px 10px rgba(0,0,0,0.2); 
@@ -179,6 +180,13 @@
 						clearInterval(interval)
 					}
 			}, 100)
+			
+			
+			const pdf = () => {
+				let doc = new jsPDF()
+				doc.text(10, 10, 'Hello World!')
+				doc.save('hello-world.pdf')
+			}
 		</script>
 	</head>
 	<body>
@@ -198,7 +206,7 @@
 					</div>
 					<div class="form-box row">
 						<label for="phone-input col">Telefone</label>
-						<input id="phone-input col" name="phone" class="w-100 ml-3 rounded" type="text" required/>
+						<input id="phone-input col" type="number" name="phone" class="w-100 ml-3 rounded" type="text" required/>
 					</div>
 					<div class="form-box row">
 						<label for="state-select col">Estado</label>
@@ -255,6 +263,7 @@
 					<div class="button-box row">
 						<button type="submit" onclick="validateData()" name="enviar" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
+					<div class="but-test" onclick="pdf()"></div>
 				</div>
 			</form>
 		</div>
