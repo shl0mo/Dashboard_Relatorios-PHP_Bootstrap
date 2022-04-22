@@ -159,40 +159,6 @@
 					}
 				})
 			}
-
-			const validadeData = () => {
-				const state = document.getElementById('state-select').value
-				const city = document.getElementById('city-select').value
-				const channel_origin = document.getElementById('channel-origin').value
-				const contact_type = document.getElementById('contact-type-select').value
-				const schedule = document.getElementById('schedule-select').value
-				const justification = document.getElementById('justification-select').value
-				const filed = document.getElementById('field').value
-				if (state === '-- Selecione --') {
-					alert('Selecione o estado')
-					return
-				}
-				if (city === '-- Selecione --') {
-					alert('Selecione a cidade')
-					return
-				}
-				if (channel_origin === '-- Selecione --') {
-					alert('Selecione o canal de origem')
-					return
-				}
-				if (schedule === '-- Selecione --') {
-					alert('Informe se agendou ou não')
-					return
-				}
-				if (schedule === 'Não' && justification === '') {
-					alert('Informe o motivo de não ter agendado')
-					return
-				}
-				if (field === '-- Selecione --') {
-					alert('Selecione a área')
-					return
-				}
-			}
 			
 			const interval = setInterval(() => {
 					if (document.contains(document.querySelector('#schedule-select'))) {
@@ -237,25 +203,25 @@
 					<div class="form-box row">
 						<label for="state-select col">Estado</label>
 						<select id="state-select" name="state" class="w-100 ml-3 rounded" onchange="showCities()" required>
-							<option>-- Selecione --</option>
+							<option value="">-- Selecione --</option>
 						</select>
 					</div>
 					<div class="form-box row">
 						<label for="city-select">Cidade</label>
 							<select id="city-select" name="city" class="w-100 ml-3 rounded" required>
-								<option>-- Selecione --</option>
+								<option value="">-- Selecione --</option>
 							</select>
 					</div>
 					<div class="form-box row">
 						<label for="channel-origin">Canal de origem</label>
 							<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
-								<option>-- Selecione --</option>
+								<option value="">-- Selecione --</option>
 							</select>
 					</div>
 					<div class="form-box row">
 						<label for="contact-type-select">Forma de contato</label>
 							<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded" required>
-								<option>-- Selecione --</option>
+								<option value="">-- Selecione --</option>
 								<option>Tipo contato 1</option>
 								<option>Tipo contato 2</option>
 								<option>Tipo contato 2</option>
@@ -264,7 +230,7 @@
 					<div class="form-box row">
 						<label for="schedule-select">Agendou?</label>
 							<select id="schedule-select" name="schedule" class="w-100 ml-3 rounded" required>
-								<option>-- Selecionar --</option>
+								<option value-"">-- Selecionar --</option>
 								<option>Sim</option>
 								<option>Não</option>
 							</select>
@@ -272,7 +238,7 @@
 					<div class="form-box row">
 						<label for="justification-select" class="hidden">Motivo de não ter agendado</label>
 							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded" required>
-								<option>-- Selecione --</option>
+								<option value="">-- Selecione --</option>
 								<option>Motivo 1</option>
 								<option>Motivo 2</option>
 								<option>Motivo 3</option>
@@ -281,7 +247,7 @@
 					<div class="form-box row">
 						<label for="field">Área</label>
 						<select id="field" name="field" class="w-100 ml-3 rounded" required>
-							<option>-- Selecione --</option>
+							<option value="">-- Selecione --</option>
 							<option>Demartologia estética</option>
 							<option>Demartologia clínica</option>
 						</select>
