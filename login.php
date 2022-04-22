@@ -23,14 +23,14 @@
 <body>
 	<div class="main-container-login w-25 p-5">
 		<form method="post" class="w-100 align-items-center d-flex">
-			<div class="w-50 bg-dark">
-				<input class="input-login w-100"  name="user" placeholder="Usuário" required/>
-			</div>
-			<div class="w-50">
-				<input  class="input-login w-100" name="password" placeholder="Senha" required/>
+			<div class="w-50 mb-3">
+				<input type="text" class="input-login w-100 p-1 border rounded" name="user" placeholder="Usuário" required/>
+			</div>	
+			<div class="w-50 mb-3">
+				<input type="password" class="input-login w-100 p-1 border rounded" name="password" placeholder="Senha" required/>
 			</div>
 			<div class="w-25 d-flex align-items-center">
-					<button type="submit" class="w-100">Entrar</button>
+					<button type="submit" class="btn btn-success w-100 p-1">Entrar</button>
 			</div>
 		</form>
 	</div>
