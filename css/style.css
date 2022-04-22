@@ -83,11 +83,16 @@ label {
 .main-container-login {
 	position: relative;
 	margin: 0 auto;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+	box-shadow: var(--box-shadow);
 }
 
 .main-container-login form {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: centeir;
+}
+
+.main-container-login h4 {
+	position: relative;
+	margin: 0 auto;
 }
