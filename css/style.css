@@ -7,10 +7,6 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-			
-body {
-	background-color: important;
-}
 
 header {
 	background-color: #000;
@@ -82,6 +78,7 @@ label {
 
 .main-container-login {
 	position: relative;
+	top: 27%;
 	margin: 0 auto;
 	box-shadow: var(--box-shadow);
 }
