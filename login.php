@@ -6,22 +6,6 @@
 		exit();
 		
 	}
-	if (isset($_POST['login'])) {
-		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
-		$user = $_POST['user'];
-		$password = $_POST['password'];
-		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$user.'" AND senha = "'.$password.'"');
-		$query->execute();
-		$data = $query->fetchAll();
-		if (count($data) > 0) {
-			$_SESSION['session'] = $user;
-			echo '<h1>Logado com sucesso</h1>';
-			header('Location: http://localhost/Relatorios');
-			exit();
-		} else {
-			echo '<h1>Login falhou</h1>';
-		}
-	}
 ?>
 <html>
 <head>
@@ -31,12 +15,24 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 		<link rel="stylesheet" href="./css/style.css"/>
+		<style>
+			.login-failed {
+				
+			}
+		</style>
+		<script>
+			const loginFailed = () => {
+				loginFailed_html = `<div class="btn-danger align-self-center w-50 text-center login-failed rounded mb-3">Usuário ou senha inválidos</div>`
+				document.getElementById("login-status").innerHTML = loginFailed_html.trim()
+			}
+		</script>
 </head>
 <body>
 	<div class="main-container-login container w-25 p-5 border rounded">
 		<div class="row">
 			<h4 class="pb-3">Login</h4>
 		</div>
+		<div id="login-status" class="row"></div>
 		<div class="row">
 			<form method="post" class="w-100 align-items-center d-flex">
 				<div class="w-50 mb-3">
@@ -53,3 +49,21 @@
 	</div>
 </body>
 </html>
+<?php
+	if (isset($_POST['login'])) {
+		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+		$user = $_POST['user'];
+		$password = $_POST['password'];
+		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$user.'" AND senha = "'.$password.'"');
+		$query->execute();
+		$data = $query->fetchAll();
+		if (count($data) > 0) {
+			$_SESSION['session'] = $user;
+			echo '<h1>Logado com sucesso</h1>';
+			header('Location: http://localhost/Relatorios');
+			exit();
+		} else {
+			echo '<script>loginFailed()</script>';
+		}
+	}
+?>
