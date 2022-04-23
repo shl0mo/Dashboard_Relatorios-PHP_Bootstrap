@@ -30,13 +30,16 @@
 </html>
 
 <?php
-	$pdo = new PDO('mysql:host=localhost;db_name=dados_clientes', 'root', '');
+	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	if (isset($_POST['login'])) {
-		$query = $pdo->prepare('SELECT * FROM usuarios');
+		$query = $pdo->prepare('SELECT * FROM usuarios;');
 		$query->execute();
-		$user = $_POST['user'];
-		$password = $_POST['password'];
-		echo '<h1>'.$user.'</h1>';
-		echo '<h1>'.$password.'</h1>';
+		$data = $query->fetchAll();
+		if (count($data) > 0) {
+			echo '<h1>Logado com sucesso</h1>';
+			echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
+		} else {
+			echo '<h1>Login falhou</h1>';
+		}
 	}
 ?>
