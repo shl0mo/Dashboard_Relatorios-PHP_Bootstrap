@@ -31,11 +31,15 @@
 
 <?php
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+	session_start();
 	if (isset($_POST['login'])) {
-		$query = $pdo->prepare('SELECT * FROM usuarios;');
+		$user = $_POST['user'];
+		$password = $_POST['password'];
+		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$user.'" AND senha = "'.$password.'"');
 		$query->execute();
 		$data = $query->fetchAll();
 		if (count($data) > 0) {
+			$_SESSION['session'] = $user;
 			echo '<h1>Logado com sucesso</h1>';
 			echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
 		} else {

@@ -1,3 +1,25 @@
+<?php
+	session_start();
+	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+	if (isset($_POST['enviar'])) {
+		$name = $_POST['name'];
+		$phone = $_POST['phone'];	
+		$state = $_POST['state'];
+		$city = $_POST['city'];
+		$channel = $_POST['channel'];
+		$contact_type = $_POST['contact-type'];
+		$schedule = $_POST['schedule'];
+		$justification = $_POST['justification'];
+		if ($justification == '--Selecione --') $justification = null;
+		echo '<h1>'.$justification.'</h1>';
+		$field = $_POST['field'];
+		$id_query = $pdo->prepare('SELECT * FROM dados');
+		$id_query->execute();
+		$id_array = $id_query->fetchAll();
+		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1,'2022-15-04', $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field));
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -186,25 +208,3 @@
 		</div>
 	</body>
 </html>
-
-<?php
-	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
-	if (isset($_POST['enviar'])) {
-		$name = $_POST['name'];
-		$phone = $_POST['phone'];	
-		$state = $_POST['state'];
-		$city = $_POST['city'];
-		$channel = $_POST['channel'];
-		$contact_type = $_POST['contact-type'];
-		$schedule = $_POST['schedule'];
-		$justification = $_POST['justification'];
-		if ($justification == '--Selecione --') $justification = null;
-		echo '<h1>'.$justification.'</h1>';
-		$field = $_POST['field'];
-		$id_query = $pdo->prepare('SELECT * FROM dados');
-		$id_query->execute();
-		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1,'2022-15-04', $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field));
-	}
-?>
