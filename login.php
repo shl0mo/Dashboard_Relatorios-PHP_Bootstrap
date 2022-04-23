@@ -2,7 +2,8 @@
 	session_start();
 	if (isset($_SESSION['session'])) {
 		echo '<h1>'.$_SESSION['session'].'</h1>';
-		echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
+		header('Location: http://localhost/Relatorios');
+		exit();
 		
 	}
 	if (isset($_POST['login'])) {
@@ -15,7 +16,8 @@
 		if (count($data) > 0) {
 			$_SESSION['session'] = $user;
 			echo '<h1>Logado com sucesso</h1>';
-			echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
+			header('Location: http://localhost/Relatorios');
+			exit();
 		} else {
 			echo '<h1>Login falhou</h1>';
 		}

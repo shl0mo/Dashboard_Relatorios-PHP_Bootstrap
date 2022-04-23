@@ -1,11 +1,11 @@
 <?php
 	session_start();
 	if (!isset($_SESSION['session'])) {
-		echo '<script>window.location.href = "http://localhost/Relatorios/login.php"</script>';
+		header('Location: http://localhost/Relatorios/login.php');
 	}
 	if (isset($_POST['logout'])) {
 		session_destroy();
-		echo '<script>window.location.href = "http://localhost/Relatorios/login.php"</script>';
+		header('Location: http://localhost/Relatorios/login.php');
 	}
 	if (isset($_POST['send'])) {
 		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
