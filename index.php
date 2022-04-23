@@ -1,7 +1,14 @@
 <?php
 	session_start();
-	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
-	if (isset($_POST['enviar'])) {
+	if (!isset($_SESSION['session'])) {
+		echo '<script>window.location.href = "http://localhost/Relatorios/login.php"</script>';
+	}
+	if (isset($_POST['logout'])) {
+		session_destroy();
+		echo '<script>window.location.href = "http://localhost/Relatorios/login.php"</script>';
+	}
+	if (isset($_POST['send'])) {
+		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 		$name = $_POST['name'];
 		$phone = $_POST['phone'];	
 		$state = $_POST['state'];
@@ -200,10 +207,13 @@
 						</select>
 					</div>
 					<div class="button-box row">
-						<button type="submit" onclick="validateData()" name="enviar" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
+						<button type="submit" onclick="validateData()" name="send" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
 					<!--div class="but-test" onclick="pdf()"></div-->
 				</div>
+			</form>
+			<form method="post">
+				<button type="submit" name="logout" class="btn btn-danger align-self-center w-25 mt-4 p-3">Sair</button>
 			</form>
 		</div>
 	</body>

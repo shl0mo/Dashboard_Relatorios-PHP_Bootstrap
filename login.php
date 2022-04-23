@@ -1,3 +1,26 @@
+<?php
+	session_start();
+	if (isset($_SESSION['session'])) {
+		echo '<h1>'.$_SESSION['session'].'</h1>';
+		echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
+		
+	}
+	if (isset($_POST['login'])) {
+		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+		$user = $_POST['user'];
+		$password = $_POST['password'];
+		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$user.'" AND senha = "'.$password.'"');
+		$query->execute();
+		$data = $query->fetchAll();
+		if (count($data) > 0) {
+			$_SESSION['session'] = $user;
+			echo '<h1>Logado com sucesso</h1>';
+			echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
+		} else {
+			echo '<h1>Login falhou</h1>';
+		}
+	}
+?>
 <html>
 <head>
 		<meta charset="UTF-8"/>
@@ -28,22 +51,3 @@
 	</div>
 </body>
 </html>
-
-<?php
-	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
-	session_start();
-	if (isset($_POST['login'])) {
-		$user = $_POST['user'];
-		$password = $_POST['password'];
-		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$user.'" AND senha = "'.$password.'"');
-		$query->execute();
-		$data = $query->fetchAll();
-		if (count($data) > 0) {
-			$_SESSION['session'] = $user;
-			echo '<h1>Logado com sucesso</h1>';
-			echo '<script>window.location.href = "http://localhost/Relatorios"</script>';
-		} else {
-			echo '<h1>Login falhou</h1>';
-		}
-	}
-?>
