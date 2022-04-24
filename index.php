@@ -11,6 +11,7 @@
 	}
 	if (isset($_POST['send'])) {
 		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+		$date = $_POST['date'];
 		$name = $_POST['name'];
 		$phone = $_POST['phone'];	
 		$state = $_POST['state'];
@@ -27,7 +28,7 @@
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
 		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1,'2022-15-04', $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field, $session));
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field, $session));
 	}
 ?>
 <!DOCTYPE html>
@@ -147,7 +148,7 @@
 				<div class="form-container justify-center w-75">
 					<div class="form-box row">
 						<label for="date-input">Data</label>
-						<input id="date-input" class="w-100 ml-3 rounded" ctext" value="Data de hoje" readonly/>
+						<input id="date-input" class="w-100 ml-3 rounded" type="text" name="date" readonly/>
 					</div>
 					<div class="form-box row">
 						<label for="name-input col">Nome completo</label>	

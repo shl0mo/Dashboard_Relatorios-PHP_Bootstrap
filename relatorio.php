@@ -29,7 +29,7 @@
 	echo '<h1>Números principais</h1>';
 	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
 	echo '<h2>Taxa de agendamento: '.round($schedule_rate, 2).'%</h2>';
-	echo '<h2>Número de cancelamentos: </h2>';
+	echo '<h2>Número tde cancelamentos: </h2>';
 	echo '<h2>Taxa de cancelamento: </h2>';
 	echo '<h2>Número de não comparecimentos: </h2>';
 	echo '<h2>Taxa de não comparecimeto</h2>';
@@ -37,9 +37,25 @@
 	echo '<h2>Número de agendamentos - Demartologia Clínica: '.$clinical_schedules.'<h2>';
 	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
 
-	$dataPoints = array(
-		array('y' => count($data), 'label' => 'Total')
-	); 
+	$dataPoints = array();
+	$dates = array();
+	foreach ($data as $value) {
+		array_push($dates, $value['data_agendamento']);
+	}
+	$unique_dates = array_unique($dates);
+	foreach ($unique_dates as $i) {
+		$total_schedules = 0;
+		$total_contacts = 0;
+		foreach ($data as $j) {
+			if ($j['data_agendamento'] == $i) {
+				if ($j['agendou'] == 'Sim') {
+					$total_schedules++;
+				}
+				$total_contacts++;
+			}
+		}
+		array_push($dataPoints, array('y' => $total_contacts, 'label' => $i));
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -57,7 +73,7 @@
 				title: "Número de registros"
 			},
 			data: [{
-				type: "column",
+				type: "line",
 				yValueFormatString: "#,##0.## tonnes",
 				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
 			}]
