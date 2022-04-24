@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	if (!isset($_SESSION['session'])) {
+		header('Location: http://localhost/Relatorios/login.php');
+		exit();	
+	}
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	$query = $pdo->prepare('SELECT * FROM dados WHERE fk_usuario = "'.$_SESSION['session'].'";');
 	$query->execute();
@@ -29,7 +33,7 @@
 	echo '<h1>Números principais</h1>';
 	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
 	echo '<h2>Taxa de agendamento: '.round($schedule_rate, 2).'%</h2>';
-	echo '<h2>Número tde cancelamentos: </h2>';
+	echo '<h2>Número de cancelamentos: </h2>';
 	echo '<h2>Taxa de cancelamento: </h2>';
 	echo '<h2>Número de não comparecimentos: </h2>';
 	echo '<h2>Taxa de não comparecimeto</h2>';
@@ -54,7 +58,7 @@
 				$total_contacts++;
 			}
 		}
-		array_push($dataPoints, array('y' => $total_contacts, 'label' => $i));
+		array_push($dataPoints, array('y' => $total_schedules, 'label' => $i));
 	}
 ?>
 <!DOCTYPE HTML>
@@ -64,7 +68,6 @@
 	window.onload = function() {
  
 		var chart = new CanvasJS.Chart("chartContainer", {
-			animationEnabled: true,
 			theme: "light2",
 			title:{
 				text: "Gráfico em barras verticais do número de registros"
