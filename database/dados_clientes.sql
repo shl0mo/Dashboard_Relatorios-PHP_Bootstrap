@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 22-Abr-2022 às 09:49
+-- Tempo de geração: 24-Abr-2022 às 07:29
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -65,6 +65,26 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `usuario`, `senha`) VALUES
+(1, 'João', 'senha'),
+(2, 'Joana', 'senha joana');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios_dados`
+--
+
+CREATE TABLE `usuarios_dados` (
+  `id` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL,
+  `id_dados` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
 -- Índices para tabelas despejadas
 --
 
@@ -81,6 +101,14 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `usuarios_dados`
+--
+ALTER TABLE `usuarios_dados`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuarios` (`id_usuarios`),
+  ADD KEY `id_dados` (`id_dados`);
+
+--
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -94,7 +122,24 @@ ALTER TABLE `dados`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios_dados`
+--
+ALTER TABLE `usuarios_dados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para despejos de tabelas
+--
+
+--
+-- Limitadores para a tabela `usuarios_dados`
+--
+ALTER TABLE `usuarios_dados`
+  ADD CONSTRAINT `usuarios_dados_ibfk_1` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `usuarios_dados_ibfk_2` FOREIGN KEY (`id_dados`) REFERENCES `dados` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
