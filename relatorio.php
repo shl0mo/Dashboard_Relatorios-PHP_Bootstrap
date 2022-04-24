@@ -3,9 +3,39 @@
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	$query = $pdo->prepare('SELECT * FROM dados WHERE fk_usuario = "'.$_SESSION['session'].'";');
 	$query->execute();
-	$data = $query->fetchAll();	
-	echo var_dump($data);
-	echo $_SESSION['session'];
+	$data = $query->fetchAll();
+
+	$total_contacts = count($data);
+	$total_schedules = 0;
+	foreach ($data as $value) {
+		if ($value['agendou'] == 'Sim') {
+			$total_schedules++;
+		}
+	}
+	$schedule_rate = $total_schedules/$total_contacts * 100;
+	$clinical_schedules = 0;
+	foreach ($data as $value) {
+		if ($value['area'] == 'Demartologia clínica' && $value['agendou'] == 'Sim') {
+			$clinical_schedules++;
+		}
+	}
+	$stetical_schedules = 0;
+	foreach ($data as $value) {
+		if ($value['area'] == 'Demartologia estética' && $value['agendou'] == 'Sim') {
+			$stetical_schedules++;
+		}
+	}
+
+	echo '<h1>Números principais</h1>';
+	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
+	echo '<h2>Taxa de agendamento: '.round($schedule_rate, 2).'%</h2>';
+	echo '<h2>Número de cancelamentos: </h2>';
+	echo '<h2>Taxa de cancelamento: </h2>';
+	echo '<h2>Número de não comparecimentos: </h2>';
+	echo '<h2>Taxa de não comparecimeto</h2>';
+	echo '<h1>Números secundários (demartologista)</h1>';
+	echo '<h2>Número de agendamentos - Demartologia Clínica: '.$clinical_schedules.'<h2>';
+	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
 
 	$dataPoints = array(
 		array('y' => count($data), 'label' => 'Total')
@@ -37,7 +67,6 @@
 </script>
 </head>
 <body>
-	<h1>Número de registros <?php echo count($data)?> </h1>
 	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
