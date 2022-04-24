@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 24-Abr-2022 às 07:29
+-- Tempo de geração: 24-Abr-2022 às 08:26
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -39,18 +39,19 @@ CREATE TABLE `dados` (
   `tipo_contato` varchar(100) NOT NULL,
   `agendou` varchar(5) NOT NULL,
   `motivo` text DEFAULT NULL,
-  `area` varchar(100) NOT NULL
+  `area` varchar(100) NOT NULL,
+  `fk_usuario` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `dados`
 --
 
-INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `phone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `agendou`, `motivo`, `area`) VALUES
-(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética'),
-(2, '2022-15-04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Demartologia clínica'),
-(3, '2022-15-04', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética'),
-(4, '2022-15-04', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', NULL, 'Demartologia estética');
+INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `phone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `agendou`, `motivo`, `area`, `fk_usuario`) VALUES
+(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
+(2, '2022-15-04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Demartologia clínica', 'Joana'),
+(3, '2022-15-04', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
+(4, '2022-15-04', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', NULL, 'Demartologia estética', 'João');
 
 -- --------------------------------------------------------
 
@@ -59,7 +60,6 @@ INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `phone`, `estado`, `cidad
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -68,21 +68,9 @@ CREATE TABLE `usuarios` (
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `senha`) VALUES
-(1, 'João', 'senha'),
-(2, 'Joana', 'senha joana');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `usuarios_dados`
---
-
-CREATE TABLE `usuarios_dados` (
-  `id` int(11) NOT NULL,
-  `id_usuarios` int(11) NOT NULL,
-  `id_dados` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `usuarios` (`usuario`, `senha`) VALUES
+('Joana', 'senha joana'),
+('João', 'senha');
 
 --
 -- Índices para tabelas despejadas
@@ -92,21 +80,15 @@ CREATE TABLE `usuarios_dados` (
 -- Índices para tabela `dados`
 --
 ALTER TABLE `dados`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usuario` (`fk_usuario`);
 
 --
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `usuarios_dados`
---
-ALTER TABLE `usuarios_dados`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuarios` (`id_usuarios`),
-  ADD KEY `id_dados` (`id_dados`);
+  ADD PRIMARY KEY (`usuario`),
+  ADD KEY `usuario` (`usuario`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -119,27 +101,14 @@ ALTER TABLE `dados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de tabela `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `usuarios_dados`
---
-ALTER TABLE `usuarios_dados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- Restrições para despejos de tabelas
 --
 
 --
--- Limitadores para a tabela `usuarios_dados`
+-- Limitadores para a tabela `dados`
 --
-ALTER TABLE `usuarios_dados`
-  ADD CONSTRAINT `usuarios_dados_ibfk_1` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `usuarios_dados_ibfk_2` FOREIGN KEY (`id_dados`) REFERENCES `dados` (`id`);
+ALTER TABLE `dados`
+  ADD CONSTRAINT `dados_ibfk_1` FOREIGN KEY (`fk_usuario`) REFERENCES `usuarios` (`usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
