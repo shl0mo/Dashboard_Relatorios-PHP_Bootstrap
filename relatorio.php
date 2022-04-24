@@ -1,9 +1,11 @@
 <?php
-
+	session_start();
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
-	$query = $pdo->prepare('SELECT * FROM dados');
+	$query = $pdo->prepare('SELECT * FROM dados WHERE fk_usuario = "'.$_SESSION['session'].'";');
 	$query->execute();
 	$data = $query->fetchAll();	
+	echo var_dump($data);
+	echo $_SESSION['session'];
 
 	$dataPoints = array(
 		array('y' => count($data), 'label' => 'Total')
