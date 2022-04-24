@@ -20,13 +20,14 @@
 		$schedule = $_POST['schedule'];
 		$justification = $_POST['justification'];
 		if ($justification == '--Selecione --') $justification = null;
+		$session = $_SESSION['session'];
 		echo '<h1>'.$justification.'</h1>';
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1,'2022-15-04', $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field));
+		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1,'2022-15-04', $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field, $session));
 	}
 ?>
 <!DOCTYPE html>
