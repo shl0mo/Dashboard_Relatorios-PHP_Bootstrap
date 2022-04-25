@@ -180,7 +180,7 @@
 
 			let cities_chart_total = new CanvasJS.Chart('cities-total-chartContainer', {
 				title: {
-					text: 'Gráfico de barras das cinco principais cidades'	
+					text: 'Gráfico de barras de ocorrências das cinco principais cidades'	
 				},
 				axisY: {
 					title: 'Total'
@@ -194,11 +194,29 @@
 					dataPoints: <?php echo json_encode($dataPoints_cities_total, JSON_NUMERIC_CHECK);?>
 				}]
 			})
+
+			let cities_chart_perc = new CanvasJS.Chart('cities-perc-chartContainer', {
+				title: {
+					text: 'Gráfico de barras das porcentagens das cinco principais cidades'	
+				},
+				axisY: {
+					title: 'Porcentagem'
+				},
+				data: [{
+					type: 'column',
+					yValueFormatString: "#,##0.##%",
+					indexLabel: '{y}',
+					indexLabelPlacement: 'outside',
+					indexLabelFontWeight: 'bolder',
+					dataPoints: <?php echo json_encode($dataPoints_cities_perc, JSON_NUMERIC_CHECK);?>
+				}]
+			})
 	
 			contacts_schedules_chart.render()
 			channels_chart_total.render()
 			channels_chart_perc.render()
 			cities_chart_total.render()
+			cities_chart_perc.render()
 		}
 	</script>
 </head>
