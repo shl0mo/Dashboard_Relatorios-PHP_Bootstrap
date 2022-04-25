@@ -85,56 +85,87 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<script>
-	window.onload = function() {
- 
-		let contacts_schedules_chart = new CanvasJS.Chart("contacts-schedules-chartContainer", {
-			theme: 'light2',
-			title: {
-				text: "Contatos e agendamentos"
-			},
-			axisY: {
-				title: "Total"
-			},
-			data: [{
-				type: "line",
-				yValueFormatString: "#,##0.## tonnes",
-				dataPoints: <?php echo json_encode($dataPoints_contacts, JSON_NUMERIC_CHECK); ?>,
-				legendText: 'Contatos',
-				showInLegend: true
-			},
-			{
-				type: "line",
-				yValueFormatString: "#,##0.## tonnes",
-				dataPoints: <?php echo json_encode($dataPoints_schedules, JSON_NUMERIC_CHECK); ?>,
-				legendText: 'Agendamentos',
-				showInLegend: true
-			}]
-		})
-
-		/*let channels_chart = new CanvasJS.Chart('channels-chartContainer', {
-			theme: 'light2',
-			title: {
-				text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
-			},
-			axisY: {
-				title: 'Total'
-			},
-			data: [{
-						
-			}]
-	})*/
-
-
-		contacts_schedules_chart.render()
-		//channels_chart.render()
-
+<style>
+	.graph {
+		min-height: 370px;
+		width: 50%;
 	}
-</script>
+</style>
+	<script>
+		window.onload = function() {
+ 
+			let contacts_schedules_chart = new CanvasJS.Chart("contacts-schedules-chartContainer", {
+				theme: 'light1',
+				title: {
+					text: "Contatos e agendamentos"
+				},
+				axisY: {
+					title: "Total"
+				},
+				data: [{
+					type: "line",
+					yValueFormatString: "#,##0.## tonnes",
+					dataPoints: <?php echo json_encode($dataPoints_contacts, JSON_NUMERIC_CHECK); ?>,
+					legendText: 'Contatos',
+					showInLegend: true
+				},
+				{
+					type: "line",
+					yValueFormatString: "#,##0.## tonnes",
+					dataPoints: <?php echo json_encode($dataPoints_schedules, JSON_NUMERIC_CHECK); ?>,
+					legendText: 'Agendamentos',
+					showInLegend: true
+				}]
+			})
+
+			let channels_chart_total = new CanvasJS.Chart('channels-total-chartContainer', {
+				theme: 'light1',
+				title: {
+					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
+				},
+				axisY: {
+					title: 'Total'
+				},
+				data: [{
+					type: 'bar',					
+					yValueFormatString: "#,##0.##",
+					indexLabel: '{y}',
+					indexLabelPlacement: 'outside',
+					indexLabelFontWeight: 'bolder',
+					dataPoints: <?php echo json_encode($dataPoints_channels_total, JSON_NUMERIC_CHECK);?>
+				}]
+			})
+
+	
+			let channels_chart_perc = new CanvasJS.Chart('channels-perc-chartContainer', {
+				theme: 'light1',
+				title: {
+					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
+				},
+				axisY: {
+					title: 'Porcentagem'
+				},
+				data: [{
+					type: 'bar',					
+					yValueFormatString: "#,##0.##%",
+					indexLabel: '{y}',
+					indexLabelPlacement: 'outside',
+					indexLabelFontWeight: 'bolder',
+					dataPoints: <?php echo json_encode($dataPoints_channels_perc, JSON_NUMERIC_CHECK);?>
+				}]
+			})
+	
+			contacts_schedules_chart.render()
+			channels_chart_total.render()
+			channels_chart_perc.render()
+
+		}
+	</script>
 </head>
 <body>
-	<div id="contacts-schedules-chartContainer" style="height: 370px; width: 100%;"></div>
-	<div id="channels-chartContainer"></div>
+	<div id="contacts-schedules-chartContainer" class="graph"></div>
+	<div id="channels-total-chartContainer" class="graph"></div>
+	<div id="channels-perc-chartContainer" class="graph"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
