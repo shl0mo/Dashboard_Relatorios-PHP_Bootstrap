@@ -29,7 +29,7 @@
 			$stetical_schedules++;
 		}
 	}
-
+	
 	echo '<h1>Números principais</h1>';
 	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
 	echo '<h2>Taxa de agendamento: '.round($schedule_rate, 2).'%</h2>';
@@ -41,11 +41,13 @@
 	echo '<h2>Número de agendamentos - Demartologia Clínica: '.$clinical_schedules.'<h2>';
 	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
 
-	$dataPoints = array();
-	$dataPoints2 = array();
+	$dataPoints_contacts = array();
+	$dataPoints_schedules = array();
 	$dates = array();
+	$channels = array();
 	foreach ($data as $value) {
 		array_push($dates, $value['data_agendamento']);
+		array_push($channels, $value['canal_origem']);
 	}
 	$unique_dates = array_unique($dates);
 	foreach ($unique_dates as $i) {
@@ -59,8 +61,25 @@
 				$total_contacts++;
 			}
 		}
-		array_push($dataPoints, array('y' => $total_schedules, 'label' => $i));	
-		array_push($dataPoints2, array('y' => $total_contacts, 'label' => $i));
+		array_push($dataPoints_contacts, array('y' => $total_contacts, 'label' => $i));
+		array_push($dataPoints_schedules, array('y' => $total_schedules, 'label' => $i));	
+	}
+
+	$unique_channels = array_unique($channels);
+	$dataPoints_channels_total = array();
+	$dataPoints_channels_perc = array();
+	foreach ($unique_channels as $i) {
+		$total_channel = 0;
+		$total_contacts = 0;
+		foreach ($data as $j) {
+			if ($j['canal_origem'] == $i) {
+				$total_channel++;
+			}
+			$total_contacts++;
+		}
+		$perc_channel = $total_channel/$total_contacts;
+		array_push($dataPoints_channels_total, array('y' => $total_channel, 'label' => $i));
+		array_push($dataPoints_channels_perc, array('y' => $perc_channel, 'label' => $i));
 	}
 ?>
 <!DOCTYPE HTML>
@@ -69,9 +88,9 @@
 <script>
 	window.onload = function() {
  
-		var chart = new CanvasJS.Chart("chartContainer", {
-			theme: "light2",
-			title:{
+		let contacts_schedules_chart = new CanvasJS.Chart("contacts-schedules-chartContainer", {
+			theme: 'light2',
+			title: {
 				text: "Contatos e agendamentos"
 			},
 			axisY: {
@@ -80,24 +99,42 @@
 			data: [{
 				type: "line",
 				yValueFormatString: "#,##0.## tonnes",
-				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>,
+				dataPoints: <?php echo json_encode($dataPoints_contacts, JSON_NUMERIC_CHECK); ?>,
 				legendText: 'Contatos',
 				showInLegend: true
 			},
 			{
 				type: "line",
 				yValueFormatString: "#,##0.## tonnes",
-				dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>,
+				dataPoints: <?php echo json_encode($dataPoints_schedules, JSON_NUMERIC_CHECK); ?>,
 				legendText: 'Agendamentos',
 				showInLegend: true
 			}]
-		});
-		chart.render();
+		})
+
+		/*let channels_chart = new CanvasJS.Chart('channels-chartContainer', {
+			theme: 'light2',
+			title: {
+				text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
+			},
+			axisY: {
+				title: 'Total'
+			},
+			data: [{
+						
+			}]
+	})*/
+
+
+		contacts_schedules_chart.render()
+		//channels_chart.render()
+
 	}
 </script>
 </head>
 <body>
-	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	<div id="contacts-schedules-chartContainer" style="height: 370px; width: 100%;"></div>
+	<div id="channels-chartContainer"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
