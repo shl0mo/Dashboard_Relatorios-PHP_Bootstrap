@@ -120,7 +120,7 @@
 			$total_contacts++;
 		}
 		$perc_contact_type = $total_contact_type/$total_contacts;
-		array_push($dataPoints_contact_types, array('y' => $perc_contact_type, 'label' => $i));
+		array_push($dataPoints_contact_types, array('label' => $i, 'y' => $perc_contact_type));
 	}
 ?>
 <!DOCTYPE HTML>
@@ -135,7 +135,7 @@
 	<script>
 		window.onload = function() {
  
-			let contacts_schedules_chart = new CanvasJS.Chart("contacts-schedules-chartContainer", {
+			const contacts_schedules_chart = new CanvasJS.Chart("contacts-schedules-chartContainer", {
 				theme: 'light1',
 				title: {
 					text: "Contatos e agendamentos"
@@ -159,7 +159,7 @@
 				}]
 			})
 
-			let channels_chart_total = new CanvasJS.Chart('channels-total-chartContainer', {
+			const channels_chart_total = new CanvasJS.Chart('channels-total-chartContainer', {
 				theme: 'light1',
 				title: {
 					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
@@ -178,7 +178,7 @@
 			})
 
 	
-			let channels_chart_perc = new CanvasJS.Chart('channels-perc-chartContainer', {
+			const channels_chart_perc = new CanvasJS.Chart('channels-perc-chartContainer', {
 				title: {
 					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
 				},
@@ -195,7 +195,7 @@
 				}]
 			})
 
-			let cities_chart_total = new CanvasJS.Chart('cities-total-chartContainer', {
+			const cities_chart_total = new CanvasJS.Chart('cities-total-chartContainer', {
 				title: {
 					text: 'Gráfico de barras de ocorrências das cinco principais cidades'	
 				},
@@ -212,7 +212,7 @@
 				}]
 			})
 
-			let cities_chart_perc = new CanvasJS.Chart('cities-perc-chartContainer', {
+			const cities_chart_perc = new CanvasJS.Chart('cities-perc-chartContainer', {
 				title: {
 					text: 'Gráfico de barras das porcentagens das cinco principais cidades'	
 				},
@@ -228,12 +228,27 @@
 					dataPoints: <?php echo json_encode($dataPoints_cities_perc, JSON_NUMERIC_CHECK);?>
 				}]
 			})
+
+			const contact_type_chart = new CanvasJS.Chart('contact-type-chartContainer', {				
+				title: {
+					text: 'Gráfico de setores das porcentagens das formas de contato'	
+				},
+				data: [{
+					type: 'pie',
+					yValueFormatString: "#,##0.00%",
+					indexLabel: "{label} ({y})",
+					dataPoints: <?php echo json_encode($dataPoints_contact_types, JSON_NUMERIC_CHECK);?>
+				}]
+			})
+
+
 	
 			contacts_schedules_chart.render()
 			channels_chart_total.render()
 			channels_chart_perc.render()
 			cities_chart_total.render()
 			cities_chart_perc.render()
+			contact_type_chart.render()
 		}
 	</script>
 </head>
@@ -243,6 +258,7 @@
 	<div id="channels-perc-chartContainer" class="graph"></div>
 	<div id="cities-total-chartContainer" class="graph"></div>
 	<div id="cities-perc-chartContainer" class="graph"></div>
+	<div id="contact-type-chartContainer" class="graph"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
