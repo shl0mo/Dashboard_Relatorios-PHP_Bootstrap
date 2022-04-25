@@ -42,6 +42,7 @@
 	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
 
 	$dataPoints = array();
+	$dataPoints2 = array();
 	$dates = array();
 	foreach ($data as $value) {
 		array_push($dates, $value['data_agendamento']);
@@ -58,7 +59,8 @@
 				$total_contacts++;
 			}
 		}
-		array_push($dataPoints, array('y' => $total_schedules, 'label' => $i));
+		array_push($dataPoints, array('y' => $total_schedules, 'label' => $i));	
+		array_push($dataPoints2, array('y' => $total_contacts, 'label' => $i));
 	}
 ?>
 <!DOCTYPE HTML>
@@ -70,15 +72,24 @@
 		var chart = new CanvasJS.Chart("chartContainer", {
 			theme: "light2",
 			title:{
-				text: "Gráfico em barras verticais do número de registros"
+				text: "Contatos e agendamentos"
 			},
 			axisY: {
-				title: "Número de registros"
+				title: "Total"
 			},
 			data: [{
 				type: "line",
 				yValueFormatString: "#,##0.## tonnes",
-				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+				dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>,
+				legendText: 'Contatos',
+				showInLegend: true
+			},
+			{
+				type: "line",
+				yValueFormatString: "#,##0.## tonnes",
+				dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>,
+				legendText: 'Agendamentos',
+				showInLegend: true
 			}]
 		});
 		chart.render();
