@@ -45,9 +45,11 @@
 	$dataPoints_schedules = array();
 	$dates = array();
 	$channels = array();
+	$cities = array();
 	foreach ($data as $value) {
 		array_push($dates, $value['data_agendamento']);
 		array_push($channels, $value['canal_origem']);
+		array_push($cities, $value['cidade']);
 	}
 	$unique_dates = array_unique($dates);
 	foreach ($unique_dates as $i) {
@@ -80,6 +82,28 @@
 		$perc_channel = $total_channel/$total_contacts;
 		array_push($dataPoints_channels_total, array('y' => $total_channel, 'label' => $i));
 		array_push($dataPoints_channels_perc, array('y' => $perc_channel, 'label' => $i));
+	}
+
+	$unique_cities = array_unique($cities);
+	$dataPoints_cities_total = array();
+	$dataPoints_cities_perc = array();
+	$times = 0;
+	foreach ($unique_cities as $i) {
+		$total_cities = 0;
+		$total_contacts = 0;
+		foreach ($data as $j) {
+			if ($j['cidade'] == $i) {
+				$total_cities++;	
+			}
+			$total_contacts++;
+		}
+		$perc_city = $total_cities/$total_contacts;
+		array_push($dataPoints_cities_total, array('y' => $total_cities, 'label' => $i));
+		array_push($dataPoints_cities_perc, array('y' => $perc_city, 'label' => $i));
+		$i++;
+		if ($times == 5) {
+			break;
+		}
 	}
 ?>
 <!DOCTYPE HTML>
