@@ -162,7 +162,6 @@
 
 	
 			let channels_chart_perc = new CanvasJS.Chart('channels-perc-chartContainer', {
-				theme: 'light1',
 				title: {
 					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
 				},
@@ -178,11 +177,28 @@
 					dataPoints: <?php echo json_encode($dataPoints_channels_perc, JSON_NUMERIC_CHECK);?>
 				}]
 			})
+
+			let cities_chart_total = new CanvasJS.Chart('cities-total-chartContainer', {
+				title: {
+					text: 'Gráfico de barras das cinco principais cidades'	
+				},
+				axisY: {
+					title: 'Total'
+				},
+				data: [{
+					type: 'column',
+					yValueFormatString: "#,##0.##",
+					indexLabel: '{y}',
+					indexLabelPlacement: 'outside',
+					indexLabelFontWeight: 'bolder',
+					dataPoints: <?php echo json_encode($dataPoints_cities_total, JSON_NUMERIC_CHECK);?>
+				}]
+			})
 	
 			contacts_schedules_chart.render()
 			channels_chart_total.render()
 			channels_chart_perc.render()
-
+			cities_chart_total.render()
 		}
 	</script>
 </head>
@@ -190,6 +206,8 @@
 	<div id="contacts-schedules-chartContainer" class="graph"></div>
 	<div id="channels-total-chartContainer" class="graph"></div>
 	<div id="channels-perc-chartContainer" class="graph"></div>
+	<div id="cities-total-chartContainer" class="graph"></div>
+	<div id="cities-perc-chartContainer" class="graph"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
