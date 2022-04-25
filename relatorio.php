@@ -46,10 +46,12 @@
 	$dates = array();
 	$channels = array();
 	$cities = array();
+	$contact_types = array();
 	foreach ($data as $value) {
 		array_push($dates, $value['data_agendamento']);
 		array_push($channels, $value['canal_origem']);
 		array_push($cities, $value['cidade']);
+		array_push($contact_types, $value['tipo_contato']);
 	}
 	$unique_dates = array_unique($dates);
 	foreach ($unique_dates as $i) {
@@ -89,21 +91,36 @@
 	$dataPoints_cities_perc = array();
 	$times = 0;
 	foreach ($unique_cities as $i) {
-		$total_cities = 0;
+		$total_city = 0;
 		$total_contacts = 0;
 		foreach ($data as $j) {
 			if ($j['cidade'] == $i) {
-				$total_cities++;	
+				$total_city++;
 			}
 			$total_contacts++;
 		}
-		$perc_city = $total_cities/$total_contacts;
-		array_push($dataPoints_cities_total, array('y' => $total_cities, 'label' => $i));
+		$perc_city = $total_city/$total_contacts;
+		array_push($dataPoints_cities_total, array('y' => $total_city, 'label' => $i));
 		array_push($dataPoints_cities_perc, array('y' => $perc_city, 'label' => $i));
 		$i++;
 		if ($times == 5) {
 			break;
 		}
+	}
+
+	$unique_contact_types = array_unique($contact_types);
+	$dataPoints_contact_types = array();
+	foreach ($unique_contact_types as $i) {
+		$total_contact_type = 0;
+		$total_contacts = 0;
+		foreach ($data as $j) {
+			if ($j['tipo_contato'] == $i) {
+				$total_contact_type++;	
+			}
+			$total_contacts++;
+		}
+		$perc_contact_type = $total_contact_type/$total_contacts;
+		array_push($dataPoints_contact_types, array('y' => $perc_contact_type, 'label' => $i));
 	}
 ?>
 <!DOCTYPE HTML>
