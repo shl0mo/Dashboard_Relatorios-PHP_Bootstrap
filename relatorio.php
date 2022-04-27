@@ -12,20 +12,20 @@
 	$total_contacts = count($data);
 	$total_schedules = 0;
 	foreach ($data as $value) {
-		if ($value['agendou'] == 'Sim') {
+		if ($value['status'] == 'Agendou') {
 			$total_schedules++;
 		}
 	}
 	$schedule_rate = $total_schedules/$total_contacts * 100;
 	$clinical_schedules = 0;
 	foreach ($data as $value) {
-		if ($value['area'] == 'Demartologia clínica' && $value['agendou'] == 'Sim') {
+		if ($value['area'] == 'Demartologia clínica' && $value['status'] == 'Agendou') {
 			$clinical_schedules++;
 		}
 	}
 	$stetical_schedules = 0;
 	foreach ($data as $value) {
-		if ($value['area'] == 'Demartologia estética' && $value['agendou'] == 'Sim') {
+		if ($value['area'] == 'Demartologia estética' && $value['status'] == 'Agendou') {
 			$stetical_schedules++;
 		}
 	}
@@ -61,7 +61,7 @@
 		$total_contacts = 0;
 		foreach ($data as $j) {
 			if ($j['data_agendamento'] == $i) {
-				if ($j['agendou'] == 'Sim') {
+				if ($j['status'] == 'Agendou') {
 					$total_schedules++;
 				}
 				$total_contacts++;

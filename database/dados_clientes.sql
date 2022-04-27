@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 24-Abr-2022 às 08:26
+-- Tempo de geração: 27-Abr-2022 às 03:11
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -37,7 +37,7 @@ CREATE TABLE `dados` (
   `cidade` varchar(150) NOT NULL,
   `canal_origem` varchar(50) NOT NULL,
   `tipo_contato` varchar(100) NOT NULL,
-  `agendou` varchar(5) NOT NULL,
+  `status` varchar(50) NOT NULL,
   `motivo` text DEFAULT NULL,
   `area` varchar(100) NOT NULL,
   `fk_usuario` varchar(50) NOT NULL
@@ -47,11 +47,11 @@ CREATE TABLE `dados` (
 -- Extraindo dados da tabela `dados`
 --
 
-INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `phone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `agendou`, `motivo`, `area`, `fk_usuario`) VALUES
+INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `phone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `status`, `motivo`, `area`, `fk_usuario`) VALUES
 (1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
 (2, '2022-15-04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Demartologia clínica', 'Joana'),
-(3, '2022-15-04', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
-(4, '2022-15-04', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', NULL, 'Demartologia estética', 'João');
+(3, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
+(4, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Não', NULL, 'Demartologia clínica', 'João');
 
 -- --------------------------------------------------------
 
