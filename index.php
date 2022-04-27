@@ -174,6 +174,7 @@
 								<option>Doctoralia</option>
 								<option>Indicação</option>
 								<option>Já é paciente</option>
+								<option>Outros</option>
 							</select>
 					</div>
 					<div class="form-box row">
