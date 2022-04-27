@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 27-Abr-2022 às 03:27
+-- Tempo de geração: 27-Abr-2022 às 04:11
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -48,10 +48,21 @@ CREATE TABLE `dados` (
 --
 
 INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `telefone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `status`, `motivo`, `area`, `fk_usuario`) VALUES
-(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Agendou', '--Selecione --', 'Demartologia estética', 'João'),
+(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Não compareceu', '--Selecione --', 'Demartologia estética', 'João'),
 (2, '2022-15-04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Demartologia clínica', 'Joana'),
-(3, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Agendou', '--Selecione --', 'Demartologia estética', 'João'),
-(4, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Não agendou', NULL, 'Demartologia clínica', 'João');
+(3, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Agendado', '--Selecione --', 'Demartologia estética', 'João'),
+(4, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Agendado', NULL, 'Demartologia clínica', 'João');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `motivos`
+--
+
+CREATE TABLE `motivos` (
+  `id` int(11) NOT NULL,
+  `motivo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -72,6 +83,18 @@ INSERT INTO `usuarios` (`usuario`, `senha`) VALUES
 ('Joana', 'senha joana'),
 ('João', 'senha');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuarios_motivos`
+--
+
+CREATE TABLE `usuarios_motivos` (
+  `id` int(11) NOT NULL,
+  `usuario` varchar(50) NOT NULL,
+  `motivo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Índices para tabelas despejadas
 --
@@ -84,11 +107,26 @@ ALTER TABLE `dados`
   ADD KEY `fk_usuario` (`fk_usuario`);
 
 --
+-- Índices para tabela `motivos`
+--
+ALTER TABLE `motivos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `motivo` (`motivo`);
+
+--
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuario`),
   ADD KEY `usuario` (`usuario`);
+
+--
+-- Índices para tabela `usuarios_motivos`
+--
+ALTER TABLE `usuarios_motivos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario` (`usuario`),
+  ADD KEY `motivo` (`motivo`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -101,6 +139,18 @@ ALTER TABLE `dados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `motivos`
+--
+ALTER TABLE `motivos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios_motivos`
+--
+ALTER TABLE `usuarios_motivos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restrições para despejos de tabelas
 --
 
@@ -109,6 +159,13 @@ ALTER TABLE `dados`
 --
 ALTER TABLE `dados`
   ADD CONSTRAINT `dados_ibfk_1` FOREIGN KEY (`fk_usuario`) REFERENCES `usuarios` (`usuario`);
+
+--
+-- Limitadores para a tabela `usuarios_motivos`
+--
+ALTER TABLE `usuarios_motivos`
+  ADD CONSTRAINT `usuarios_motivos_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`),
+  ADD CONSTRAINT `usuarios_motivos_ibfk_2` FOREIGN KEY (`motivo`) REFERENCES `motivos` (`motivo`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
