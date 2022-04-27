@@ -19,6 +19,19 @@
 		$channel = $_POST['channel'];
 		$contact_type = $_POST['contact-type'];
 		$status = $_POST['status'];
+		switch ($status) {
+			case 'Agendou':
+				$status = 'Agendado';
+				break;
+			case 'Não agendou':
+				$status = 'Não agendado';
+				break;
+			case 'Cancelou':
+				$status = 'Cancelado';
+				break;
+		}
+		echo '<h1>Status '.$status.'</h1>';
+		exit();
 		$justification = $_POST['justification'];
 		if ($justification == '--Selecione --') $justification = null;
 		$session = $_SESSION['session'];
