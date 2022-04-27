@@ -74,6 +74,25 @@
 					}
 				}
 			}
+
+			function  handleJustificationOthers () {
+				const justification_others = document.querySelector('#justification-others') 
+				const justification_others_classList = justification_others.classList
+				const justification_others_label_classList = document.querySelector('[for="justification-others"]').classList
+				if (this.value != 'Outros') {
+					if (!justification_others_classList.contains('hidden')) {
+						justification_others_classList.add('hidden')
+						justification_others_label_classList.add('hidden')
+					}
+					document.getElementById('justification-others').value = ''
+				} else {
+					if (justification_others_classList.contains('hidden')) {
+						justification_others_classList.remove('hidden')
+						justification_others_label_classList.remove('hidden')
+						justification_others.setAttribute('required', 'true')
+					}
+				}
+			}
 			
 			function getCities () {
 				const state = document.getElementById('state-select').value
@@ -126,6 +145,7 @@
 			const interval = setInterval(() => {
 				if (document.contains(document.querySelector('#status-select'))) {
 						document.querySelector('#status-select').addEventListener('change', handleSchedule, false)
+						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
 						let date = new Date()
 						const year = date.getFullYear()
 						let month = date.getMonth() + 1
@@ -221,8 +241,8 @@
 							</select>
 					</div>
 					<div class="form-box row">
-						<label for="justification-others">Motivo de não ter agendado</label>
-						<textarea id="justification-others" class="align-self-center ml-3 w-100" style="resize: none; height: 80px;"></textarea>
+						<label for="justification-others" class="hidden">Especifique o motivo do não agendamento</label>
+						<textarea id="justification-others" class="align-self-center ml-3 w-100 hidden" style="resize: none; height: 80px;"></textarea>
 					</div>
 					<div class="form-box row">
 						<label for="field">Área</label>
