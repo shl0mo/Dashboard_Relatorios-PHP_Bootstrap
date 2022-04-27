@@ -213,9 +213,13 @@
 						<label for="justification-select" class="hidden">Motivo de não ter agendado</label>
 							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded" required>
 								<option value="">-- Selecione --</option>
-								<option>Motivo 1</option>
-								<option>Motivo 2</option>
-								<option>Motivo 3</option>
+								<option>Convênio que não atende</option>
+								<option>Criança</option>
+								<option>Data</option>
+								<option>Só queria informações</option>
+								<option>Tratamento/procedimento que não faz</option>
+								<option>Valor</option>
+								<option>Outros</option>
 							</select>
 					</div>
 					<div class="form-box row">
