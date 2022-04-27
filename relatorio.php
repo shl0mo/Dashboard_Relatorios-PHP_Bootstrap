@@ -29,7 +29,7 @@
 			$total_cancellations++;
 		}
 		if ($value['status'] == 'Não compareceu') {
-			$total_missings++;	
+			$total_missings++;
 		}
 	}
 	$schedule_rate = round($total_schedules/$total_contacts * 100, 2);
@@ -57,6 +57,7 @@
 		array_push($channels, $value['canal_origem']);
 		array_push($cities, $value['cidade']);
 		array_push($contact_types, $value['tipo_contato']);
+		if ($value['motivo'] != null) array_push($justifications, $value['motivo']);
 	}
 
 	$unique_dates = array_unique($dates);
@@ -67,9 +68,7 @@
 		$total_contacts = 0;
 		foreach ($data as $j) {
 			if ($j['data_agendamento'] == $i) {
-				if ($j['status'] == 'Agendado') {
-					$total_schedules++;
-				}
+				if ($j['status'] == 'Agendado') $total_schedules++;
 				$total_contacts++;
 			}
 		}
@@ -84,9 +83,7 @@
 		$total_channel = 0;
 		$total_contacts = 0;
 		foreach ($data as $j) {
-			if ($j['canal_origem'] == $i) {
-				$total_channel++;
-			}
+			if ($j['canal_origem'] == $i) $total_channel++;
 			$total_contacts++;
 		}
 		$perc_channel = $total_channel/$total_contacts;
@@ -102,9 +99,7 @@
 		$total_city = 0;
 		$total_contacts = 0;
 		foreach ($data as $j) {
-			if ($j['cidade'] == $i) {
-				$total_city++;
-			}
+			if ($j['cidade'] == $i) $total_city++;
 			$total_contacts++;
 		}
 		$perc_city = $total_city/$total_contacts;
@@ -122,9 +117,7 @@
 		$total_contact_type = 0;
 		$total_contacts = 0;
 		foreach ($data as $j) {
-			if ($j['tipo_contato'] == $i) {
-				$total_contact_type++;	
-			}
+			if ($j['tipo_contato'] == $i) $total_contact_type++;
 			$total_contacts++;
 		}
 		$perc_contact_type = $total_contact_type/$total_contacts;
@@ -133,7 +126,16 @@
 
 	$unique_justifications = array_unique($justifications);
 	$dataPoints_justifications = array();
-	
+	foreach ($unique_justifications as $i) {
+		$total_justification = 0;
+		$total_contacts = 0;
+		foreach ($data as $j) {
+			if ($j['motivo'] == $i) $total_justification++;
+			if ($j['motivo'] != null) $total_contacts++;
+		}
+		$perc_justification = $total_justification/$total_contacts;
+		array_push($dataPoints_justifications, array('label' => $i, 'y' => $perc_justification));
+	}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -174,7 +176,7 @@
 			const channels_chart_total = new CanvasJS.Chart('channels-total-chartContainer', {
 				theme: 'light1',
 				title: {
-					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
+					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'
 				},
 				axisY: {
 					title: 'Total'
@@ -192,7 +194,7 @@
 	
 			const channels_chart_perc = new CanvasJS.Chart('channels-perc-chartContainer', {
 				title: {
-					text: 'Gráfico de barras horizontais dos canais de origem em números absolutos'	
+					text: 'Gráfico de barras horizontais dos canais de origem em porcentagem'	
 				},
 				axisY: {
 					title: 'Porcentagem'
@@ -252,8 +254,18 @@
 					dataPoints: <?php echo json_encode($dataPoints_contact_types, JSON_NUMERIC_CHECK);?>
 				}]
 			})
-
-
+			
+			const justification_chart = new CanvasJS.Chart('justification-chartContainer', {
+				title: {
+					text: 'Gráfico de setores das porcentagens dos motivos de não agendamento'	
+				},
+				data: [{
+					type: 'pie',
+					yValueFormatString: "#,##0.00%",
+					indexLabel: "{label} ({y})",
+					dataPoints: <?php echo json_encode($dataPoints_justifications, JSON_NUMERIC_CHECK);?>
+				}]
+			})
 	
 			contacts_schedules_chart.render()
 			channels_chart_total.render()
@@ -261,6 +273,7 @@
 			cities_chart_total.render()
 			cities_chart_perc.render()
 			contact_type_chart.render()
+			justification_chart.render()
 		}
 	</script>
 </head>
@@ -271,6 +284,7 @@
 	<div id="cities-total-chartContainer" class="graph"></div>
 	<div id="cities-perc-chartContainer" class="graph"></div>
 	<div id="contact-type-chartContainer" class="graph"></div>
+	<div id="justification-chartContainer" class="graph"></div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

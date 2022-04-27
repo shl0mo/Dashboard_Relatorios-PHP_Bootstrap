@@ -55,7 +55,7 @@
 		<link rel="stylesheet" href="./css/style.css"/>
 		<script>
 			const objStates = {
-				list_states: 'a',
+				list_states: '',
 				UF: ''
 			}
 		
@@ -231,7 +231,7 @@
 						</select>
 					</div>
 					<div class="button-box row">
-						<button type="submit" onclick="validateData()" name="send" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
+						<button type="submit" name="send" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
 				</div>
 			</form>
