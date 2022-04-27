@@ -14,6 +14,7 @@
 	$clinical_schedules = 0;
 	$stetical_schedules = 0;
 	$total_cancellations = 0;
+	$total_missings = 0;
 	foreach ($data as $value) {
 		if ($value['status'] == 'Agendado') {
 			$total_schedules++;
@@ -27,17 +28,21 @@
 		if ($value['status'] == 'Cancelado') {
 			$total_cancellations++;
 		}
+		if ($value['status'] == 'Não compareceu') {
+			$total_missings++;	
+		}
 	}
-	$schedule_rate = $total_schedules/$total_contacts * 100;
-	$cancellation_rate = $total_cancellations/$total_contacts * 100;
+	$schedule_rate = round($total_schedules/$total_contacts * 100, 2);
+	$cancellation_rate = round($total_cancellations/$total_contacts * 100, 2);
+	$missing_rate = round($total_missings/$total_contacts, 2) *100;
 	
 	echo '<h1>Números principais</h1>';
 	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
-	echo '<h2>Taxa de agendamento: '.round($schedule_rate, 2).'%</h2>';
-	echo '<h2>Número de cancelamentos: </h2>';
-	echo '<h2>Taxa de cancelamento: </h2>';
-	echo '<h2>Número de não comparecimentos: </h2>';
-	echo '<h2>Taxa de não comparecimeto</h2>';
+	echo '<h2>Taxa de agendamento: '.$schedule_rate.'%</h2>';
+	echo '<h2>Número de cancelamentos: '.$total_cancellations.'</h2>';
+	echo '<h2>Taxa de cancelamento: '.$cancellation_rate.'%</h2>';
+	echo '<h2>Número de não comparecimentos: '.$total_missings.'</h2>';
+	echo '<h2>Taxa de não comparecimeto '.$missing_rate.'%</h2>';
 	echo '<h1>Números secundários (demartologista)</h1>';
 	echo '<h2>Número de agendamentos - Demartologia Clínica: '.$clinical_schedules.'<h2>';
 	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
