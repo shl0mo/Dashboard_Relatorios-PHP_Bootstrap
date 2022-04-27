@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 27-Abr-2022 às 03:11
+-- Tempo de geração: 27-Abr-2022 às 03:27
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -32,7 +32,7 @@ CREATE TABLE `dados` (
   `id` int(11) NOT NULL,
   `data_agendamento` varchar(50) NOT NULL,
   `nome` varchar(200) NOT NULL,
-  `phone` varchar(100) NOT NULL,
+  `telefone` varchar(50) DEFAULT NULL,
   `estado` varchar(100) NOT NULL,
   `cidade` varchar(150) NOT NULL,
   `canal_origem` varchar(50) NOT NULL,
@@ -47,11 +47,11 @@ CREATE TABLE `dados` (
 -- Extraindo dados da tabela `dados`
 --
 
-INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `phone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `status`, `motivo`, `area`, `fk_usuario`) VALUES
-(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
+INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `telefone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `status`, `motivo`, `area`, `fk_usuario`) VALUES
+(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Agendou', '--Selecione --', 'Demartologia estética', 'João'),
 (2, '2022-15-04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Demartologia clínica', 'Joana'),
-(3, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Sim', '--Selecione --', 'Demartologia estética', 'João'),
-(4, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Não', NULL, 'Demartologia clínica', 'João');
+(3, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Agendou', '--Selecione --', 'Demartologia estética', 'João'),
+(4, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Não agendou', NULL, 'Demartologia clínica', 'João');
 
 -- --------------------------------------------------------
 

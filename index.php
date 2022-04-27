@@ -18,7 +18,7 @@
 		$city = $_POST['city'];
 		$channel = $_POST['channel'];
 		$contact_type = $_POST['contact-type'];
-		$schedule = $_POST['schedule'];
+		$status = $_POST['status'];
 		$justification = $_POST['justification'];
 		if ($justification == '--Selecione --') $justification = null;
 		$session = $_SESSION['session'];
@@ -27,8 +27,8 @@
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $schedule, $justification, $field, $session));
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session));
 	}
 ?>
 <!DOCTYPE html>
@@ -112,8 +112,8 @@
 			}
 			
 			const interval = setInterval(() => {
-					if (document.contains(document.querySelector('#schedule-select'))) {
-						document.querySelector('#schedule-select').addEventListener('change', handleSchedule, false)
+					if (document.contains(document.querySelector('#status-select'))) {
+						document.querySelector('#status-select').addEventListener('change', handleSchedule, false)
 						let date = new Date()
 						const year = date.getFullYear()
 						let month = date.getMonth() + 1
@@ -187,11 +187,13 @@
 							</select>
 					</div>
 					<div class="form-box row">
-						<label for="schedule-select">Agendou?</label>
-							<select id="schedule-select" name="schedule" class="w-100 ml-3 rounded" required>
+						<label for="status-select">Status</label>
+							<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
 								<option value-"">-- Selecionar --</option>
-								<option>Sim</option>
-								<option>Não</option>
+								<option>Agendou</option>
+								<option>Não agendou</option>
+								<option>Não compareceu</option>
+								<option>Cancelou</option>
 							</select>
 					</div>
 					<div class="form-box row">
