@@ -19,7 +19,7 @@
 		$channel = $_POST['channel'];
 		$contact_type = $_POST['contact-type'];
 		$status = $_POST['status'];
-		$justification_others = $_POST['justification-others']i;
+		$justification_others = $_POST['justification-others'];
 		switch ($status) {
 			case 'Agendou':
 				$status = 'Agendado';
@@ -39,7 +39,7 @@
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario, motivo_outros) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario, motivos_outros) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)');
 		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session, $justification_others));
 	}
 ?>
