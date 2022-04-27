@@ -19,6 +19,7 @@
 		$channel = $_POST['channel'];
 		$contact_type = $_POST['contact-type'];
 		$status = $_POST['status'];
+		$justification_others = $_POST['justification-others']i;
 		switch ($status) {
 			case 'Agendou':
 				$status = 'Agendado';
@@ -32,13 +33,14 @@
 		}
 		$justification = $_POST['justification'];
 		if ($justification == '') $justification = null;
+		if ($justification_others == '') $justification_others = null;
 		$session = $_SESSION['session'];
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
 		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario, motivo_outros) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session));
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session, $justification_others));
 	}
 ?>
 <!DOCTYPE html>
@@ -242,7 +244,7 @@
 					</div>
 					<div class="form-box row">
 						<label for="justification-others" class="hidden">Especifique o motivo do não agendamento</label>
-						<textarea id="justification-others" class="align-self-center ml-3 w-100 hidden" style="resize: none; height: 80px;"></textarea>
+						<textarea id="justification-others" class="align-self-center ml-3 w-100 hidden" name="justification-others" style="resize: none; height: 80px;"></textarea>
 					</div>
 					<div class="form-box row">
 						<label for="field">Área</label>
