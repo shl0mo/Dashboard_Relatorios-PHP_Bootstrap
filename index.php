@@ -9,7 +9,7 @@
 		header('Location: http://localhost/Relatorios/login.php');
 		exit();
 	}
-	if (isset($_POST['send'])) {
+	if (isset($_POST['save'])) {
 		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 		$date = $_POST['date'];
 		$name = $_POST['name'];
@@ -221,6 +221,10 @@
 							</select>
 					</div>
 					<div class="form-box row">
+						<label for="justification-others">Motivo de não ter agendado</label>
+						<textarea id="justification-others" class="align-self-center ml-3 w-100" style="resize: none; height: 80px;"></textarea>
+					</div>
+					<div class="form-box row">
 						<label for="field">Área</label>
 						<select id="field" name="field" class="w-100 ml-3 rounded" required>
 							<option value="">-- Selecione --</option>
@@ -229,7 +233,7 @@
 						</select>
 					</div>
 					<div class="button-box row">
-						<button type="submit" name="send" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
+						<button type="submit" name="save" class="btn btn-success align-self-center w-25 mt-4 p-3">Salvar</button>
 					</div>
 				</div>
 			</form>
