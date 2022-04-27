@@ -41,19 +41,21 @@
 	echo '<h2>Número de agendamentos - Demartologia Clínica: '.$clinical_schedules.'<h2>';
 	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
 
-	$dataPoints_contacts = array();
-	$dataPoints_schedules = array();
 	$dates = array();
 	$channels = array();
 	$cities = array();
 	$contact_types = array();
+	$justifications = array();
 	foreach ($data as $value) {
 		array_push($dates, $value['data_agendamento']);
 		array_push($channels, $value['canal_origem']);
 		array_push($cities, $value['cidade']);
 		array_push($contact_types, $value['tipo_contato']);
 	}
+
 	$unique_dates = array_unique($dates);
+	$dataPoints_contacts = array();
+	$dataPoints_schedules = array();
 	foreach ($unique_dates as $i) {
 		$total_schedules = 0;
 		$total_contacts = 0;
@@ -122,6 +124,10 @@
 		$perc_contact_type = $total_contact_type/$total_contacts;
 		array_push($dataPoints_contact_types, array('label' => $i, 'y' => $perc_contact_type));
 	}
+
+	$unique_justifications = array_unique($justifications);
+	$dataPoints_justifications = array();
+	
 ?>
 <!DOCTYPE HTML>
 <html>

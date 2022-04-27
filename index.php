@@ -130,13 +130,7 @@
 						clearInterval(interval)
 					}
 			}, 100)
-			
-			
-			const pdf = () => {
-				let doc = new jsPDF()
-				doc.text(10, 10, 'Hello World!')
-				doc.save('hello-world.pdf')
-			}
+				
 		</script>
 	</head>
 	<body>
@@ -174,6 +168,12 @@
 						<label for="channel-origin">Canal de origem</label>
 							<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
 								<option value="">-- Selecione --</option>
+								<option>Google</option>
+								<option>Instagram</option>
+								<option>Facebook</option>
+								<option>Doctoralia</option>
+								<option>Indicação</option>
+								<option>Já é paciente</option>
 							</select>
 					</div>
 					<div class="form-box row">
@@ -213,7 +213,6 @@
 					<div class="button-box row">
 						<button type="submit" onclick="validateData()" name="send" class="btn btn-success align-self-center w-25 mt-4 p-3">Enviar</button>
 					</div>
-					<!--div class="but-test" onclick="pdf()"></div-->
 				</div>
 			</form>
 			<form method="post">
