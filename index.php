@@ -30,12 +30,9 @@
 				$status = 'Cancelado';
 				break;
 		}
-		echo '<h1>Status '.$status.'</h1>';
-		exit();
 		$justification = $_POST['justification'];
-		if ($justification == '--Selecione --') $justification = null;
+		if ($justification == '') $justification = null;
 		$session = $_SESSION['session'];
-		echo '<h1>'.$justification.'</h1>';
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
@@ -60,25 +57,27 @@
 			}
 		
 			function handleSchedule () {
-				const justification_classList = document.querySelector('#justification-select').classList
+				const justification = document.querySelector('#justification-select')
+				const justification_classList = justification.classList
 				const justification_label_classList = document.querySelector('[for="justification-select"]').classList
-				if (this.value == 'Sim') {
+				if (this.value != 'Não agendou') {
 					if (!justification_classList.contains('hidden')) {
 						justification_classList.add('hidden')
 						justification_label_classList.add('hidden')
 					}
+					document.getElementById('justification-select').value = ''
 				} else {
 					if (justification_classList.contains('hidden')) {
 						justification_classList.remove('hidden')
 						justification_label_classList.remove('hidden')
+						justification.setAttribute('required', 'true')
 					}
 				}
 			}
 			
 			function getCities () {
 				const state = document.getElementById('state-select').value
-				if (state !== '-- Selecione --') {
-					
+				if (state !== '') {
 					$.ajax({
 						url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios'
 					})
@@ -104,7 +103,7 @@
 				let option = document.createElement('option')
 				option.innerHTML = '-- Selecione --'
 				city_select.appendChild(option)		
-				if (selected_state === '-- Selecione --') return
+				if (selected_state === '') return
 				getStates().then(res => {
 					const selected_state = document.getElementById('state-select').value
 					let UF = ''
@@ -125,7 +124,7 @@
 			}
 			
 			const interval = setInterval(() => {
-					if (document.contains(document.querySelector('#status-select'))) {
+				if (document.contains(document.querySelector('#status-select'))) {
 						document.querySelector('#status-select').addEventListener('change', handleSchedule, false)
 						let date = new Date()
 						const year = date.getFullYear()
@@ -142,8 +141,7 @@
 						})
 						clearInterval(interval)
 					}
-			}, 100)
-				
+			}, 100)	
 		</script>
 	</head>
 	<body>
@@ -181,13 +179,13 @@
 						<label for="channel-origin">Canal de origem</label>
 							<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
 								<option value="">-- Selecione --</option>
-								<option>Google</option>
-								<option>Instagram</option>
-								<option>Facebook</option>
-								<option>Doctoralia</option>
-								<option>Indicação</option>
-								<option>Já é paciente</option>
-								<option>Outros</option>
+								<option value="Google">Google</option>
+								<option value="Instagram">Instagram</option>
+								<option value="Facebook">Facebook</option>
+								<option value="Doctoralia">Doctoralia</option>
+								<option value="Indicação">Indicação</option>
+								<option value="Já é paciente">Já é paciente</option>
+								<option value="Outros">Outros</option>
 							</select>
 					</div>
 					<div class="form-box row">
@@ -203,31 +201,31 @@
 						<label for="status-select">Status</label>
 							<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
 								<option value-"">-- Selecionar --</option>
-								<option>Agendou</option>
-								<option>Não agendou</option>
-								<option>Não compareceu</option>
-								<option>Cancelou</option>
+								<option value="Agendou">Agendou</option>
+								<option value="Não agendou">Não agendou</option>
+								<option value="Não compareceu">Não compareceu</option>
+								<option value="Cancelou">Cancelou</option>
 							</select>
 					</div>
 					<div class="form-box row">
 						<label for="justification-select" class="hidden">Motivo de não ter agendado</label>
-							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded" required>
+							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded">
 								<option value="">-- Selecione --</option>
-								<option>Convênio que não atende</option>
-								<option>Criança</option>
-								<option>Data</option>
-								<option>Só queria informações</option>
-								<option>Tratamento/procedimento que não faz</option>
-								<option>Valor</option>
-								<option>Outros</option>
+								<option value="Convênio que não atende">Convênio que não atende</option>
+								<option value="Criança">Criança</option>
+								<option value="Data">Data</option>
+								<option value="Só queria informações">Só queria informações</option>
+								<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
+								<option value="Valor">Valor</option>
+								<option value="Outros">Outros</option>
 							</select>
 					</div>
 					<div class="form-box row">
 						<label for="field">Área</label>
 						<select id="field" name="field" class="w-100 ml-3 rounded" required>
 							<option value="">-- Selecione --</option>
-							<option>Demartologia estética</option>
-							<option>Demartologia clínica</option>
+							<option value="Dermatologia estética">Dermatologia estética</option>
+							<option value="Dermatologia clínica">Dermatologia clínica</option>
 						</select>
 					</div>
 					<div class="button-box row">
