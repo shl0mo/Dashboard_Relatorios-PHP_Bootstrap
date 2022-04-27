@@ -19,10 +19,10 @@
 		if ($value['status'] == 'Agendado') {
 			$total_schedules++;
 		}
-		if ($value['area'] == 'Demartologia clínica' && $value['status'] == 'Agendado') {
+		if ($value['area'] == 'Dermatologia clínica' && $value['status'] == 'Agendado') {
 			$clinical_schedules++;
 		}
-		if ($value['area'] == 'Demartologia estética' && $value['status'] == 'Agendado') {
+		if ($value['area'] == 'Dermatologia estética' && $value['status'] == 'Agendado') {
 			$stetical_schedules++;
 		}
 		if ($value['status'] == 'Cancelado') {
@@ -34,7 +34,7 @@
 	}
 	$schedule_rate = round($total_schedules/$total_contacts * 100, 2);
 	$cancellation_rate = round($total_cancellations/$total_contacts * 100, 2);
-	$missing_rate = round($total_missings/$total_contacts, 2) *100;
+	$missing_rate = round($total_missings/$total_contacts *100, 2);
 	
 	echo '<h1>Números principais</h1>';
 	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
@@ -44,8 +44,8 @@
 	echo '<h2>Número de não comparecimentos: '.$total_missings.'</h2>';
 	echo '<h2>Taxa de não comparecimeto '.$missing_rate.'%</h2>';
 	echo '<h1>Números secundários (demartologista)</h1>';
-	echo '<h2>Número de agendamentos - Demartologia Clínica: '.$clinical_schedules.'<h2>';
-	echo '<h2>Número de agendamentos - Demartologia Estética: '.$stetical_schedules.'<h2>';
+	echo '<h2>Número de agendamentos - Dermatologia Clínica: '.$clinical_schedules.'<h2>';
+	echo '<h2>Número de agendamentos - Dermatologia Estética: '.$stetical_schedules.'<h2>';
 
 	$dates = array();
 	$channels = array();
@@ -285,6 +285,22 @@
 	<div id="cities-perc-chartContainer" class="graph"></div>
 	<div id="contact-type-chartContainer" class="graph"></div>
 	<div id="justification-chartContainer" class="graph"></div>
+	<div class="container-relatory">
+		<h1>Outros motivos para o não agendamento</h1>
+		<?php
+			foreach ($data as $value) {
+				if ($value['motivos_outros'] != null) {
+					echo '<h2>'.$value['motivos_outros'].'</h2>';
+				}
+			}
+		?>
+	</div>
+	<div class="container-relatory">
+		<h1>Outros motivos para o cancelamento</h1>
+	</div>
+	<div class="container-relatory">
+		<h1>Outros motivos para o não comparecimento</h1>
+	</div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

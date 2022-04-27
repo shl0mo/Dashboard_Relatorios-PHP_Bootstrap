@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 27-Abr-2022 às 04:11
+-- Tempo de geração: 27-Abr-2022 às 09:32
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -38,20 +38,27 @@ CREATE TABLE `dados` (
   `canal_origem` varchar(50) NOT NULL,
   `tipo_contato` varchar(100) NOT NULL,
   `status` varchar(50) NOT NULL,
-  `motivo` text DEFAULT NULL,
+  `motivo` varchar(50) DEFAULT NULL,
   `area` varchar(100) NOT NULL,
-  `fk_usuario` varchar(50) NOT NULL
+  `fk_usuario` varchar(50) NOT NULL,
+  `outros_agendamento` text DEFAULT NULL,
+  `outros_cancelamento` text DEFAULT NULL,
+  `outros_comparecimento` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `dados`
 --
 
-INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `telefone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `status`, `motivo`, `area`, `fk_usuario`) VALUES
-(1, '2022-15-04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Não compareceu', '--Selecione --', 'Demartologia estética', 'João'),
-(2, '2022-15-04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Demartologia clínica', 'Joana'),
-(3, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Agendado', '--Selecione --', 'Demartologia estética', 'João'),
-(4, '2022-15-03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Agendado', NULL, 'Demartologia clínica', 'João');
+INSERT INTO `dados` (`id`, `data_agendamento`, `nome`, `telefone`, `estado`, `cidade`, `canal_origem`, `tipo_contato`, `status`, `motivo`, `area`, `fk_usuario`, `outros_agendamento`, `outros_cancelamento`, `outros_comparecimento`) VALUES
+(1, '2022/15/04', 'João Maria', '92981152683', 'Amapá', 'Serra do Navio', '-- Selecione --', 'Tipo contato 1', 'Não compareceu', '--Selecione --', 'Dermartologia estética', 'João', NULL, NULL, NULL),
+(2, '2022/15/04', 'jOANA', '92981152683', 'Roraima', 'Amajari', '-- Selecione --', 'Tipo contato 2', 'Sim', '--Selecione --', 'Dermatologia clínica', 'Joana', NULL, NULL, NULL),
+(3, '2022/15/03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', '-- Selecione --', 'Tipo contato 1', 'Agendado', 'outro', 'Dermatologia clínica', 'João', NULL, NULL, NULL),
+(4, '2022/15/03', 'OUtro teste', '92981152683', 'Tocantins', 'Palmeirópolis', 'Facebook', 'Tipo contato 1', 'Agendado', NULL, 'Dermatologia clínica', 'João', NULL, NULL, NULL),
+(5, '26/04/2022', 'Salomão Da Costa Cruz', '92981152683', 'Amapá', 'Serra do Navio', 'Facebook', 'Tipo contato 2', 'Agendado', NULL, 'Dermatologia estética', 'João', NULL, NULL, NULL),
+(6, '26/04/2022', 'Salomão Da Costa Cruz', '92981152683', 'Amapá', 'Serra do Navio', 'Facebook', 'Tipo contato 2', 'Cancelado', NULL, 'Dermatologia estética', 'João', NULL, NULL, NULL),
+(7, '27/04/2022', 'qweqwe', '3123123', 'Acre', 'Assis Brasil', 'Instagram', 'Tipo contato 2', 'Não agendado', 'Outros', 'Dermatologia estética', 'João', 'okokokok', NULL, NULL),
+(8, '27/04/2022', 'teste teste', '123123', 'Ceará', 'Antonina do Norte', 'Facebook', 'Tipo contato 2', 'Cancelado', '', 'Dermatologia estética', 'João', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -136,7 +143,7 @@ ALTER TABLE `usuarios_motivos`
 -- AUTO_INCREMENT de tabela `dados`
 --
 ALTER TABLE `dados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `motivos`

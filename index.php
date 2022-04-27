@@ -19,7 +19,6 @@
 		$channel = $_POST['channel'];
 		$contact_type = $_POST['contact-type'];
 		$status = $_POST['status'];
-		$justification_others = $_POST['justification-others'];
 		switch ($status) {
 			case 'Agendou':
 				$status = 'Agendado';
@@ -31,16 +30,37 @@
 				$status = 'Cancelado';
 				break;
 		}
-		$justification = $_POST['justification'];
-		if ($justification == '') $justification = null;
-		if ($justification_others == '') $justification_others = null;
+		$justification = null;
+		$justification_schedule = null;
+		$justification_cancellation = null;
+		$justification_missing = null;
+		foreach ($_POST as $key => $value) {
+			if (strpos($key, 'justification') === false) {
+				continue;
+			} else {
+				switch ($key) {
+					case $key == 'justification':
+						$justification = $_POST['justification'];
+						break;
+					case $key == 'justification-schedule':
+						$justification_schedule = $_POST['justification-schedule'];
+						break;
+					case $key == 'justification-cancellation':
+						$justification_cancellation = $_POST['justification-cancellation'];
+						break;
+					case $key == 'justification-missing':
+						$justification_missing = $_POST['justification-missing'];
+						break;
+				}
+			}
+		}
 		$session = $_SESSION['session'];
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario, motivos_outros) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session, $justification_others));
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session, $justification_schedule, $justification_cancellation, $justification_missing));
 	}
 ?>
 <!DOCTYPE html>
@@ -61,13 +81,22 @@
 			function handleSchedule () {
 				const justification = document.querySelector('#justification-select')
 				const justification_classList = justification.classList
-				const justification_label_classList = document.querySelector('[for="justification-select"]').classList
-				if (this.value != 'Não agendou') {
+				const justification_label = document.querySelector('[for="justification-select"]')
+				const justification_label_classList = justification_label.classList
+				if (this.value != 'Não agendou' && this.value != 'Cancelou') {
 					if (!justification_classList.contains('hidden')) {
 						justification_classList.add('hidden')
 						justification_label_classList.add('hidden')
 					}
 					document.getElementById('justification-select').value = ''
+				} else if (this.value == 'Cancelou') {
+					if (justification_classList.contains('hidden')) {
+						justification_classList.remove('hidden')
+						justification_label_classList.remove('hidden')
+						justification_label.innerText = 'Motivo do cancelamento'
+						justification.setAttribute('name', 'cancellation-justification')
+						justification.setAttribute('required', 'true')
+					}
 				} else {
 					if (justification_classList.contains('hidden')) {
 						justification_classList.remove('hidden')
