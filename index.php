@@ -80,28 +80,94 @@
 		
 			function handleSchedule () {
 				const justification = document.querySelector('#justification-select')
-				const justification_classList = justification.classList
 				const justification_label = document.querySelector('[for="justification-select"]')
-				const justification_label_classList = justification_label.classList
-				if (this.value != 'Não agendou' && this.value != 'Cancelou') {
-					if (!justification_classList.contains('hidden')) {
-						justification_classList.add('hidden')
-						justification_label_classList.add('hidden')
+				if (this.value !== 'Não agendou' && this.value !== 'Cancelou' && this.value !== 'Não compareceu') {
+					if (document.contains(justification)) {
+						justification.remove()
+						justification_label.remove()
 					}
-					document.getElementById('justification-select').value = ''
-				} else if (this.value == 'Cancelou') {
-					if (justification_classList.contains('hidden')) {
-						justification_classList.remove('hidden')
-						justification_label_classList.remove('hidden')
-						justification_label.innerText = 'Motivo do cancelamento'
-						justification.setAttribute('name', 'cancellation-justification')
-						justification.setAttribute('required', 'true')
+				} else if (this.value === 'Cancelou') {
+					console.log('Cancelou')
+					if (document.contains(justification)) {
+						justification.remove()
+						justification_label.remove()
+					}
+					if (!document.contains(justification)) {						
+						const div_justification = document.createElement('div')
+						div_justification.className = 'form-box row'
+						const html = `
+							<label for="justification-select">Motivo do cancelamento</label>
+								<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
+									<option value="">-- Selecione --</option>
+									<option value="Convênio que não atende">Convênio que não atende</option>
+									<option value="Criança">Criança</option>
+									<option value="Data">Data</option>
+									<option value="Só queria informações">Só queria informações</option>
+									<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
+									<option value="Valor">Valor</option>
+									<option value="Outros">Outros</option>
+								</select>
+						`
+						const select_justification = html.trim()
+						div_justification.innerHTML = select_justification
+						const parent_node = document.querySelector('#form-container')
+						const next_node = document.querySelector('#field-container')
+						parent_node.insertBefore(div_justification, next_node)
+					}
+				} else if (this.value === 'Não compareceu') {
+					if (document.contains(justification)) {
+						justification.remove()
+						justification_label.remove()
+					}
+					if (!document.contains(justification)) {
+						const div_justification = document.createElement('div')
+						div_justification.className = 'form-box row'
+						const html = `
+							<label for="justification-select">Motivo da falta</label>
+							<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
+								<option value="">-- Selecione --</option>
+								<option value="Convênio que não atende">Convênio que não atende</option>
+								<option value="Criança">Criança</option>
+								<option value="Data">Data</option>
+								<option value="Só queria informações">Só queria informações</option>
+								<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
+								<option value="Valor">Valor</option>
+								<option value="Outros">Outros</option>
+							</select>
+						`
+						const select_justification = html.trim()
+						div_justification.innerHTML = select_justification
+						const parent_node = document.querySelector('#form-container')
+						const next_node = document.querySelector('#field-container')
+						parent_node.insertBefore(div_justification, next_node)
+						
 					}
 				} else {
-					if (justification_classList.contains('hidden')) {
-						justification_classList.remove('hidden')
-						justification_label_classList.remove('hidden')
-						justification.setAttribute('required', 'true')
+					if (document.contains(justification)) {
+						justification.remove()
+						justification_label.remove()
+					}
+					if (!document.contains(justification)) {
+						const div_justification = document.createElement('div')
+						div_justification.className = 'form-box row'
+						const html = `
+							<label for="justification-select">Motivo de não ter agendado</label>
+							<select id="justification-select" name="justification" class="w-100 ml-3 rounded" required>
+								<option value="">-- Selecione --</option>
+								<option value="Convênio que não atende">Convênio que não atende</option>
+								<option value="Criança">Criança</option>
+								<option value="Data">Data</option>
+								<option value="Só queria informações">Só queria informações</option>
+								<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
+								<option value="Valor">Valor</option>
+								<option value="Outros">Outros</option>
+							</select>
+						`
+						const select_justification = html.trim()
+						div_justification.innerHTML = select_justification
+						const parent_node = document.querySelector('#form-container')
+						const next_node = document.querySelector('#field-container')
+						parent_node.insertBefore(div_justification, next_node)
 					}
 				}
 			}
@@ -176,7 +242,7 @@
 			const interval = setInterval(() => {
 				if (document.contains(document.querySelector('#status-select'))) {
 						document.querySelector('#status-select').addEventListener('change', handleSchedule, false)
-						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
+						//document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
 						let date = new Date()
 						const year = date.getFullYear()
 						let month = date.getMonth() + 1
@@ -201,7 +267,7 @@
 		</header>
 		<div class="main-container">
 			<form method="post" class="form form-group container pt-5 pb-5 w-50">
-				<div class="form-container justify-center w-75">
+				<div id="form-container" class="form-container justify-center w-75">
 					<div class="form-box row">
 						<label for="date-input">Data</label>
 						<input id="date-input" class="w-100 ml-3 rounded" type="text" name="date" readonly/>
@@ -248,7 +314,7 @@
 								<option>Tipo contato 2</option>
 							</select>
 					</div>
-					<div class="form-box row">
+					<div  class="form-box row">
 						<label for="status-select">Status</label>
 							<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
 								<option value-"">-- Selecionar --</option>
@@ -259,23 +325,10 @@
 							</select>
 					</div>
 					<div class="form-box row">
-						<label for="justification-select" class="hidden">Motivo de não ter agendado</label>
-							<select id="justification-select" name="justification" class="hidden w-100 ml-3 rounded">
-								<option value="">-- Selecione --</option>
-								<option value="Convênio que não atende">Convênio que não atende</option>
-								<option value="Criança">Criança</option>
-								<option value="Data">Data</option>
-								<option value="Só queria informações">Só queria informações</option>
-								<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
-								<option value="Valor">Valor</option>
-								<option value="Outros">Outros</option>
-							</select>
-					</div>
-					<div class="form-box row">
 						<label for="justification-others" class="hidden">Especifique o motivo do não agendamento</label>
 						<textarea id="justification-others" class="align-self-center ml-3 w-100 hidden" name="justification-others" style="resize: none; height: 80px;"></textarea>
 					</div>
-					<div class="form-box row">
+					<div id="field-container" class="form-box row">
 						<label for="field">Área</label>
 						<select id="field" name="field" class="w-100 ml-3 rounded" required>
 							<option value="">-- Selecione --</option>
