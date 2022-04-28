@@ -30,7 +30,6 @@
 				$status = 'Cancelado';
 				break;
 		}
-		$justification = null;
 		$justification_schedule = null;
 		$justification_cancellation = null;
 		$justification_missing = null;
@@ -39,9 +38,6 @@
 				continue;
 			} else {
 				switch ($key) {
-					case $key == 'justification':
-						$justification = $_POST['justification'];
-						break;
 					case $key == 'justification-schedule':
 						$justification_schedule = $_POST['justification-schedule'];
 						break;
@@ -54,13 +50,23 @@
 				}
 			}
 		}
+		$others_schedule = null;
+		$others_cancellation = null;
+		$others_missing = null;
+		if ($justification_schedule != null && $justification_schedule == 'Outros') {
+			$others_schedule = $_POST['others-schedule'];
+		} else if ($justification_cancellation != null && $justification_cancellation == 'Outros') {
+			$others_schedule = $_POST['others-cancellation'];
+		} else if ($justification_missing != null && $justification_missing == 'Outros') {
+			$others_schedule = $_POST['others-missing'];
+		}
 		$session = $_SESSION['session'];
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo, area, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification, $field, $session, $justification_schedule, $justification_cancellation, $justification_missing));
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo_agendamento, motivo_cancelamento, motivo_comparecimento, area, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification_schedule, $justification_cabcellation, $justification_missing, $field, $session, $others_schedule, $others_cancellation, $others_missing));
 	}
 ?>
 <!DOCTYPE html>
@@ -142,7 +148,7 @@
 						parent_node.insertBefore(div_justification, next_node)
 						
 					}
-				} else {
+				} else if (this.value === 'Não agendou') {
 					if (document.contains(justification)) {
 						justification.remove()
 						justification_label.remove()
@@ -152,7 +158,7 @@
 						div_justification.className = 'form-box row'
 						const html = `
 							<label for="justification-select">Motivo de não ter agendado</label>
-							<select id="justification-select" name="justification" class="w-100 ml-3 rounded" required>
+							<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
 								<option value="">-- Selecione --</option>
 								<option value="Convênio que não atende">Convênio que não atende</option>
 								<option value="Criança">Criança</option>
