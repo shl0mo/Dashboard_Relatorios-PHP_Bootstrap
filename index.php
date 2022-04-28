@@ -65,7 +65,7 @@
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, motivo_agendamento, motivo_cancelamento, motivo_comparecimento, area, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, area, motivo_agendamento, motivo_cancelamento, motivo_comparecimento, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
 		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification_schedule, $justification_cabcellation, $justification_missing, $field, $session, $others_schedule, $others_cancellation, $others_missing));
 	}
 ?>
