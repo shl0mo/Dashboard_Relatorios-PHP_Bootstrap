@@ -40,12 +40,12 @@ CREATE TABLE `dados` (
   `status` varchar(50) NOT NULL,
   `area` varchar(100) NOT NULL,
   `fk_usuario` varchar(50) NOT NULL,
-  `motivo_agendamento` text NOT NULL,
-  `motivo_cancelamento` text NOT NULL,
-  `motivo_comparecimento` text NOT NULL,
-  `outros_agendamento` text NOT NULL,
-  `outros_cancelamento` text NOT NULL,
-  `outros_comparecimento` text NOT NULL
+  `motivo_agendamento` text,
+  `motivo_cancelamento` text,
+  `motivo_comparecimento` text,
+  `outros_agendamento` text,
+  `outros_cancelamento` text,
+  `outros_comparecimento` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
