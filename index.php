@@ -34,9 +34,7 @@
 		$justification_cancellation = null;
 		$justification_missing = null;
 		foreach ($_POST as $key => $value) {
-			if (strpos($key, 'justification') === false) {
-				continue;
-			} else {
+			if (strpos($key, 'justification') !== false) {
 				switch ($key) {
 					case $key == 'justification-schedule':
 						$justification_schedule = $_POST['justification-schedule'];
@@ -56,17 +54,17 @@
 		if ($justification_schedule == 'Outros') {
 			$others_schedule = $_POST['others-schedule'];
 		} else if ($justification_cancellation == 'Outros') {
-			$others_schedule = $_POST['others-cancellation'];
+			$others_cancellation = $_POST['others-cancellation'];
 		} else if ($justification_missing == 'Outros') {
-			$others_schedule = $_POST['others-missing'];
+			$others_missing = $_POST['others-missing'];
 		}
 		$session = $_SESSION['session'];
 		$field = $_POST['field'];
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, area, motivo_agendamento, motivo_cancelamento, motivo_comparecimento, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification_schedule, $justification_cancellation, $justification_missing, $field, $session, $others_schedule, $others_cancellation, $others_missing));
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, area, fk_usuario,  motivo_agendamento, motivo_cancelamento, motivo_comparecimento, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $field, $session, $justification_schedule, $justification_cancellation, $justification_missing, $others_schedule, $others_cancellation, $others_missing));
 	}
 ?>
 <!DOCTYPE html>
@@ -187,7 +185,7 @@
 			}
 
 			function  handleJustificationOthers () {
-				const justification_others = document.querySelector('#justification-others') 
+				let justification_others = document.querySelector('#justification-others') 
 				const justification_others_label = document.querySelector('[for="justification-others"]')
 				if (this.value != 'Outros') {
 					if (document.contains(justification_others)) {
@@ -198,23 +196,31 @@
 					if (!document.contains(justification_others)) {
 						const div_others = document.createElement('div')
 						div_others.className = 'form-box row'
-						const html = `
-							<label for="justification-others">Especifique o motivo</label>
-								<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
-						`
+						const justification_select = document.querySelector('#justification-select')
+						const name_justification = justification_select.name
+						let html = ''
+						if (name_justification === 'justification-schedule') {
+							html = `
+								<label for="justification-others">Especifique o motivo</label>
+									<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
+							`
+						} else if (name_justification === 'justification-cancellation') {
+							html = `
+								<label for="justification-others">Especifique o motivo</label>
+									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;"></textarea>
+							`
+						} else if (name_justification === 'justification-missing') {
+							html = `
+								<label for="justification-others">Especifique o motivo</label>
+									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;"></textarea>
+							`
+						}
 						const textarea_others = html.trim()
 						div_others.innerHTML = textarea_others
 						const parent_node = document.querySelector('#form-container')
 						const next_node = document.querySelector('#field-container')
 						parent_node.insertBefore(div_others, next_node)
 
-						const justification_select = document.querySelector('#justification-select')
-						const name_justification = justification_select.name
-						if (name_justification === 'justification-cancellation') {
-							justification_select.setAttribute('name', 'others-cancellation')
-						} else if (name_justification === 'justification-missing') {
-							justification_select.setAttribute('name', 'others-missing')
-						}
 					}
 				}
 			}
