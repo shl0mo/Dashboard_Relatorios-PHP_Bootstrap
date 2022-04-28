@@ -53,11 +53,11 @@
 		$others_schedule = null;
 		$others_cancellation = null;
 		$others_missing = null;
-		if ($justification_schedule != null && $justification_schedule == 'Outros') {
+		if ($justification_schedule == 'Outros') {
 			$others_schedule = $_POST['others-schedule'];
-		} else if ($justification_cancellation != null && $justification_cancellation == 'Outros') {
+		} else if ($justification_cancellation == 'Outros') {
 			$others_schedule = $_POST['others-cancellation'];
-		} else if ($justification_missing != null && $justification_missing == 'Outros') {
+		} else if ($justification_missing == 'Outros') {
 			$others_schedule = $_POST['others-missing'];
 		}
 		$session = $_SESSION['session'];
@@ -65,8 +65,8 @@
 		$id_query = $pdo->prepare('SELECT * FROM dados');
 		$id_query->execute();
 		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, area, motivo_agendamento, motivo_cancelamento, motivo_comparecimento, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification_schedule, $justification_cabcellation, $justification_missing, $field, $session, $others_schedule, $others_cancellation, $others_missing));
+		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, area, motivo_agendamento, motivo_cancelamento, motivo_comparecimento, fk_usuario, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $justification_schedule, $justification_cancellation, $justification_missing, $field, $session, $others_schedule, $others_cancellation, $others_missing));
 	}
 ?>
 <!DOCTYPE html>
@@ -86,14 +86,19 @@
 		
 			function handleSchedule () {
 				const justification = document.querySelector('#justification-select')
-				const justification_label = document.querySelector('[for="justification-select"]')
+				const justification_label = document.querySelector('[for="justification-select"]') 
+				const justification_others = document.querySelector('#justification-others') 
+				const justification_others_label = document.querySelector('[for="justification-others"]')
+				if (document.contains(justification_others)) {
+					justification_others.remove()
+					justification_others_label.remove()
+				}
 				if (this.value !== 'Não agendou' && this.value !== 'Cancelou' && this.value !== 'Não compareceu') {
 					if (document.contains(justification)) {
 						justification.remove()
 						justification_label.remove()
 					}
 				} else if (this.value === 'Cancelou') {
-					console.log('Cancelou')
 					if (document.contains(justification)) {
 						justification.remove()
 						justification_label.remove()
@@ -102,7 +107,7 @@
 						const div_justification = document.createElement('div')
 						div_justification.className = 'form-box row'
 						const html = `
-							<label for="justification-select">Motivo do cancelamento</label>
+							<label id="label-justification" for="justification-select">Motivo do cancelamento</label>
 								<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
 									<option value="">-- Selecione --</option>
 									<option value="Convênio que não atende">Convênio que não atende</option>
@@ -119,6 +124,7 @@
 						const parent_node = document.querySelector('#form-container')
 						const next_node = document.querySelector('#field-container')
 						parent_node.insertBefore(div_justification, next_node)
+						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
 					}
 				} else if (this.value === 'Não compareceu') {
 					if (document.contains(justification)) {
@@ -129,23 +135,24 @@
 						const div_justification = document.createElement('div')
 						div_justification.className = 'form-box row'
 						const html = `
-							<label for="justification-select">Motivo da falta</label>
-							<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
-								<option value="">-- Selecione --</option>
-								<option value="Convênio que não atende">Convênio que não atende</option>
-								<option value="Criança">Criança</option>
-								<option value="Data">Data</option>
-								<option value="Só queria informações">Só queria informações</option>
-								<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
-								<option value="Valor">Valor</option>
-								<option value="Outros">Outros</option>
-							</select>
+							<label id="label-justification" for="justification-select">Motivo da falta</label>
+								<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
+									<option value="">-- Selecione --</option>
+									<option value="Convênio que não atende">Convênio que não atende</option>
+									<option value="Criança">Criança</option>
+									<option value="Data">Data</option>
+									<option value="Só queria informações">Só queria informações</option>
+									<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
+									<option value="Valor">Valor</option>
+									<option value="Outros">Outros</option>
+								</select>
 						`
 						const select_justification = html.trim()
 						div_justification.innerHTML = select_justification
 						const parent_node = document.querySelector('#form-container')
 						const next_node = document.querySelector('#field-container')
 						parent_node.insertBefore(div_justification, next_node)
+						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
 						
 					}
 				} else if (this.value === 'Não agendou') {
@@ -157,42 +164,57 @@
 						const div_justification = document.createElement('div')
 						div_justification.className = 'form-box row'
 						const html = `
-							<label for="justification-select">Motivo de não ter agendado</label>
-							<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
-								<option value="">-- Selecione --</option>
-								<option value="Convênio que não atende">Convênio que não atende</option>
-								<option value="Criança">Criança</option>
-								<option value="Data">Data</option>
-								<option value="Só queria informações">Só queria informações</option>
-								<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
-								<option value="Valor">Valor</option>
-								<option value="Outros">Outros</option>
-							</select>
+							<label id="label-justification" for="justification-select">Motivo de não ter agendado</label>
+								<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
+									<option value="">-- Selecione --</option>
+									<option value="Convênio que não atende">Convênio que não atende</option>
+									<option value="Criança">Criança</option>
+									<option value="Data">Data</option>
+									<option value="Só queria informações">Só queria informações</option>
+									<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
+									<option value="Valor">Valor</option>
+									<option value="Outros">Outros</option>
+								</select>
 						`
 						const select_justification = html.trim()
 						div_justification.innerHTML = select_justification
 						const parent_node = document.querySelector('#form-container')
 						const next_node = document.querySelector('#field-container')
 						parent_node.insertBefore(div_justification, next_node)
+						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
 					}
 				}
 			}
 
 			function  handleJustificationOthers () {
 				const justification_others = document.querySelector('#justification-others') 
-				const justification_others_classList = justification_others.classList
-				const justification_others_label_classList = document.querySelector('[for="justification-others"]').classList
+				const justification_others_label = document.querySelector('[for="justification-others"]')
 				if (this.value != 'Outros') {
-					if (!justification_others_classList.contains('hidden')) {
-						justification_others_classList.add('hidden')
-						justification_others_label_classList.add('hidden')
+					if (document.contains(justification_others)) {
+						justification_others.remove()
+						justification_others_label.remove()
 					}
-					document.getElementById('justification-others').value = ''
 				} else {
-					if (justification_others_classList.contains('hidden')) {
-						justification_others_classList.remove('hidden')
-						justification_others_label_classList.remove('hidden')
-						justification_others.setAttribute('required', 'true')
+					if (!document.contains(justification_others)) {
+						const div_others = document.createElement('div')
+						div_others.className = 'form-box row'
+						const html = `
+							<label for="justification-others">Especifique o motivo</label>
+								<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
+						`
+						const textarea_others = html.trim()
+						div_others.innerHTML = textarea_others
+						const parent_node = document.querySelector('#form-container')
+						const next_node = document.querySelector('#field-container')
+						parent_node.insertBefore(div_others, next_node)
+
+						const justification_select = document.querySelector('#justification-select')
+						const name_justification = justification_select.name
+						if (name_justification === 'justification-cancellation') {
+							justification_select.setAttribute('name', 'others-cancellation')
+						} else if (name_justification === 'justification-missing') {
+							justification_select.setAttribute('name', 'others-missing')
+						}
 					}
 				}
 			}
@@ -248,7 +270,6 @@
 			const interval = setInterval(() => {
 				if (document.contains(document.querySelector('#status-select'))) {
 						document.querySelector('#status-select').addEventListener('change', handleSchedule, false)
-						//document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
 						let date = new Date()
 						const year = date.getFullYear()
 						let month = date.getMonth() + 1
@@ -329,10 +350,6 @@
 								<option value="Não compareceu">Não compareceu</option>
 								<option value="Cancelou">Cancelou</option>
 							</select>
-					</div>
-					<div class="form-box row">
-						<label for="justification-others" class="hidden">Especifique o motivo do não agendamento</label>
-						<textarea id="justification-others" class="align-self-center ml-3 w-100 hidden" name="justification-others" style="resize: none; height: 80px;"></textarea>
 					</div>
 					<div id="field-container" class="form-box row">
 						<label for="field">Área</label>
