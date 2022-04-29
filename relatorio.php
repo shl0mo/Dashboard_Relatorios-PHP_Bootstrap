@@ -296,10 +296,24 @@
 		?>
 	</div>
 	<div class="container-relatory">
-		<h1>Outros motivos para o cancelamento</h1>
+		<h1>Motivos de cancelamento</h1>
+		<?php
+			foreach ($data as $value) {
+				if ($value['motivo_cancelamento'] != null) {
+					echo '<h2>'.$value['motivo_cancelamento'].'</h2>';
+				}
+			}
+		?>
 	</div>
 	<div class="container-relatory">
 		<h1>Outros motivos para o não comparecimento</h1>
+		<?php
+			foreach ($data as $value) {
+				if ($value['motivo_comparecimento'] != null) {
+					echo '<h2>'.$value['motivo_comparecimento'].'</h2>';
+				}
+			}
+		?>
 	</div>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
