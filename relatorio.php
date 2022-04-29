@@ -166,12 +166,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<style>
-	.graph {
-		min-height: 370px;
-		width: 50%;
-	}
-</style>
+	<style>
+		.graph {
+			min-height: 370px;
+			width: 50%;
+		}
+	</style>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<script>
 		window.onload = function() {
  
@@ -349,10 +350,31 @@
 			echo '<h3>Total de contatos: '.$total_channels[$i].'</h3>';
 			echo '<h3>Total de agendamentos: '.$total_channels_schedules[$i].'</h3>';
 			echo '<h3>Taxa de agendamento: '.round($total_channels_schedules[$i]/$total_channels[$i] * 100, 2).'%</h3>';
+			if (count($dataPoints_channels_justifications[$i	]) > 0) {
+				echo '					
+					<div id="justification-'.$unique_channels[$key].'-chartContainer" class="graph"></div>
+					<script>
+									
+						const justification_'.$unique_channels[$key].'_chart = new CanvasJS.Chart(\'justification-'.$unique_channels[$key].'-chartContainer\', {
+							title: {
+								text: \'Gráfico de setores das porcentagens dos motivos de não agendamento\'
+							},
+							data: [{
+								type: \'pie\',
+								yValueFormatString: "#,##0.00%",
+								indexLabel: "{label} ({y})",
+								dataPoints: '.json_encode($dataPoints_channels_justifications[$i], JSON_NUMERIC_CHECK).'
+							}]
+						})
+
+						justification_'.$unique_channels[$key].'_chart.render()
+					</script>
+				';
+			} else {
+				echo '<h3>Não agendamentos não constam</h3>';
+			}
 			$i++;
 		}
 	?>
-	
-	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</body>
+</body>	
 </html>
