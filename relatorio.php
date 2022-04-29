@@ -51,13 +51,13 @@
 	$channels = array();
 	$cities = array();
 	$contact_types = array();
-	$justifications = array();
+	$justifications_schedule = array();
 	foreach ($data as $value) {
 		array_push($dates, $value['data_agendamento']);
 		array_push($channels, $value['canal_origem']);
 		array_push($cities, $value['cidade']);
 		array_push($contact_types, $value['tipo_contato']);
-		if ($value['motivo'] != null) array_push($justifications, $value['motivo']);
+		if ($value['motivo_agendamento'] != null) array_push($justifications_schedule, $value['motivo_agendamento']);
 	}
 
 	$unique_dates = array_unique($dates);
@@ -105,7 +105,7 @@
 		$perc_city = $total_city/$total_contacts;
 		array_push($dataPoints_cities_total, array('y' => $total_city, 'label' => $i));
 		array_push($dataPoints_cities_perc, array('y' => $perc_city, 'label' => $i));
-		$i++;
+		$times++;
 		if ($times == 5) {
 			break;
 		}
@@ -124,14 +124,14 @@
 		array_push($dataPoints_contact_types, array('label' => $i, 'y' => $perc_contact_type));
 	}
 
-	$unique_justifications = array_unique($justifications);
+	$unique_justifications = array_unique($justifications_schedule);
 	$dataPoints_justifications = array();
 	foreach ($unique_justifications as $i) {
 		$total_justification = 0;
 		$total_contacts = 0;
 		foreach ($data as $j) {
-			if ($j['motivo'] == $i) $total_justification++;
-			if ($j['motivo'] != null) $total_contacts++;
+			if ($j['motivo_agendamento'] == $i) $total_justification++;
+			if ($j['motivo_agendamento'] != null) $total_contacts++;
 		}
 		$perc_justification = $total_justification/$total_contacts;
 		array_push($dataPoints_justifications, array('label' => $i, 'y' => $perc_justification));
@@ -289,8 +289,8 @@
 		<h1>Outros motivos para o não agendamento</h1>
 		<?php
 			foreach ($data as $value) {
-				if ($value['motivos_outros'] != null) {
-					echo '<h2>'.$value['motivos_outros'].'</h2>';
+				if ($value['outros_agendamento'] != null) {
+					echo '<h2>'.$value['outros_agendamento'].'</h2>';
 				}
 			}
 		?>
