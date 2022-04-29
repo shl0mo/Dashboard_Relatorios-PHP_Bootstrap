@@ -77,18 +77,44 @@
 	}
 
 	$unique_channels = array_unique($channels);
+	$total_channels = array();
+	$total_channels_schedules = array();
 	$dataPoints_channels_total = array();
 	$dataPoints_channels_perc = array();
+	$matrix_justifications = array();
 	foreach ($unique_channels as $i) {
 		$total_channel = 0;
 		$total_contacts = 0;
+		$channel_schedules = 0;
+		$array_justifications = array();
 		foreach ($data as $j) {
 			if ($j['canal_origem'] == $i) $total_channel++;
+			if ($j['canal_origem'] == $i && $j['status'] == 'Agendado') $channel_schedules++;
+			if ($j['canal_origem'] == $i && $j['motivo_agendamento'] != null) array_push($array_justifications, $j['motivo_agendamento']);
 			$total_contacts++;
 		}
 		$perc_channel = $total_channel/$total_contacts;
 		array_push($dataPoints_channels_total, array('y' => $total_channel, 'label' => $i));
 		array_push($dataPoints_channels_perc, array('y' => $perc_channel, 'label' => $i));
+		array_push($total_channels, $total_channel);
+		array_push($total_channels_schedules, $channel_schedules);
+		array_push($matrix_justifications, $array_justifications);
+	}
+
+	$dataPoints_channels_justifications = array();
+	foreach ($matrix_justifications as $line) {
+		$dataPoint_line = array();
+		foreach ($line as $i) {
+			$total_justification = 0;
+			$total_occurrences = 0;
+			foreach ($line as $j) {
+				if ($i == $j) $total_justification++;
+				$total_occurrences++;	
+			}
+			$percentage = round($total_justification/$total_occurrences * 100, 2);
+			array_push($dataPoint_line, array('label' => $i, 'y' => $percentage));
+		}
+		array_push($dataPoints_channels_justifications, $dataPoint_line);
 	}
 
 	$unique_cities = array_unique($cities);
@@ -315,6 +341,18 @@
 			}
 		?>
 	</div>
+	<h1>Relatório de canais</h1>
+	<?php
+		$i = 0;
+		foreach ($unique_channels as $key => $value) {
+			echo '<h2>'.$unique_channels[$key].'</h2>';
+			echo '<h3>Total de contatos: '.$total_channels[$i].'</h3>';
+			echo '<h3>Total de agendamentos: '.$total_channels_schedules[$i].'</h3>';
+			echo '<h3>Taxa de agendamento: '.round($total_channels_schedules[$i]/$total_channels[$i] * 100, 2).'%</h3>';
+			$i++;
+		}
+	?>
+	
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
