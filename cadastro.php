@@ -11,7 +11,8 @@
 	<link rel="stylesheet" href="./css/style.css"/>
 </head>
 <body>
-	<div class="main-container-register container w-25 flex  p-5 border rounded">
+	<div class="h-100 d-flex justify-content-center aling-items-center">
+	<div class="main-container-register position-absolute align-self-center container w-25 p-5 border rounded">
 		<div class="row w-100">
 			<h4 class="h4-register d-flex align-self-center">Cadastro de Usuário</h4>
 		</div>
@@ -29,7 +30,7 @@
 				</div>
 				<div class="d-flex flex-column align-items-center">
 					<label for="input-password"  class="label-register">Senha</label>
-						<input id="input-password" class="w-75" name="password" type="text"/>
+						<input id="input-password" class="w-75" name="password" type="text" placeholder="**********"/>
 				</div>
 				<div class="d-flex flex-column align-items-center mt-4">
 					<div class="w-25 flex align-self-center">
@@ -38,6 +39,7 @@
 				</div>
 			</form>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
