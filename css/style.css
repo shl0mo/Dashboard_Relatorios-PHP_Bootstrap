@@ -54,7 +54,7 @@ label {
 .row {
 	display: flex;
 	flex-direction: column;
-} 
+}
 
 .justify-center {
 	display: flex;
@@ -86,10 +86,28 @@ label {
 .main-container-login form {
 	display: flex;
 	flex-direction: column;
-	align-items: centeir;
+	align-items: center;
 }
 
 .main-container-login h4 {
+	position: relative;
+	margin: 0 auto;
+}
+
+.main-container-register {
+	position: relative;
+	top: 400px !important;
+	margin: 0 auto !important;
+	box-shadow: var(--box-shadow);
+}
+
+.main-container-register .form-register {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.main-container-register .h4-register {
 	position: relative;
 	margin: 0 auto;
 }
