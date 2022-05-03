@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 03-Maio-2022 às 12:38
+-- Tempo de geração: 03-Maio-2022 às 13:16
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -85,6 +85,17 @@ CREATE TABLE `motivos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `tipos`
+--
+
+CREATE TABLE `tipos` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuarios`
 --
 
@@ -133,6 +144,12 @@ ALTER TABLE `motivos`
   ADD KEY `motivo` (`motivo`);
 
 --
+-- Índices para tabela `tipos`
+--
+ALTER TABLE `tipos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -161,6 +178,12 @@ ALTER TABLE `dados`
 -- AUTO_INCREMENT de tabela `motivos`
 --
 ALTER TABLE `motivos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `tipos`
+--
+ALTER TABLE `tipos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
