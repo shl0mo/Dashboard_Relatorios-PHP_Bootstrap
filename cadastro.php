@@ -61,7 +61,7 @@
 							</select>
 					</div>
 					<div class="form-box row align-items-left">
-						<label>Justificativas para o usuário</label>
+						<label class="d-flex align-self-center">Justificativas para o usuário</label>
 						<div class="align-items-left">
 						<?php
 							$index = 1;
@@ -85,5 +85,5 @@
 			</div>
 		</div>
 	</div>
-</body>i
+</body>
 </html>
