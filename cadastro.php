@@ -1,4 +1,9 @@
 <?php
+	session_start();
+	if ($_SESSION['session'] != 'admin') {
+		header('Location: http://localhost/Relatorios/login.php');
+		exit();
+	}
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	$query = $pdo->prepare('SELECT * FROM tipos');
 	$query->execute();
