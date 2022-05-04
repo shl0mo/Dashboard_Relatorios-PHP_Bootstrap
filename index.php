@@ -115,12 +115,11 @@
 							<label id="label-justification" for="justification-select">Motivo do cancelamento</label>
 								<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
 									<option value="">-- Selecione --</option>
-									<option value="Convênio que não atende">Convênio que não atende</option>
-									<option value="Criança">Criança</option>
-									<option value="Data">Data</option>
-									<option value="Só queria informações">Só queria informações</option>
-									<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
-									<option value="Valor">Valor</option>
+									<?php
+										foreach ($user_justifications_array as $justification) {			
+											echo '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
+										}
+									?>
 									<option value="Outros">Outros</option>
 								</select>
 						`
@@ -143,12 +142,11 @@
 							<label id="label-justification" for="justification-select">Motivo da falta</label>
 								<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
 									<option value="">-- Selecione --</option>
-									<option value="Convênio que não atende">Convênio que não atende</option>
-									<option value="Criança">Criança</option>
-									<option value="Data">Data</option>
-									<option value="Só queria informações">Só queria informações</option>
-									<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
-									<option value="Valor">Valor</option>
+									<?php
+										foreach ($user_justifications_array as $justification) {			
+											echo '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
+										}
+									?>
 									<option value="Outros">Outros</option>
 								</select>
 						`
@@ -172,12 +170,11 @@
 							<label id="label-justification" for="justification-select">Motivo de não ter agendado</label>
 								<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
 									<option value="">-- Selecione --</option>
-									<option value="Convênio que não atende">Convênio que não atende</option>
-									<option value="Criança">Criança</option>
-									<option value="Data">Data</option>
-									<option value="Só queria informações">Só queria informações</option>
-									<option value="Tratamento/procedimento que não faz">Tratamento/procedimento que não faz</option>
-									<option value="Valor">Valor</option>
+									<?php
+										foreach ($user_justifications_array as $justification) {			
+											echo '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
+										}
+									?>
 									<option value="Outros">Outros</option>
 								</select>
 						`
