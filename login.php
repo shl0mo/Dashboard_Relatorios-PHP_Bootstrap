@@ -60,7 +60,11 @@
 		if (count($data) > 0) {
 			$_SESSION['session'] = $user;
 			echo '<h1>Logado com sucesso</h1>';
-			header('Location: http://localhost/Relatorios');
+			if ($_SESSION['session'] != 'admin') {
+				header('Location: http://localhost/Relatorios');
+			} else {
+				header('Location: http://localhost/Relatorios/cadastro.php');
+			}
 			exit();
 		} else {
 			echo '<script>loginFailed()</script>';

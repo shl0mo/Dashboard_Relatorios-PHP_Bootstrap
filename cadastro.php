@@ -4,6 +4,12 @@
 		header('Location: http://localhost/Relatorios/login.php');
 		exit();
 	}
+	if (isset($_POST['logout'])) {
+		session_destroy();
+		header('Location: http://localhost/Relatorios/login.php');
+		exit();
+	}
+
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	$query = $pdo->prepare('SELECT * FROM tipos');
 	$query->execute();
@@ -111,11 +117,19 @@
 						</div>
 					</div>
 					<div class="form-box row align-items-center mt-4 w-100">
-						<div class="w-25 flex align-self-center">
+						<div class="w-50 flex align-self-center">
 							<button name="register" type="submit" class="btn btn-success w-100 p-2" onclick="verifyCheckbox(event)">Cadastrar</button>
 						</div>
 					</div>
 				</form>
+				<form method="post" class="form-container ml-5 mr-5">
+					<div class="form-box row align-items-center w-100">
+						<div class="w-50 flex align-self-center">
+							<button name="logout" type="submit" class="btn btn-danger w-100 p-2">Sair</button>
+						</div>
+					</div>
+				</form>
+
 			</div>
 		</div>
 	</div>

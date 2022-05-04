@@ -3,14 +3,21 @@
 	if (!isset($_SESSION['session'])) {
 		header('Location: http://localhost/Relatorios/login.php');
 		exit();
+	} else if ($_SESSION['session'] == 'admin') {
+		header('Location: http://localhost/Relatorios/cadastro.php');
+		exit();
 	}
 	if (isset($_POST['logout'])) {
 		session_destroy();
 		header('Location: http://localhost/Relatorios/login.php');
 		exit();
 	}
+
+	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+	$query = $pdo->prepare('SELECT B.motivo FROM (SELECT * FROM usuarios JOIN usuarios_motivos USING(usuario) WHERE usuario = "'.$_SESSION['session'].'") AS A JOIN motivos AS B ON A.motivo = B.id');
+	$query->execute();
+	$user_justifications_array = $query->fetchAll();
 	if (isset($_POST['save'])) {
-		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 		$date = $_POST['date'];
 		$name = $_POST['name'];
 		$phone = $_POST['phone'];	
