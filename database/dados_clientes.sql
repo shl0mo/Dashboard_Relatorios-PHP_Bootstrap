@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 03-Maio-2022 às 13:16
+-- Tempo de geração: 04-Maio-2022 às 09:40
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -82,6 +82,17 @@ CREATE TABLE `motivos` (
   `motivo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `motivos`
+--
+
+INSERT INTO `motivos` (`id`, `motivo`) VALUES
+(1, 'Convênio que não atende'),
+(2, 'Criança'),
+(3, 'Data'),
+(4, 'Só queria informações'),
+(5, 'Tratamento/procedimento que não faz');
+
 -- --------------------------------------------------------
 
 --
@@ -93,6 +104,14 @@ CREATE TABLE `tipos` (
   `tipo` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `tipos`
+--
+
+INSERT INTO `tipos` (`id`, `tipo`) VALUES
+(1, 'Dermatologia clínica'),
+(2, 'Dermatologia estética');
+
 -- --------------------------------------------------------
 
 --
@@ -102,16 +121,18 @@ CREATE TABLE `tipos` (
 CREATE TABLE `usuarios` (
   `usuario` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
-  `tipo_usuario` varchar(100) DEFAULT NULL
+  `tipo_usuario` varchar(100) DEFAULT NULL,
+  `nome_usuario` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario`, `senha`, `tipo_usuario`) VALUES
-('Joana', 'senha joana', 'Dermatologia estética'),
-('João', 'senha', 'Dermatologia clínica');
+INSERT INTO `usuarios` (`usuario`, `senha`, `tipo_usuario`, `nome_usuario`) VALUES
+('admin', 'admin', 'Administrador', ''),
+('Joana', 'senha joana', 'Dermatologia estética', ''),
+('João', 'senha', 'Dermatologia clínica', '');
 
 -- --------------------------------------------------------
 
@@ -178,13 +199,13 @@ ALTER TABLE `dados`
 -- AUTO_INCREMENT de tabela `motivos`
 --
 ALTER TABLE `motivos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `tipos`
 --
 ALTER TABLE `tipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios_motivos`
