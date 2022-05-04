@@ -11,6 +11,14 @@
 	$query = $pdo->prepare('SELECT * FROM motivos');
 	$query->execute();
 	$justifications = $query->fetchAll();
+	if (isset($_POST['register'])) {
+		$name = $_POST['name'];
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$usertype = $_POST['usertype'];
+		$query = $pdo->prepare('INSERT INTO usuarios VALUES(?,?,?,?)');
+		$query->execute(array($username, $password, $usertype, $name));
+	}
 ?>
 <html>
 <head>
