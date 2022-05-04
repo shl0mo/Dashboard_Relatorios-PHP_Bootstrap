@@ -286,7 +286,8 @@
 						let date = new Date()
 						const year = date.getFullYear()
 						let month = date.getMonth() + 1
-						const day = date.getDate()
+						let day = date.getDate()
+						if (String(day).length == 1) day = '0' + day
 						if (String(month).length == 1) month = '0' + month
 						document.querySelector('#date-input').value = day + '/' + month + '/' + year
 						getStates().then(res => {
