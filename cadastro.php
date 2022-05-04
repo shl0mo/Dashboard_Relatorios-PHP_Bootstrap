@@ -16,8 +16,21 @@
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$usertype = $_POST['usertype'];
-		$query = $pdo->prepare('INSERT INTO usuarios VALUES(?,?,?,?)');
-		$query->execute(array($username, $password, $usertype, $name));
+		/*$query = $pdo->prepare('INSERT INTO usuarios VALUES(?,?,?,?)');
+		$query->execute(array($username, $password, $usertype, $name));*/
+		$query = $pdo->prepare('SELECT * FROM usuarios');
+		$query->execute();
+		$id_array = $query->fetchAll();
+		$id = count($id_array);
+		foreach ($_POST as $key => $value) {
+			if (strpos($key, 'motivo') !== false) {
+				$id_motivo_array = explode('-', $key);
+				$id_motivo = intval(end($id_motivo_array));
+				$query = $pdo->prepare('INSERT INTO usuarios_motivos VALUES(?,?,?)');
+				$query->execute(array($id + 1, $_SESSION['session'], $id_motivo));
+				$id++;
+			}
+		}
 	}
 ?>
 <html>

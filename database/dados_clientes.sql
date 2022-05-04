@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 04-Maio-2022 às 09:40
+-- Tempo de geração: 04-Maio-2022 às 10:30
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.1.32
 
@@ -131,8 +131,12 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`usuario`, `senha`, `tipo_usuario`, `nome_usuario`) VALUES
 ('admin', 'admin', 'Administrador', ''),
+('carlos', 'senhacarlos', 'Dermatologia clínica', 'Carlos'),
 ('Joana', 'senha joana', 'Dermatologia estética', ''),
-('João', 'senha', 'Dermatologia clínica', '');
+('joanasilva', '123', 'Dermatologia estética', 'Joana'),
+('João', 'senha', 'Dermatologia clínica', ''),
+('joaosilva', 'senhadojoao', 'Dermatologia clínica', 'João Silva'),
+('julianadavid', 'julianasenha', 'Dermatologia clínica', 'Juliana David');
 
 -- --------------------------------------------------------
 
@@ -143,7 +147,7 @@ INSERT INTO `usuarios` (`usuario`, `senha`, `tipo_usuario`, `nome_usuario`) VALU
 CREATE TABLE `usuarios_motivos` (
   `id` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
-  `motivo` varchar(50) NOT NULL
+  `motivo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -228,7 +232,7 @@ ALTER TABLE `dados`
 --
 ALTER TABLE `usuarios_motivos`
   ADD CONSTRAINT `usuarios_motivos_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`),
-  ADD CONSTRAINT `usuarios_motivos_ibfk_2` FOREIGN KEY (`motivo`) REFERENCES `motivos` (`motivo`);
+  ADD CONSTRAINT `usuarios_motivos_ibfk_2` FOREIGN KEY (`motivo`) REFERENCES `motivos` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
