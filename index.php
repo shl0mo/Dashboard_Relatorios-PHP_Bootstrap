@@ -300,52 +300,38 @@
 		</script>
 	</head>
 	<body>
-		<header class="mb-0 bg-color-dark">
+		<header class="mb-0 bg-dark" style="height: 100px;">
 			<nav class="navbar navbar-dark">
 			</nav>
 		</header>
-		<div class="main-container d-flex flex-direction-row h-100 mb-0">
-			<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-			    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-			      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-			      <span class="fs-4">Sidebar</span>
-			    </a>
-			    <hr>
+		<div class="main-container d-flex flex-direction-row h-100 mb-0 w-100">
+			<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-md-2" style="width: 280px;">
 			    <ul class="nav nav-pills flex-column mb-auto">
-			      <li class="nav-item">
-				<a href="#" class="nav-link active" aria-current="page">
-				  <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-				  Home
-				</a>
-			      </li>
+	  		      <hr>
 			      <li>
-				<a href="#" class="nav-link text-white">
+				<a href="#" class="nav-link active text-white">
 				  <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-				  Dashboard
+				  Novo contato
 				</a>
 			      </li>
+			      <hr>
 			      <li>
 				<a href="#" class="nav-link text-white">
 				  <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-				  Orders
+				  Editar
 				</a>
 			      </li>
+			      <hr>
 			      <li>
 				<a href="#" class="nav-link text-white">
 				  <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-				  Products
-				</a>
-			      </li>
-			      <li>
-				<a href="#" class="nav-link text-white">
-				  <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-				  Customers
+				  Relatório
 				</a>
 			      </li>
 			    </ul>
-			    <hr>
 			</div>
-			<form method="post" class="form form-group container pt-5 pb-5 w-100">
+			<div class="w-100 col">
+			<form method="post" class="form form-group container pt-5 pb-5 w-100 col">
 				<div id="form-container" class="form-container justify-center w-75">
 					<div class="form-box row">
 						<label for="date-input">Data</label>
@@ -419,6 +405,7 @@
 			<form method="post">
 				<button type="submit" name="logout" class="btn btn-danger align-self-center w-25 mt-4 p-3">Sair</button>
 			</form>
+			</div>
 		</div>
 	</body>
 </html>

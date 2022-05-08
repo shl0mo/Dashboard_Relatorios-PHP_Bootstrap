@@ -10,7 +10,6 @@
 		
 .main-container form  {
 	border-radius: 15px;
-	box-shadow: var(--box-shadow);
 	display: flex;
 	flex-direction: column;
 }
