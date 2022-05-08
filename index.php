@@ -300,8 +300,16 @@
 		</script>
 	</head>
 	<body>
-		<header class="mb-0 bg-dark" style="height: 100px;">
-			<nav class="navbar navbar-dark">
+		<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
+			<nav class="navbar navbar-dark d-flex flex-direction-column w-100 align-items-center">
+				<div class="container-fluid col w-100">
+					<h1><?php echo 'Dr(a). '.$_SESSION['session'];?></h1>
+				</div>
+				<div class="container-fluid col-md-1 d-flex w-100">
+					<form method="post" class="d-flex align-items-start w-100">
+						<button type="submit" name="logout" class="btn btn-danger text-center p-2 w-100">Sair</button>
+					</form>
+				</div>
 			</nav>
 		</header>
 		<div class="main-container d-flex flex-direction-row h-100 mb-0 w-100">
@@ -327,7 +335,7 @@
 			      </li>
 			      <hr/>
 			      <li>
-				<a href="#" class="nav-link text-white">
+				<a href="./relatorio.php" class="nav-link text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
 					<path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
 					</svg>
@@ -338,80 +346,77 @@
 			    </ul>
 			</div>
 			<div class="w-100 col">
-			<form method="post" class="form form-group container pt-5 pb-5 w-100 col">
-				<div id="form-container" class="form-container justify-center w-75">
-					<div class="form-box row">
-						<label for="date-input">Data</label>
-						<input id="date-input" class="w-100 ml-3 rounded" type="text" name="date" readonly/>
-					</div>
-					<div class="form-box row">
-						<label for="name-input col">Nome completo</label>	
-						<input id="name-input" name="name" class="w-100 ml-3 rounded" type="Text" required/>
-					</div>
-					<div class="form-box row">
-						<label for="phone-input col">Telefone</label>
-						<input id="phone-input col" type="number" name="phone" class="w-100 ml-3 rounded" type="text" required/>
-					</div>
-					<div class="form-box row">
-						<label for="state-select col">Estado</label>
-						<select id="state-select" name="state" class="w-100 ml-3 rounded" onchange="showCities()" required>
-							<option value="">-- Selecione --</option>
-						</select>
-					</div>
-					<div class="form-box row">
-						<label for="city-select">Cidade</label>
-							<select id="city-select" name="city" class="w-100 ml-3 rounded" required>
+				<form method="post" class="form form-group container pt-5 pb-5 w-100 col">
+					<div id="form-container" class="form-container justify-center w-75">
+						<div class="form-box row">
+							<label for="date-input">Data</label>
+							<input id="date-input" class="w-100 ml-3 rounded" type="text" name="date" readonly/>
+						</div>
+						<div class="form-box row">
+							<label for="name-input col">Nome completo</label>	
+							<input id="name-input" name="name" class="w-100 ml-3 rounded" type="Text" required/>
+						</div>
+						<div class="form-box row">
+							<label for="phone-input col">Telefone</label>
+							<input id="phone-input col" type="number" name="phone" class="w-100 ml-3 rounded" type="text" required/>
+						</div>
+						<div class="form-box row">
+							<label for="state-select col">Estado</label>
+							<select id="state-select" name="state" class="w-100 ml-3 rounded" onchange="showCities()" required>
 								<option value="">-- Selecione --</option>
 							</select>
-					</div>
-					<div class="form-box row">
-						<label for="channel-origin">Canal de origem</label>
-							<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
+						</div>
+						<div class="form-box row">
+							<label for="city-select">Cidade</label>
+								<select id="city-select" name="city" class="w-100 ml-3 rounded" required>
+									<option value="">-- Selecione --</option>
+								</select>
+						</div>
+						<div class="form-box row">
+							<label for="channel-origin">Canal de origem</label>
+								<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
+									<option value="">-- Selecione --</option>
+									<option value="Google">Google</option>
+									<option value="Instagram">Instagram</option>
+									<option value="Facebook">Facebook</option>
+									<option value="Doctoralia">Doctoralia</option>
+									<option value="Indicação">Indicação</option>
+									<option value="Já é paciente">Já é paciente</option>
+									<option value="Outros">Outros</option>
+								</select>
+						</div>
+						<div class="form-box row">
+							<label for="contact-type-select">Forma de contato</label>
+								<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded" required>
+									<option value="">-- Selecione --</option>
+									<option>Tipo contato 1</option>
+									<option>Tipo contato 2</option>
+									<option>Tipo contato 2</option>
+								</select>
+						</div>
+						<div  class="form-box row">
+							<label for="status-select">Status</label>
+								<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
+									<option value-"">-- Selecionar --</option>
+									<option value="Agendou">Agendou</option>
+									<option value="Não agendou">Não agendou</option>
+									<option value="Não compareceu">Não compareceu</option>
+									<option value="Cancelou">Cancelou</option>
+								</select>
+						</div>
+						<div id="field-container" class="form-box row">
+							<label for="field">Área</label>
+							<select id="field" name="field" class="w-100 ml-3 rounded" required>
 								<option value="">-- Selecione --</option>
-								<option value="Google">Google</option>
-								<option value="Instagram">Instagram</option>
-								<option value="Facebook">Facebook</option>
-								<option value="Doctoralia">Doctoralia</option>
-								<option value="Indicação">Indicação</option>
-								<option value="Já é paciente">Já é paciente</option>
-								<option value="Outros">Outros</option>
+								<option value="Dermatologia estética">Dermatologia estética</option>
+								<option value="Dermatologia clínica">Dermatologia clínica</option>
 							</select>
+						</div>
+						<div class="button-box row">
+							<button type="submit" name="save" class="btn btn-success align-self-center w-25 mt-4 p-3">Salvar</button>
+						</div>
 					</div>
-					<div class="form-box row">
-						<label for="contact-type-select">Forma de contato</label>
-							<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded" required>
-								<option value="">-- Selecione --</option>
-								<option>Tipo contato 1</option>
-								<option>Tipo contato 2</option>
-								<option>Tipo contato 2</option>
-							</select>
-					</div>
-					<div  class="form-box row">
-						<label for="status-select">Status</label>
-							<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
-								<option value-"">-- Selecionar --</option>
-								<option value="Agendou">Agendou</option>
-								<option value="Não agendou">Não agendou</option>
-								<option value="Não compareceu">Não compareceu</option>
-								<option value="Cancelou">Cancelou</option>
-							</select>
-					</div>
-					<div id="field-container" class="form-box row">
-						<label for="field">Área</label>
-						<select id="field" name="field" class="w-100 ml-3 rounded" required>
-							<option value="">-- Selecione --</option>
-							<option value="Dermatologia estética">Dermatologia estética</option>
-							<option value="Dermatologia clínica">Dermatologia clínica</option>
-						</select>
-					</div>
-					<div class="button-box row">
-						<button type="submit" name="save" class="btn btn-success align-self-center w-25 mt-4 p-3">Salvar</button>
-					</div>
-				</div>
-			</form>
-			<form method="post">
-				<button type="submit" name="logout" class="btn btn-danger align-self-center w-25 mt-4 p-3">Sair</button>
-			</form>
+				</form>
 			</div>
 		</div>
 	</body>
