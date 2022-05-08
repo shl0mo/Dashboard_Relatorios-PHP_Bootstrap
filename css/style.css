@@ -7,16 +7,6 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
-header {
-	background-color: #000;
-	height: 150px;
-	margin-bottom: 90px;
-	color: white;
-	display: flex;
-	align-items: center;
-	padding-left: 5%;
-}
 		
 .main-container form  {
 	border-radius: 15px;
@@ -61,11 +51,7 @@ label {
 	flex-direction: column;
 	justify-content: center;
 }
-			
-.main-container {
-	margin-bottom: 200px;
-}
-			
+				
 .form-container {
 	padding-bottom: 40px;
 }
