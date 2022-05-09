@@ -306,7 +306,7 @@
 					<h1><?php echo 'Dr(a). '.$_SESSION['session'];?></h1>
 				</div>
 				<div class="container-fluid col-md-1 d-flex w-100">
-					<form method="post" class="d-flex align-items-start w-100">
+					<form method="post" class="d-flex w-100">
 						<button type="submit" name="logout" class="btn btn-danger text-center p-2 w-100">Sair</button>
 					</form>
 				</div>
@@ -346,19 +346,21 @@
 			    </ul>
 			</div>
 			<div class="w-100 col">
-				<form method="post" class="form form-group container pt-5 pb-5 w-100 col">
-					<div id="form-container" class="form-container justify-center w-75">
-						<div class="form-box row">
-							<label for="date-input">Data</label>
-							<input id="date-input" class="w-100 ml-3 rounded" type="text" name="date" readonly/>
-						</div>
-						<div class="form-box row">
-							<label for="name-input col">Nome completo</label>	
-							<input id="name-input" name="name" class="w-100 ml-3 rounded" type="Text" required/>
-						</div>
-						<div class="form-box row">
-							<label for="phone-input col">Telefone</label>
-							<input id="phone-input col" type="number" name="phone" class="w-100 ml-3 rounded" type="text" required/>
+				<form method="post" class="form form-group container pt-4 pb-5 w-100 col">
+					<div id="form-container" class="form-container justify-center w-100 pl-5 pr-5">
+						<div class="form-box column">
+							<div class="col d-inline">
+								<label for="date-input">Data</label>
+								<input id="date-input" class="ml-3 rounded" type="text" name="date" readonly/>
+							</div>
+							<div class="col d-inline">
+								<label for="name-input col">Nome completo</label>	
+								<input id="name-input" name="name" class="w-25 ml-3 rounded" type="Text" required/>
+							</div>
+							<div class="col d-inline">
+								<label for="phone-input col">Telefone</label>
+								<input id="phone-input col" type="number" name="phone" class="w-25 ml-3 rounded" type="text" required/>
+							</div>
 						</div>
 						<div class="form-box row">
 							<label for="state-select col">Estado</label>
