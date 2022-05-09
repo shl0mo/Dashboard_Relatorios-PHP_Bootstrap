@@ -413,7 +413,7 @@
 							</select>
 						</div>
 						<div class="button-box row">
-							<button type="submit" name="save" class="btn btn-success align-self-center w-25 mt-4 p-3">Salvar</button>
+							<button type="submit" name="save" class="btn btn-primary align-self-center w-25 mt-4 p-3">Salvar</button>
 						</div>
 					</div>
 				</form>

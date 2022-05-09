@@ -118,7 +118,7 @@
 					</div>
 					<div class="form-box row align-items-center mt-4 w-100">
 						<div class="w-50 flex align-self-center">
-							<button name="register" type="submit" class="btn btn-success w-100 p-2" onclick="verifyCheckbox(event)">Cadastrar</button>
+							<button name="register" type="submit" class="btn btn-primary w-100 p-2" onclick="verifyCheckbox(event)">Cadastrar</button>
 						</div>
 					</div>
 				</form>

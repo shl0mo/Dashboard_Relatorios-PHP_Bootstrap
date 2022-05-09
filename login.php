@@ -42,7 +42,7 @@
 					<input type="password" class="input-login w-100 p-1 rounded" name="password" placeholder="Senha" required/>
 				</div>
 				<div class="w-25 d-flex align-items-center">
-						<button type="submit" name="login" class="btn btn-success w-100 p-1">Entrar</button>
+						<button type="submit" name="login" class="btn btn-primary w-100 p-1">Entrar</button>
 				</div>
 			</form>
 		</div>
