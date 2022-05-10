@@ -84,219 +84,6 @@
 		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 		<link rel="stylesheet" href="./css/style.css"/>
 		<script>
-			const objStates = {
-				list_states: '',
-				UF: ''
-			}
-		
-			function handleSchedule () {
-				const justification = document.querySelector('#justification-select')
-				const justification_label = document.querySelector('[for="justification-select"]') 
-				const justification_others = document.querySelector('#justification-others') 
-				const justification_others_label = document.querySelector('[for="justification-others"]')
-				if (document.contains(justification_others)) {
-					justification_others.remove()
-					justification_others_label.remove()
-				}
-				if (this.value !== 'Não agendou' && this.value !== 'Cancelou' && this.value !== 'Não compareceu') {
-					if (document.contains(justification)) {
-						justification.remove()
-						justification_label.remove()
-					}
-				} else if (this.value === 'Cancelou') {
-					if (document.contains(justification)) {
-						justification.remove()
-						justification_label.remove()
-					}
-					if (!document.contains(justification)) {						
-						const div_justification = document.createElement('div')
-						div_justification.className = 'form-box row'
-						const html = `
-							<label id="label-justification" for="justification-select">Motivo do cancelamento</label>
-								<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
-									<option value="">-- Selecione --</option>
-									<?php
-										foreach ($user_justifications_array as $justification) {			
-											echo '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
-										}
-									?>
-									<option value="Outros">Outros</option>
-								</select>
-						`
-						const select_justification = html.trim()
-						div_justification.innerHTML = select_justification
-						const parent_node = document.querySelector('#form-container')
-						const next_node = document.querySelector('#field-container')
-						parent_node.insertBefore(div_justification, next_node)
-						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
-					}
-				} else if (this.value === 'Não compareceu') {
-					if (document.contains(justification)) {
-						justification.remove()
-						justification_label.remove()
-					}
-					if (!document.contains(justification)) {
-						const div_justification = document.createElement('div')
-						div_justification.className = 'form-box row'
-						const html = `
-							<label id="label-justification" for="justification-select">Motivo da falta</label>
-								<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
-									<option value="">-- Selecione --</option>
-									<?php
-										foreach ($user_justifications_array as $justification) {			
-											echo '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
-										}
-									?>
-									<option value="Outros">Outros</option>
-								</select>
-						`
-						const select_justification = html.trim()
-						div_justification.innerHTML = select_justification
-						const parent_node = document.querySelector('#form-container')
-						const next_node = document.querySelector('#field-container')
-						parent_node.insertBefore(div_justification, next_node)
-						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
-						
-					}
-				} else if (this.value === 'Não agendou') {
-					if (document.contains(justification)) {
-						justification.remove()
-						justification_label.remove()
-					}
-					if (!document.contains(justification)) {
-						const div_justification = document.createElement('div')
-						div_justification.className = 'form-box row'
-						const html = `
-							<label id="label-justification" for="justification-select">Motivo de não ter agendado</label>
-								<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
-									<option value="">-- Selecione --</option>
-									<?php
-										foreach ($user_justifications_array as $justification) {			
-											echo '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
-										}
-									?>
-									<option value="Outros">Outros</option>
-								</select>
-						`
-						const select_justification = html.trim()
-						div_justification.innerHTML = select_justification
-						const parent_node = document.querySelector('#form-container')
-						const next_node = document.querySelector('#field-container')
-						parent_node.insertBefore(div_justification, next_node)
-						document.querySelector('#justification-select').addEventListener('change', handleJustificationOthers, false)
-					}
-				}
-			}
-
-			function  handleJustificationOthers () {
-				let justification_others = document.querySelector('#justification-others') 
-				const justification_others_label = document.querySelector('[for="justification-others"]')
-				if (this.value != 'Outros') {
-					if (document.contains(justification_others)) {
-						justification_others.remove()
-						justification_others_label.remove()
-					}
-				} else {
-					if (!document.contains(justification_others)) {
-						const div_others = document.createElement('div')
-						div_others.className = 'form-box row'
-						const justification_select = document.querySelector('#justification-select')
-						const name_justification = justification_select.name
-						let html = ''
-						if (name_justification === 'justification-schedule') {
-							html = `
-								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
-							`
-						} else if (name_justification === 'justification-cancellation') {
-							html = `
-								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;"></textarea>
-							`
-						} else if (name_justification === 'justification-missing') {
-							html = `
-								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;"></textarea>
-							`
-						}
-						const textarea_others = html.trim()
-						div_others.innerHTML = textarea_others
-						const parent_node = document.querySelector('#form-container')
-						const next_node = document.querySelector('#field-container')
-						parent_node.insertBefore(div_others, next_node)
-
-					}
-				}
-			}
-			
-			function getCities () {
-				const state = document.getElementById('state-select').value
-				if (state !== '') {
-					$.ajax({
-						url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios'
-					})
-					
-				}
-			}
-			
-			function getStates () {
-				return $.ajax({ url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' })
-			}
-			
-			function getCities (UF) {
-				return $.ajax({ url: 'https://servicodados.ibge.gov.br/api/v1/localidades/estados/' + UF + '/municipios' })
-			}
-			
-			function showCities () {
-				const cities = document.querySelectorAll('#city-select option')
-				const city_select = document.getElementById('city-select')
-				const selected_state = document.getElementById('state-select').value
-				for (city of cities) {
-					city_select.remove(city)
-				}
-				let option = document.createElement('option')
-				option.innerHTML = '-- Selecione --'
-				city_select.appendChild(option)		
-				if (selected_state === '') return
-				getStates().then(res => {
-					const selected_state = document.getElementById('state-select').value
-					let UF = ''
-					console.log(selected_state)
-					for (state of res) {
-						if (state.nome == selected_state) {
-							UF = state.sigla
-							getCities(UF).then(res => {
-								for (city of res) {
-									let option_city = document.createElement('option')
-									option_city.innerHTML = city.nome
-									document.getElementById('city-select').appendChild(option_city)
-								}
-							})
-						}
-					}
-				})
-			}
-			
-			const interval = setInterval(() => {
-				if (document.contains(document.querySelector('#status-select'))) {
-						document.querySelector('#status-select').addEventListener('change', handleSchedule, false)
-						let date = new Date()
-						const year = date.getFullYear()
-						let month = date.getMonth() + 1
-						let day = date.getDate()
-						if (String(day).length == 1) day = '0' + day
-						if (String(month).length == 1) month = '0' + month
-						document.querySelector('#date-input').value = day + '/' + month + '/' + year
-						getStates().then(res => {
-							for (state of res) {
-								let option_state = document.createElement('option')
-								option_state.innerHTML = state.nome
-								document.getElementById('state-select').appendChild(option_state)
-							}
-						})
-						clearInterval(interval)
-					}
-			}, 100)	
 		</script>
 	</head>
 	<body>
@@ -347,32 +134,34 @@
 			</div>
 			<div class="w-100 col">
 				<form method="post" class="form form-group container pt-4 pb-5 w-100 col">
-					<div id="form-container" class="form-container justify-center w-100 pl-5 pr-5">
-						<div class="form-box column">
-							<div class="col d-inline">
-								<label for="date-input">Data</label>
-								<input id="date-input" class="ml-3 rounded" type="text" name="date" readonly/>
+					<div id="form-container" class="form-container justify-center w-100 pl-5 pr-5 container">
+						<div class="column">
+							<div class="col-md-3 d-inline">
+									<label for="date-input">Data</label>
+									<input id="date-input" class="ml-3 rounded" type="text" name="date" readonly/>
 							</div>
-							<div class="col d-inline">
+							<div class="col-md-3 d-inline">
 								<label for="name-input col">Nome completo</label>	
 								<input id="name-input" name="name" class="w-25 ml-3 rounded" type="Text" required/>
 							</div>
-							<div class="col d-inline">
+							<div class="col-md-3 d-inline">
 								<label for="phone-input col">Telefone</label>
 								<input id="phone-input col" type="number" name="phone" class="w-25 ml-3 rounded" type="text" required/>
 							</div>
 						</div>
-						<div class="form-box row">
-							<label for="state-select col">Estado</label>
-							<select id="state-select" name="state" class="w-100 ml-3 rounded" onchange="showCities()" required>
-								<option value="">-- Selecione --</option>
-							</select>
-						</div>
-						<div class="form-box row">
-							<label for="city-select">Cidade</label>
-								<select id="city-select" name="city" class="w-100 ml-3 rounded" required>
+						<div class="form-box column">
+							<div class="col-md-2 d-inline w-50">
+								<label for="state-select col">Estado</label>
+								<select id="state-select" name="state" class="ml-3 rounded" onchange="showCities()" required>
 									<option value="">-- Selecione --</option>
 								</select>
+							</div>
+							<div class="col-md-2 d-inline w-50">
+								<label for="city-select">Cidade</label>
+									<select id="city-select" name="city" class="ml-3 rounded" required>
+										<option value="">-- Selecione --</option>
+									</select>
+							</div>
 						</div>
 						<div class="form-box row">
 							<label for="channel-origin">Canal de origem</label>
