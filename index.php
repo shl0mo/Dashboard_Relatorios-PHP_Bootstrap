@@ -83,8 +83,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 		<link rel="stylesheet" href="./css/style.css"/>
-		<script>
-		</script>
+		<script src="./js/scripts.js">
 	</head>
 	<body>
 		<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
