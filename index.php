@@ -133,74 +133,94 @@
 			</div>
 			<div class="w-100 col">
 				<form method="post" class="form form-group container pt-4 pb-5 w-100 col">
-					<div id="form-container" class="form-container justify-center w-100 pl-5 pr-5 container">
+					<div id="form-container" class="form-container w-100 container">
 						<div class="column">
-							<div class="col-md-3 d-inline">
-									<label for="date-input">Data</label>
-									<input id="date-input" class="ml-3 rounded" type="text" name="date" readonly/>
+							<div class="col-md-4 d-inline">
+									<div>
+										<label for="date-input">Data</label>
+									</div>
+									<div>
+										<input id="date-input" class="ml-3 rounded w-100" type="text" name="date" readonly/>
+									</div>
 							</div>
-							<div class="col-md-3 d-inline">
-								<label for="name-input col">Nome completo</label>	
-								<input id="name-input" name="name" class="w-25 ml-3 rounded" type="Text" required/>
+							<div class="col-md-4 d-inline">
+								<div>	
+									<label for="name-input">Nome completo</label>
+								</div>
+								<div>
+									<input id="name-input" name="name" class="w-25 ml-3 rounded w-100" type="Text" required/>
+								</div>
 							</div>
-							<div class="col-md-3 d-inline">
-								<label for="phone-input col">Telefone</label>
-								<input id="phone-input col" type="number" name="phone" class="w-25 ml-3 rounded" type="text" required/>
+							<div class="col-md-4 d-inline">
+								<div>
+									<label for="phone-input">Telefone</label>
+								</div>
+								<div>
+									<input id="phone-input" type="number" name="phone" class="w-25 ml-3 rounded w-100" type="text" required/>
+								</div>
 							</div>
 						</div>
 						<div class="form-box column">
-							<div class="col-md-2 d-inline w-50">
-								<label for="state-select col">Estado</label>
-								<select id="state-select" name="state" class="ml-3 rounded" onchange="showCities()" required>
+							<div class="col-md-6 d-inline w-50">
+								<label for="state-select">Estado</label>
+								<select id="state-select" name="state" class="ml-3 rounded w-100" onchange="showCities()" required>
 									<option value="">-- Selecione --</option>
 								</select>
 							</div>
-							<div class="col-md-2 d-inline w-50">
+							<div class="col-md-6 d-inline w-50">
 								<label for="city-select">Cidade</label>
-									<select id="city-select" name="city" class="ml-3 rounded" required>
+									<select id="city-select" name="city" class="ml-3 rounded w-100" required>
 										<option value="">-- Selecione --</option>
 									</select>
 							</div>
 						</div>
-						<div class="form-box row">
-							<label for="channel-origin">Canal de origem</label>
-								<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
-									<option value="">-- Selecione --</option>
-									<option value="Google">Google</option>
-									<option value="Instagram">Instagram</option>
-									<option value="Facebook">Facebook</option>
-									<option value="Doctoralia">Doctoralia</option>
-									<option value="Indicação">Indicação</option>
-									<option value="Já é paciente">Já é paciente</option>
-									<option value="Outros">Outros</option>
-								</select>
+						<div class="form-box row w-100">
+							<div class="col-md-12 ml-3">
+								<label for="channel-origin">Canal de origem</label>
+									<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
+										<option value="">-- Selecione --</option>
+										<option value="Google">Google</option>
+										<option value="Instagram">Instagram</option>
+										<option value="Facebook">Facebook</option>
+										<option value="Doctoralia">Doctoralia</option>
+										<option value="Indicação">Indicação</option>
+										<option value="Já é paciente">Já é paciente</option>
+										<option value="Outros">Outros</option>
+									</select>
+							</div>
 						</div>
-						<div class="form-box row">
-							<label for="contact-type-select">Forma de contato</label>
-								<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded" required>
-									<option value="">-- Selecione --</option>
-									<option>Tipo contato 1</option>
-									<option>Tipo contato 2</option>
-									<option>Tipo contato 2</option>
-								</select>
+						<div class="form-box row w-100">
+							<div class="col-md-12 ml-3">
+								<label for="contact-type-select">Forma de contato</label>
+									<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded" required>
+										<option value="">-- Selecione --</option>
+										<option>Tipo contato 1</option>
+										<option>Tipo contato 2</option>
+										<option>Tipo contato 2</option>
+									</select>
+							</div>
 						</div>
-						<div  class="form-box row">
-							<label for="status-select">Status</label>
-								<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
-									<option value-"">-- Selecionar --</option>
-									<option value="Agendou">Agendou</option>
-									<option value="Não agendou">Não agendou</option>
-									<option value="Não compareceu">Não compareceu</option>
-									<option value="Cancelou">Cancelou</option>
-								</select>
+						<div  class="form-box row w-100">
+							<div class="col-md-12 ml-3">
+								<label for="status-select">Status</label>
+									<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
+										<option value-"">-- Selecionar --</option>
+										<option value="Agendou">Agendou</option>
+										<option value="Não agendou">Não agendou</option>
+										<option value="Não compareceu">Não compareceu</option>
+										<option value="Cancelou">Cancelou</option>
+									</select>
+							</div>
 						</div>
-						<div id="field-container" class="form-box row">
-							<label for="field">Área</label>
-							<select id="field" name="field" class="w-100 ml-3 rounded" required>
-								<option value="">-- Selecione --</option>
-								<option value="Dermatologia estética">Dermatologia estética</option>
-								<option value="Dermatologia clínica">Dermatologia clínica</option>
-							</select>
+						<div id="field-container" class="form-box row w-100">
+							<div class="col-md-12 ml-3">
+								<label for="field">Área</label>
+									<select id="field" name="field" class="w-100 ml-3 rounded" required>
+										<option value="">-- Selecione --</option>
+										<option value="Dermatologia estética">Dermatologia estética</option>
+										<option value="Dermatologia clínica">Dermatologia clínica</option>
+									</select>
+							</div>
 						</div>
 						<div class="button-box row">
 							<button type="submit" name="save" class="btn btn-primary align-self-center w-25 mt-4 p-3">Salvar</button>
