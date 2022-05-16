@@ -75,20 +75,18 @@
 		</div>
 		<div class="w-100 d-flex container flex-column" style="flex: 1;">
 			<form>
-			<div class="container d-flex flex-row mt-2 mb-2 ml-0 mr-0">
+			<div class="container d-flex flex-row mt-2 mb-2 ml-0 mr-0 w-100">
 					<div class="col-md-9 pl-0 pr-0">
 						<input type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo" name="name-search" required>
 					</div>
-					<div class="col-md-3 bg-primary w-100">
-						<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center flex-grow-1">
-							<div class="mr-2">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-								</svg>
-							</div>
-							Pesquisar
-						</button>
-					</div>
+					<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center" style="width: 100%;">
+						<div class="mr-2">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+							</svg>
+						</div>
+						Pesquisar
+					</button>
 			</div>
 			</form>
 			<?php
