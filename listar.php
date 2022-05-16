@@ -22,10 +22,10 @@
 <head>
 	<meta charset="UTF-8"/>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<link rel="stylesheet" href="./css/style.css"/>
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-	<link rel="stylesheet" href="./css/style.css"/>
 </head>
 <body>
 	<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
@@ -74,37 +74,47 @@
 	 	</ul>
 		</div>
 		<div class="w-100 d-flex container flex-column" style="flex: 1;">
-			<div class="container d-flex flex-row">
-				<div>
-					<input type="text" placeholder="Nome completo">
+			<div class="container d-flex flex-row mt-2 mb-2 ml-0 mr-0">
+				<div class="col-md-9 pl-0 pr-0">
+					<input type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo">
 				</div>
-				<div>
-					<button class="btn btn-primary p-2 ml-1 d-flex h-100 align-items-center">Pesquisar</button>
+				<div class="col-md-3 bg-primary w-100">
+					<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center flex-grow-1">
+						Pesquisar
+					</button>
 				</div>
 			</div>
 			<?php
-				echo '<table>
+				echo '<table class="border rounded">
 					<thead>
-						<th>ID</th>
-						<th>Nome</Nome>
-						<th>Canal de Origem</th>
-						<th>Status</th>
+						<th class="border p-2">Código</th>
+						<th class="border p-2">Nome</Nome>
+						<th class="border p-2">Canal de Origem</th>
+						<th class="border p-2">Status</th>
+						<th class="border text-center p-2">Editar</th>
 					</thead>
 				';
 				foreach ($data_array as $costumer_data) {
 					echo '
 							<tr>
-								<td>
+								<td class="border p-2">
 									<div>'.$costumer_data['id'].'</div>
 								</td>
-								<td>
+								<td class="border p-2">
 									<div>'.$costumer_data['nome'].'</div>
 								</td>
-								<td>
+								<td class="border p-2">
 									<div>'.$costumer_data['canal_origem'].'</div>
 								</td>
-								<td>
-									<div>Editar</div>
+								<td class="border p-2">
+									<div>'.$costumer_data['status'].'</div>
+								</td>
+								<td class="border p-2">
+									<div class="text-center">
+										<a href="./editar/'.$costumer_data['id'].'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+										<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+										</svg></a>
+									</div>
 								</td>
 							</tr>
 					';
