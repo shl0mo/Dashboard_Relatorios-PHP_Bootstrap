@@ -74,22 +74,24 @@
 	 	</ul>
 		</div>
 		<div class="w-100 d-flex container flex-column" style="flex: 1;">
+			<form>
 			<div class="container d-flex flex-row mt-2 mb-2 ml-0 mr-0">
-				<div class="col-md-9 pl-0 pr-0">
-					<input type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo">
-				</div>
-				<div class="col-md-3 bg-primary w-100">
-					<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center flex-grow-1">
-						<div class="mr-2">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-							</svg>
-						</div>
-						Pesquisar
-					</button>
-				</div>
+					<div class="col-md-9 pl-0 pr-0">
+						<input type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo" name="name-search" required>
+					</div>
+					<div class="col-md-3 bg-primary w-100">
+						<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center flex-grow-1">
+							<div class="mr-2">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+								</svg>
+							</div>
+							Pesquisar
+						</button>
+					</div>
 			</div>
-				<?php
+			</form>
+			<?php
 				echo '<table class="border rounded">
 					<thead>
 						<th class="border p-2">Código</th>
@@ -99,6 +101,7 @@
 						<th class="border text-center p-2">Editar</th>
 					</thead>
 				';
+				$i = 0;
 				foreach ($data_array as $costumer_data) {
 					$id = $costumer_data['id'];
 					$name = $costumer_data['nome'];
@@ -106,6 +109,7 @@
 					$status = $costumer_data['status'];
 					$bg_status = '';
 					$text_color = 'text-light';
+					$border_top_status_cel = '';
 					switch ($status) {
 						case 'Agendado':
 							$bg_status = 'bg-success';
@@ -121,10 +125,16 @@
 							$bg_status = 'bg-dark';
 							break;
 					}
+					if ($i != 0 ) $border_top_status_cel = 'border-top';
 					echo '
 							<tr>
+								<form>
 								<td class="border p-2">
-									<div>'.$costumer_data['id'].'</div>
+									<div>
+										<input type="hidden" name="id-edit" value="'.$costumer_data['id'].'">
+										'.$costumer_data['id'].'
+										</input>
+									</div>
 								</td>
 								<td class="border p-2">
 									<div>'.$costumer_data['nome'].'</div>
@@ -132,18 +142,22 @@
 								<td class="border p-2">
 									<div>'.$costumer_data['canal_origem'].'</div>
 								</td>
-								<td class="border p-2 d-flex justify-content-center">
-									<div class="'.$bg_status.' text-center '.$text_color.' w-75 rounded">'.$costumer_data['status'].'</div>
+								<td class="'.$border_top_status_cel.' p-2 d-flex justify-content-center" style="flex: 1;">
+									<div class="'.$bg_status.' text-center '.$text_color.' w-75 rounded my-1 py-1">'.$costumer_data['status'].'</div>
 								</td>
 								<td class="border p-2">
 									<div class="text-center">
-										<a href="./editar/'.$costumer_data['id'].'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-										<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-										</svg></a>
+										<button class="btn btn-link">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+											<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+										</svg>
+										</button>
 									</div>
 								</td>
+								</form>
 							</tr>
 					';
+					$i++;
 				}
 				echo '</table>';
 				?>
