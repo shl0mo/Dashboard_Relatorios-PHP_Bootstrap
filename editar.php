@@ -22,6 +22,15 @@
 	$state = $data_array['estado'];
 	$city = $data_array['cidade'];
 	$channel_origin = $data_array['canal_origem'];
+	$status = $data_array['status'];
+	$justification = '';
+	if ($data_array['motivo_agendamento'] != null) {
+		$justification = $data_array['motivo_agendamento'];
+	} else if ($data_array['motivo_cancelamento'] != null) {
+		$justification = $data_array['motivo_cancelamento'];
+	} else if ($data_array['motivo_comparecimento'] != null) {
+		$justification = $data_array['motivo_comparecimento'];
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -397,14 +406,80 @@
 							<div class="col-md-12 ml-3">
 								<label for="status-select">Status</label>
 									<select id="status-select" name="status" class="w-100 ml-3 rounded" required>
+										<?php
+											$array_select = array_fill(0, 4, '');
+											$div_justification = '';
+											$div_justification_others = '';
+											switch ($status) {
+												case 'Agendado':
+													$array_select[0] = 'selected';
+													break;
+												case 'Não agendado':
+													$array_select[1] = 'selected';
+													$div_justification = '
+													<div  class="form-box row w-100">
+													<div class="col-md-12 w-100 ml-3">
+														<label id="label-justification" for="justification-select">Motivo de não ter agendado</label>
+														<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
+															<option value="">-- Selecione --</option>
+															<?php
+																foreach ($user_justifications_array as $justification) {			
+																	echo \'<option value="'.$justification.'">'.$justification.'</option>\';
+																}
+															?>
+															<option value="Outros">Outros</option>
+														</select>
+													</div>
+													</div>
+													';
+													break;
+												case 'Não compareceu':
+													$array_select[2] = 'selected';
+													$div_justification = '
+													<div class="form-box row w-100">
+													<div class="col-md-12 w-100 ml-3">
+													<label id="label-justification" for="justification-select">Motivo da falta</label>
+														<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
+															<option value="">-- Selecione --</option>
+															<?php
+																foreach ($user_justifications_array as $justification) {			
+																	echo \'<option value="'.$justification.'">'.$justification.'</option>\';
+																}
+															?>
+															<option value="Outros">Outros</option>
+														</select>
+													</div>
+													</div>
+													';
+													break;
+												case 'Cancelado':
+													$array_select[3] = 'selected';
+													$div_justification = '
+													<div class="form-box row w-100">
+													<div class="col-md-12 w-100 ml-3">
+													<label id="label-justification" for="justification-select">Motivo do cancelamento</label>
+														<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
+															<option value="">-- Selecione --</option>
+													<option value="'.$justification.'" selected>'.$justification.'</option>
+													<option value="Outros">Outros</option>
+														</select>
+													</div>
+													</div>
+													';
+													break;
+											}
+										?>
 										<option value-"">-- Selecionar --</option>
-										<option value="Agendou">Agendou</option>
-										<option value="Não agendou">Não agendou</option>
-										<option value="Não compareceu">Não compareceu</option>
-										<option value="Cancelou">Cancelou</option>
+										<option value="Agendou" <?php echo $array_select[0]?>>Agendou</option>
+										<option value="Não agendou" <?php echo $array_select[1]?>>Não agendou</option>
+										<option value="Não compareceu" <?php echo $array_select[2]?>>Não compareceu</option>
+										<option value="Cancelou" <?php echo $array_select[3]?>>Cancelou</option>
 									</select>
 							</div>
 						</div>
+						<?php
+							echo $div_justification;
+						?>
 						<div id="field-container" class="form-box row w-100">
 							<div class="col-md-12 ml-3">
 								<label for="field">Área</label>
