@@ -14,66 +14,14 @@
 	}
 
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
-	$query = $pdo->prepare('SELECT B.motivo FROM (SELECT * FROM usuarios JOIN usuarios_motivos USING(usuario) WHERE usuario = "'.$_SESSION['session'].'") AS A JOIN motivos AS B ON A.motivo = B.id');
-	$query->execute();
-	$user_justifications_array = $query->fetchAll();
-	if (isset($_POST['save'])) {
-		$date = $_POST['date'];
-		$name = $_POST['name'];
-		$phone = $_POST['phone'];	
-		$state = $_POST['state'];
-		$city = $_POST['city'];
-		$channel = $_POST['channel'];
-		$contact_type = $_POST['contact-type'];
-		$status = $_POST['status'];
-		switch ($status) {
-			case 'Agendou':
-				$status = 'Agendado';
-				break;
-			case 'Não agendou':
-				$status = 'Não agendado';
-				break;
-			case 'Cancelou':
-				$status = 'Cancelado';
-				break;
-		}
-		$justification_schedule = null;
-		$justification_cancellation = null;
-		$justification_missing = null;
-		foreach ($_POST as $key => $value) {
-			if (strpos($key, 'justification') !== false) {
-				switch ($key) {
-					case $key == 'justification-schedule':
-						$justification_schedule = $_POST['justification-schedule'];
-						break;
-					case $key == 'justification-cancellation':
-						$justification_cancellation = $_POST['justification-cancellation'];
-						break;
-					case $key == 'justification-missing':
-						$justification_missing = $_POST['justification-missing'];
-						break;
-				}
-			}
-		}
-		$others_schedule = null;
-		$others_cancellation = null;
-		$others_missing = null;
-		if ($justification_schedule == 'Outros') {
-			$others_schedule = $_POST['others-schedule'];
-		} else if ($justification_cancellation == 'Outros') {
-			$others_cancellation = $_POST['others-cancellation'];
-		} else if ($justification_missing == 'Outros') {
-			$others_missing = $_POST['others-missing'];
-		}
-		$session = $_SESSION['session'];
-		$field = $_POST['field'];
-		$id_query = $pdo->prepare('SELECT * FROM dados');
-		$id_query->execute();
-		$id_array = $id_query->fetchAll();
-		$insert_data = $pdo->prepare('INSERT INTO dados(id, data_agendamento, nome, telefone, estado, cidade, canal_origem, tipo_contato, status, area, fk_usuario,  motivo_agendamento, motivo_cancelamento, motivo_comparecimento, outros_agendamento, outros_cancelamento, outros_comparecimento) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
-		$insert_data->execute(array(count($id_array) + 1, $date, $name, $phone, $state, $city, $channel, $contact_type, $status, $field, $session, $justification_schedule, $justification_cancellation, $justification_missing, $others_schedule, $others_cancellation, $others_missing));
-		echo '<script>alert("Cliente inserido com sucesso")</script>';
-	}
+	$query = $pdo->prepare('SELECT * FROM dados WHERE id = ?');
+	$query->execute(array($_POST['id-edit']));
+	$data_array = $query->fetchAll()[0];
+	$name = $data_array['nome'];
+	$phone = $data_array['telefone'];
+	$state = $data_array['estado'];
+	$city = $data_array['cidade'];
+	$channel_origin = $data_array['canal_origem'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -322,7 +270,7 @@
 			    <ul class="nav nav-pills flex-column mb-auto">
 	  		      <hr>
 			      <li>
-				<a href="./" class="nav-link active text-white">
+				<a href="./" class="nav-link text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
 					<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 					</svg>
@@ -331,7 +279,7 @@
 			      </li>
 			      <hr/>
 			      <li>
-				<a href="./listar.php" class="nav-link text-white">
+				<a href="./listar.php" class="nav-link active text-white">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 					<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
 					</svg>
@@ -367,7 +315,7 @@
 									<label for="name-input">Nome completo</label>
 								</div>
 								<div>
-									<input id="name-input" type="text" name="name" class="w-25 ml-3 rounded w-100" placeholder="Ex.: João da Silva" required/>
+									<input id="name-input" type="text" name="name" class="w-25 ml-3 rounded w-100" placeholder="Ex.: João da Silva"  value="<?php echo $name?>" required/>
 								</div>
 							</div>
 							<div class="col-md-4 d-inline">
@@ -375,7 +323,7 @@
 									<label for="phone-input">Telefone</label>
 								</div>
 								<div>
-									<input id="phone-input" type="number" name="phone" class="w-25 ml-3 rounded w-100" placeholder="11999999999" required/>
+									<input id="phone-input" type="number" name="phone" class="w-25 ml-3 rounded w-100" placeholder="11999999999" value="<?php echo $phone?>" required/>
 								</div>
 							</div>
 						</div>
@@ -383,13 +331,13 @@
 							<div class="col-md-6 d-inline w-50">
 								<label for="state-select">Estado</label>
 								<select id="state-select" name="state" class="ml-3 rounded w-100" onchange="showCities()" required>
-									<option value="">-- Selecione --</option>
+									<option value="<?php echo $state?>"><?php echo $state?></option>
 								</select>
 							</div>
 							<div class="col-md-6 d-inline w-50">
 								<label for="city-select">Cidade</label>
 									<select id="city-select" name="city" class="ml-3 rounded w-100" required>
-										<option value="">-- Selecione --</option>
+										<option value="<?php echo $city?>"><?php echo $city?></option>
 									</select>
 							</div>
 						</div>
@@ -397,14 +345,40 @@
 							<div class="col-md-12 ml-3">
 								<label for="channel-origin">Canal de origem</label>
 									<select id="channel-origin" name="channel" class="w-100 ml-3 rounded" required>
+										<?php
+											$array_select = array_fill(0, 7, '');
+											switch ($channel_origin) {
+												case 'Google':
+													$array_select[0] = 'selected';
+													break;
+												case 'Instagram':
+													$array_select[1] = 'selected';
+													break;
+												case 'Facebook':
+													$array_select[2] = 'selected';
+													break;
+												case 'Doctoralia':
+													$array_select[3] = 'selected';
+													break;
+												case 'Indicação':
+													$array_select[4] = 'selected';
+													break;
+												case 'Já é paciente':
+													$array_select[5] = 'selected';
+													break;
+												case 'Outros':
+													$array_select[6] = 'selected';
+													break;
+											}
+										?>
 										<option value="">-- Selecione --</option>
-										<option value="Google">Google</option>
-										<option value="Instagram">Instagram</option>
-										<option value="Facebook">Facebook</option>
-										<option value="Doctoralia">Doctoralia</option>
-										<option value="Indicação">Indicação</option>
-										<option value="Já é paciente">Já é paciente</option>
-										<option value="Outros">Outros</option>
+										<option value="Google" <?php echo $array_select[0]?>>Google</option>
+										<option value="Instagram" <?php echo $array_select[1]?>>Instagram</option>
+										<option value="Facebook" <?php echo $array_select[2]?>>Facebook</option>
+										<option value="Doctoralia" <?php echo $array_select[3]?>>Doctoralia</option>
+										<option value="Indicação" <?php echo $array_select[4]?>>Indicação</option>
+										<option value="Já é paciente" <?php echo $array_select[5]?>>Já é paciente</option>
+										<option value="Outros" <?php echo $array_select[6]?>>Outros</option>
 									</select>
 							</div>
 						</div>

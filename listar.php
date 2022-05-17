@@ -127,7 +127,7 @@
 						if ($i != 0) $border_top_status_cel = 'border-top';
 						echo '
 								<tr>
-									<form>
+									<form method="post" action="./editar.php">
 									<td class="border p-2">
 										<div>
 											<input type="hidden" name="id-edit" value="'.$costumer_data['id'].'">
@@ -162,33 +162,33 @@
 				} else {
 					$i = 0;	
 					foreach ($data_array as $costumer_data) {
-						if ($costumer_data['nome'] == $_GET['name-search']) {
-						$id = $costumer_data['id'];
-						$name = $costumer_data['nome'];
-						$channel_origin = $costumer_data['canal_origem'];
-						$status = $costumer_data['status'];
-						$bg_status = '';
-						$text_color = 'text-light';
-						$border_top_status_cel = '';
-						switch ($status) {
-							case 'Agendado':
-								$bg_status = 'bg-success';
-								break;
-							case 'Não agendado':
-								$bg_status = 'bg-warning';
-								$text_color = 'text-dark';
-								break;
-							case 'Cancelado':
-								$bg_status = 'bg-danger';
-								break;
-							case 'Não compareceu':
-								$bg_status = 'bg-dark';
-								break;
+						if (strpos(strtolower($_GET['name-search']), strtolower($costumer_data['nome'])) !== false) {
+							$id = $costumer_data['id'];
+							$name = $costumer_data['nome'];
+							$channel_origin = $costumer_data['canal_origem'];
+							$status = $costumer_data['status'];
+							$bg_status = '';
+							$text_color = 'text-light';
+							$border_top_status_cel = '';
+							switch ($status) {
+								case 'Agendado':
+									$bg_status = 'bg-success';
+									break;
+								case 'Não agendado':
+									$bg_status = 'bg-warning';
+									$text_color = 'text-dark';
+									break;
+								case 'Cancelado':
+									$bg_status = 'bg-danger';
+									break;
+								case 'Não compareceu':
+									$bg_status = 'bg-dark';
+									break;
 						}
 						if ($i != 0) $border_top_status_cel = 'border-top';
 							echo '
 								<tr>
-									<form>
+									<form method="post" action="./editar.php">
 									<td class="border p-2">
 										<div>
 											<input type="hidden" name="id-edit" value="'.$costumer_data['id'].'">
