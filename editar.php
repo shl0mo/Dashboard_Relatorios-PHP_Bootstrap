@@ -409,7 +409,6 @@
 										<?php
 											$array_select = array_fill(0, 4, '');
 											$div_justification = '';
-											$div_justification_others = '';
 											switch ($status) {
 												case 'Agendado':
 													$array_select[0] = 'selected';
@@ -479,6 +478,39 @@
 						</div>
 						<?php
 							echo $div_justification;
+							if ($justification == 'Outros') {
+								$div_justification_others = '
+									<div class="form-box row w-100">
+										<div class="col-md-12 w-100 ml-3">
+								';
+								switch ($status) {
+									case 'Não agendado':
+										$div_justification_others .= '
+											<label for="justification-others">Especifique o motivo</label>
+												<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
+											</div>
+										</div>';
+										echo $div_justification_others;
+										break;
+									case 'Não compareceu':
+										$div_justification_others .= '
+											<label for="justification-others">Especifique o motivo</label>
+												<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;"></textarea>
+											</div>
+										</div>';
+										echo $div_justification_others;
+										break;
+									case 'Cancelado':
+										$div_justification_others .= ' 
+											<label for="justification-others">Especifique o motivo</label>
+												<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;"></textarea>
+											</div>
+										</div>';
+										echo $div_justification_others;
+										break;
+								}
+							}
+
 						?>
 						<div id="field-container" class="form-box row w-100">
 							<div class="col-md-12 ml-3">
