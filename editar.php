@@ -421,16 +421,14 @@
 														<label id="label-justification" for="justification-select">Motivo de não ter agendado</label>
 														<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
 															<option value="">-- Selecione --</option>
-															<?php
-																foreach ($user_justifications_array as $justification) {			
-																	echo \'<option value="'.$justification.'">'.$justification.'</option>\';
-																}
-															?>
-															<option value="Outros">Outros</option>
+															<option value="'.$justification.'" selected>'.$justification.'</option>';
+													foreach ($user_justifications_array as $justification) {		
+														$div_justification .= '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
+													}
+													$div_justification .= '<option value="Outros">Outros</option>;
 														</select>
 													</div>
-													</div>
-													';
+													</div>';
 													break;
 												case 'Não compareceu':
 													$array_select[2] = 'selected';
@@ -440,16 +438,14 @@
 													<label id="label-justification" for="justification-select">Motivo da falta</label>
 														<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
 															<option value="">-- Selecione --</option>
-															<?php
-																foreach ($user_justifications_array as $justification) {			
-																	echo \'<option value="'.$justification.'">'.$justification.'</option>\';
-																}
-															?>
-															<option value="Outros">Outros</option>
+															<option value="'.$justification.'" selected>'.$justification.'</option>';
+													foreach ($user_justifications_array as $justification) {		
+														$div_justification .= '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
+													}
+													$div_justification .= '<option value="Outros">Outros</option>
 														</select>
 													</div>
-													</div>
-													';
+													</div>';
 													break;
 												case 'Cancelado':
 													$array_select[3] = 'selected';
@@ -459,12 +455,14 @@
 													<label id="label-justification" for="justification-select">Motivo do cancelamento</label>
 														<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
 															<option value="">-- Selecione --</option>
-													<option value="'.$justification.'" selected>'.$justification.'</option>
-													<option value="Outros">Outros</option>
+															<option value="'.$justification.'" selected>'.$justification.'</option>';
+													foreach ($user_justifications_array as $justification) {		
+														$div_justification .= '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
+													}
+													$div_justification .= '<option value="Outros">Outros</option>
 														</select>
 													</div>
-													</div>
-													';
+													</div>';
 													break;
 											}
 										?>
