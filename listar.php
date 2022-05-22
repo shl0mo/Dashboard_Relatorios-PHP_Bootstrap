@@ -29,8 +29,8 @@
 	<script>
 		function defineWindowHeight () {
 			const window_height = window.screen.height
-			const sidebar = document.querySelector('#sidebar')
-			sidebar.style.height = window_height + 'px'
+			const body = document.getElementsByName('body')
+			sidebar.style.minHeight = window_height + 50 + 'px'
 		}
 	</script>
 </head>
