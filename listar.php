@@ -28,9 +28,12 @@
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 	<script>
 		function defineWindowHeight () {
+			const body = document.getElementsByTagName('body')[0]
+			const sidebar = document.querySelector('#sidebar')
 			const window_height = window.screen.height
-			const body = document.getElementsByName('body')
-			sidebar.style.minHeight = window_height + 50 + 'px'
+			const new_window_height = window_height + 40 + 'px'
+			body.style.height = new_window_height
+			sidebar.style.height = new_window_height
 		}
 	</script>
 </head>
@@ -65,7 +68,7 @@
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 				<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
 				</svg>
-			  Editar
+			  Editar contato
 			</a>
 		      </li>
 		      <hr/>
@@ -86,7 +89,7 @@
 					<div class="col-md-9 pl-0 pr-0">
 						<input type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo" name="name-search" required>
 					</div>
-					<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center" name="search">
+					<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center" name="search" style="border-radius: 0 5px 5px 0;">
 						<div class="mr-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
