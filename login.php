@@ -27,7 +27,7 @@
 			}
 		</script>
 </head>
-<body>
+<body class="h-100">
 	<div class="main-container-login container w-25 p-5 border rounded">
 		<div class="row">
 			<h4 class="pb-3">Login</h4>
