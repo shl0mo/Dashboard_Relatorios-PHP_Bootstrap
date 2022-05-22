@@ -35,6 +35,17 @@
 			body.style.height = new_window_height
 			sidebar.style.height = new_window_height
 		}
+
+		function contactNotFound () {
+			const table = document.querySelector('table')
+			table.remove()
+			const not_found_div = document.createElement('div')
+			not_found_div.className = 'text-center mt-5'
+			const not_found_message = document.createElement('h2')
+			not_found_message.innerText = 'Contato não encontrado'
+			not_found_div.appendChild(not_found_message)
+			document.querySelector('#content-container').appendChild(not_found_div)
+		}
 	</script>
 </head>
 <body onload="defineWindowHeight()">
@@ -83,7 +94,7 @@
 	              <hr/>
 	 	</ul>
 		</div>
-		<div class="w-100 d-flex container flex-column" style="flex: 1;">
+		<div id="content-container" class="w-100 d-flex container flex-column" style="flex: 1;">
 			<form>
 			<div class="container d-flex flex-row mt-2 mb-2 ml-0 mr-0 w-100">
 					<div class="col-md-9 pl-0 pr-0">
@@ -170,9 +181,11 @@
 					}
 					echo '</table>';
 				} else {
-					$i = 0;	
+					$i = 0;
+					$found = false;
 					foreach ($data_array as $costumer_data) {
 						if (strpos(strtolower($_GET['name-search']), strtolower($costumer_data['nome'])) !== false) {
+							$found = true;
 							$id = $costumer_data['id'];
 							$name = $costumer_data['nome'];
 							$channel_origin = $costumer_data['canal_origem'];
@@ -194,8 +207,8 @@
 								case 'Não compareceu':
 									$bg_status = 'bg-dark';
 									break;
-						}
-						if ($i != 0) $border_top_status_cel = 'border-top';
+							}
+							if ($i != 0) $border_top_status_cel = 'border-top';
 							echo '
 								<tr>
 									<form method="post" action="./editar.php">
@@ -231,6 +244,9 @@
 						}
 					}
 					echo '</table>';
+					if (!$found) {
+						echo '<script>contactNotFound()</script>';
+					}
 				}
 				?>
 		</div>
