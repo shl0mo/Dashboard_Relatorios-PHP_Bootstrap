@@ -174,13 +174,48 @@
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	<link rel="stylesheet" href="./css/style.css"/>
 	<style>
+		table {
+			width: 65%;
+			align-self: center;
+			margin-bottom: 50px;
+		}
+
+		table li {
+			font-size: 20px;
+		}
+
 		.graph {
 			display: flex;
 			align-self: center;
 			min-height: 370px;
 			width: 70%;
-			margin: 30px 0px;
-			
+			margin: 30px 0px;	
+		}
+		
+		.container-relatory {
+			display: flex;
+			flex-direction: column;
+		}		
+
+		.container-relatory h1 {
+			font-size: 30px;
+			display: flex;
+			align-self: center;
+		}
+
+		.container-relatory h2 {
+			font-size: 25px;
+			align-self: center;
+			margin-top: 20px;
+		}
+
+		.channels-table {
+			width: 40%;
+		}
+		
+		.channels-table td {
+			font-size: 20px;
+			padding: 8px;
 		}
 	</style>
 	<script>
@@ -371,67 +406,109 @@
 	<div class="container-relatory">
 		<h1>Outros motivos para o não agendamento</h1>
 		<?php
+			echo '<table>';
+			echo '<ul>';
 			foreach ($data as $value) {
 				if ($value['outros_agendamento'] != null) {
-					echo '<h2>'.$value['outros_agendamento'].'</h2>';
+					echo '
+						<tr>
+							<td><li>'.$value['outros_agendamento'].'</li></td>
+						</tr>
+					';
 				}
 			}
+			echo '</ul>';
+			echo '</table>';
 		?>
 	</div>
 	<div class="container-relatory">
 		<h1>Motivos de cancelamento</h1>
 		<?php
+			echo '<table>';
+			echo '<ul>';
 			foreach ($data as $value) {
 				if ($value['motivo_cancelamento'] != null) {
-					echo '<h2>'.$value['motivo_cancelamento'].'</h2>';
+					echo '
+						<tr>
+							<td><li>'.$value['motivo_cancelamento'].'</li></td>
+						</tr>
+					';
 				}
 			}
+			echo '</ul>';
+			echo '</table>';
 		?>
 	</div>
 	<div class="container-relatory">
 		<h1>Outros motivos para o não comparecimento</h1>
 		<?php
+			echo '<table>';
+			echo '<ul>';
 			foreach ($data as $value) {
 				if ($value['motivo_comparecimento'] != null) {
-					echo '<h2>'.$value['motivo_comparecimento'].'</h2>';
+					echo '
+						<tr>
+							<td><li>'.$value['motivo_comparecimento'].'</li></td>
+						</tr>
+					';
 				}
 			}
+			echo '</ul>';
+			echo '</table>';
 		?>
 	</div>
-	<h1>Relatório de canais</h1>
-	<?php
-		$i = 0;
-		foreach ($unique_channels as $key => $value) {
-			echo '<h2>'.$unique_channels[$key].'</h2>';
-			echo '<h3>Total de contatos: '.$total_channels[$i].'</h3>';
-			echo '<h3>Total de agendamentos: '.$total_channels_schedules[$i].'</h3>';
-			echo '<h3>Taxa de agendamento: '.round($total_channels_schedules[$i]/$total_channels[$i] * 100, 2).'%</h3>';
-			if (count($dataPoints_channels_justifications[$i	]) > 0) {
-				echo '					
-					<div id="justification-'.$unique_channels[$key].'-chartContainer" class="graph"></div>
-					<script>
-									
-						const justification_'.$unique_channels[$key].'_chart = new CanvasJS.Chart(\'justification-'.$unique_channels[$key].'-chartContainer\', {
-							title: {
-								text: \'Gráfico de setores das porcentagens dos motivos de não agendamento\'
-							},
-							data: [{
-								type: \'pie\',
-								yValueFormatString: "#,##0.00%",
-								indexLabel: "{label} ({y})",
-								dataPoints: '.json_encode($dataPoints_channels_justifications[$i], JSON_NUMERIC_CHECK).'
-							}]
-						})
-
-						justification_'.$unique_channels[$key].'_chart.render()
-					</script>
+	<div class="container-relatory">
+		<h1>Relatório de canais</h1>
+		<?php
+			$i = 0;
+			foreach ($unique_channels as $key => $value) {
+				echo '<h2>'.$unique_channels[$key].'</h2>';
+				echo '<table class="channels-table border">';
+				echo '
+					<tr>
+						<td class="border">Total de contatos</td> <td class="border">'.$total_channels[$i].'</td>
+					</tr>
 				';
-			} else {
-				echo '<h3>Não agendamentos não constam</h3>';
+				echo '
+					<tr>
+						<td class="border">Total de agendamentos</td> <td class="border">'.$total_channels_schedules[$i].'</td>
+					</tr>
+				';
+				echo '
+					<tr>
+						<td class="border">Taxa de agendamento</td> <td class="border">'.round($total_channels_schedules[$i]/$total_channels[$i] * 100, 2).'%</td>
+					</tr>
+				';
+				echo '
+					<tr>
+						<td class="border">Total de não agendamentos</td> <td class="border">'.count($dataPoints_channels_justifications[$i]).'</td>
+					</tr>
+				';
+				if (count($dataPoints_channels_justifications[$i]) > 0) {
+					echo '</table>';
+					echo '					
+						<div id="justification-'.$unique_channels[$key].'-chartContainer" class="graph"></div>
+						<script>				
+							const justification_'.$unique_channels[$key].'_chart = new CanvasJS.Chart(\'justification-'.$unique_channels[$key].'-chartContainer\', {
+								title: {
+									text: \'Gráfico de setores das porcentagens dos motivos de não agendamento\'
+								},
+								data: [{
+									type: \'pie\',
+									yValueFormatString: "#,##0.00%",
+									indexLabel: "{label} ({y})",
+									dataPoints: '.json_encode($dataPoints_channels_justifications[$i], JSON_NUMERIC_CHECK).'
+								}]
+							})
+							justification_'.$unique_channels[$key].'_chart.render()
+						</script>
+					';
+				}
+				echo '</table>';
+				$i++;
 			}
-			$i++;
-		}
-	?>
+		?>
+		</div>
 	</div>
 	</div>
 </body>	
