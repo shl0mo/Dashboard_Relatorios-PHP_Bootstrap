@@ -52,7 +52,7 @@
 	<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
 		<nav class="navbar navbar-dark d-flex flex-direction-column w-100 align-items-center">
 			<div class="container-fluid col w-100 text-light">
-				<h1><?php echo 'Dr(a). '.$_SESSION['session'];?></h1>
+				<h1><?php echo '&bull; Dr. '.$_SESSION['name'];?></h1>
 			</div>
 			<div class="container-fluid col-md-1 d-flex w-100">
 				<form method="post" class="d-flex w-100">

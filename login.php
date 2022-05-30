@@ -56,10 +56,12 @@
 		$password = $_POST['password'];
 		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$user.'" AND senha = "'.$password.'"');
 		$query->execute();
-		$data = $query->fetchAll();
+		$data = $query->fetchAll()[0];
 		if (count($data) > 0) {
 			$_SESSION['session'] = $user;
+			$_SESSION['name'] = $data['nome_usuario'];
 			echo '<h1>Logado com sucesso</h1>';
+			echo var_dump();
 			if ($_SESSION['session'] != 'admin') {
 				header('Location: http://localhost/Relatorios');
 			} else {

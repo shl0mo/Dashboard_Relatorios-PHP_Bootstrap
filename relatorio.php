@@ -36,17 +36,6 @@
 	$cancellation_rate = round($total_cancellations/$total_contacts * 100, 2);
 	$missing_rate = round($total_missings/$total_contacts *100, 2);
 	
-	/*echo '<h1>Números principais</h1>';
-	echo '<h2>Total agendamentos: '.$total_schedules.'</h2>';
-	echo '<h2>Taxa de agendamento: '.$schedule_rate.'%</h2>';
-	echo '<h2>Número de cancelamentos: '.$total_cancellations.'</h2>';
-	echo '<h2>Taxa de cancelamento: '.$cancellation_rate.'%</h2>';
-	echo '<h2>Número de não comparecimentos: '.$total_missings.'</h2>';
-	echo '<h2>Taxa de não comparecimeto '.$missing_rate.'%</h2>';
-	echo '<h1>Números secundários (demartologista)</h1>';
-	echo '<h2>Número de agendamentos - Dermatologia Clínica: '.$clinical_schedules.'<h2>';
-	echo '<h2>Número de agendamentos - Dermatologia Estética: '.$stetical_schedules.'<h2>';*/
-
 	$dates = array();
 	$channels = array();
 	$cities = array();
@@ -353,7 +342,7 @@
 	<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
 		<nav class="navbar navbar-dark d-flex flex-direction-column w-100 align-items-center">
 			<div class="container-fluid col w-100 text-light">
-				<h1><?php echo 'Dr(a). '.$_SESSION['session'];?></h1>
+				<h1><?php echo '&bull; Dr. '.$_SESSION['name'];?></h1>
 			</div>
 			<div class="container-fluid col-md-1 d-flex w-100">
 				<form method="post" class="d-flex w-100">
@@ -395,6 +384,19 @@
 	              <hr/>
 	 	</ul>
 		</div>
+	<div>
+	<h1>Números principais</h1>'
+	<h2>Total agendamentos: <?php echo $total_schedules ?></h2>
+	<h2>Taxa de agendamento: <?php echo $schedule_rate.'%'?> </h2>
+	<h2>Número de cancelamentos: <?php $total_cancellations?></h2>
+	<h2>Taxa de cancelamento: <?php $cancellation_rate.'%'?></h2>
+	<h2>Número de não comparecimentos: <?php $total_missings?></h2>
+	<h2>Taxa de não comparecimeto <?php $missing_rate.'%'?></h2>
+	<h1>Números secundários (demartologista)</h1>
+	<h2>Número de agendamentos - Dermatologia Clínica: <?php $clinical_schedules?><h2>
+	<h2>Número de agendamentos - Dermatologia Estética: <?php $stetical_schedules?><h2>
+	</div>
+
 	<div class="w-100 d-flex justify-content-center flex-column">
 	<div id="contacts-schedules-chartContainer" class="graph"></div>
 	<div id="channels-total-chartContainer" class="graph"></div>
