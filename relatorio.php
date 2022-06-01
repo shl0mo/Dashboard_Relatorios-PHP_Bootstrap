@@ -387,11 +387,11 @@
 	<div>
 	<h1>Números principais</h1>'
 	<h2>Total agendamentos: <?php echo $total_schedules ?></h2>
-	<h2>Taxa de agendamento: <?php echo $schedule_rate.'%'?> </h2>
-	<h2>Número de cancelamentos: <?php $total_cancellations?></h2>
-	<h2>Taxa de cancelamento: <?php $cancellation_rate.'%'?></h2>
-	<h2>Número de não comparecimentos: <?php $total_missings?></h2>
-	<h2>Taxa de não comparecimeto <?php $missing_rate.'%'?></h2>
+	<h2>Taxa de agendamento: <?php echo $schedule_rate.'%' ?> </h2>
+	<h2>Número de cancelamentos: <?php $total_cancellations ?></h2>
+	<h2>Taxa de cancelamento: <?php $cancellation_rate.'%' ?></h2>
+	<h2>Número de não comparecimentos: <?php $total_missings ?></h2>
+	<h2>Taxa de não comparecimeto <?php $missing_rate.'%' ?></h2>
 	<h1>Números secundários (demartologista)</h1>
 	<h2>Número de agendamentos - Dermatologia Clínica: <?php $clinical_schedules?><h2>
 	<h2>Número de agendamentos - Dermatologia Estética: <?php $stetical_schedules?><h2>
