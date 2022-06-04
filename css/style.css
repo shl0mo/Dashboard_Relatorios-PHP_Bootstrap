@@ -87,9 +87,3 @@ label {
 .data-list-table, .data-list-table tr, .data-list-table td {
 	border: 1px solid black !important;
 }
-
-.table-container {
-	width: 100%;
-	display: flex;
-	justify-self: center;
-}

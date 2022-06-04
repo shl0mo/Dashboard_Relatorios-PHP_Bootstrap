@@ -4,6 +4,11 @@
 		header('Location: http://localhost/Relatorios/login.php');
 		exit();	
 	}
+	if (isset($_POST['logout'])) {
+		session_destroy();
+		header('Location: http://localhost/Relatorios/login.php');
+		exit();
+	}
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	$query = $pdo->prepare('SELECT * FROM dados WHERE fk_usuario = "'.$_SESSION['session'].'";');
 	$query->execute();
