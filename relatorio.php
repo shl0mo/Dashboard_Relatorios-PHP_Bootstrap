@@ -384,20 +384,56 @@
 	              <hr/>
 	 	</ul>
 		</div>
-	<div>
-	<h1>Números principais</h1>'
-	<h2>Total agendamentos: <?php echo $total_schedules ?></h2>
-	<h2>Taxa de agendamento: <?php echo $schedule_rate.'%' ?> </h2>
-	<h2>Número de cancelamentos: <?php $total_cancellations ?></h2>
-	<h2>Taxa de cancelamento: <?php $cancellation_rate.'%' ?></h2>
-	<h2>Número de não comparecimentos: <?php $total_missings ?></h2>
-	<h2>Taxa de não comparecimeto <?php $missing_rate.'%' ?></h2>
-	<h1>Números secundários (demartologista)</h1>
-	<h2>Número de agendamentos - Dermatologia Clínica: <?php $clinical_schedules?><h2>
-	<h2>Número de agendamentos - Dermatologia Estética: <?php $stetical_schedules?><h2>
-	</div>
 
 	<div class="w-100 d-flex justify-content-center flex-column">
+		<div>
+			<div class="d-flex flex-column justify-center text-center mt-5">
+				<h2>Números principais</h2>
+				<table class="channels-table border">
+					<tbody>
+					<tr>
+						<td class="border text-left">Total agendamentos</td>
+						<td class="border"><?php echo $total_schedules ?></td>
+					</tr>
+					<tr>
+						<td class="border text-left">Taxa de agendamento</td>
+						<td class="border"><?php echo $schedule_rate.'%' ?></td>
+					</tr>
+					<tr>
+						<td class="border text-left">Número de cancelamentos</td>
+						<td class="border"><?php echo $total_cancellations ?></td>
+					</tr>
+					<tr>
+						<td class="border text-left">Taxa de cancelamento</td>
+						<td class="border"><?php echo $cancellation_rate.'%' ?></td>
+					</tr>
+					<tr>
+						<td class="border text-left">Número de não comparecimentos</td>
+						<td class="border"><?php echo $total_missings ?></td>
+					</tr>
+					<tr>
+						<td class="border text-left">Taxa de não comparecimeto</td>
+						<td class="border"><?php echo $missing_rate.'%' ?></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>			
+			<div class="d-flex flex-column justify-center text-center">
+				<h2>Números secundários</h2>
+				<table class="channels-table border">
+					<tbody>
+					<tr>
+						<td class="border text-left">Número de agendamentos - Dermatologia Clínica</td>
+						<td class="border"><?php echo $clinical_schedules?></td>
+					</tr>
+					<tr>
+						<td class="border text-left">Número de agendamentos - Dermatologia Estética</td>
+						<td class="border"><?php echo $stetical_schedules?></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	<div id="contacts-schedules-chartContainer" class="graph"></div>
 	<div id="channels-total-chartContainer" class="graph"></div>
 	<div id="channels-perc-chartContainer" class="graph"></div>
