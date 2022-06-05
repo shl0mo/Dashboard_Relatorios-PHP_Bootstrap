@@ -100,6 +100,19 @@
 								?>
 							</select>
 					</div>
+					<div class="form-box row align-items-center w-100">
+						<label class="mb-0">Sexo</label>
+							<div class="d-flex flex-row mt-0 justify-content-around w-75 px-5">
+								<div>
+									<input type="radio" id="radio-masculine" name="gender" value="Masculino"/>
+									<label for="radio-masculine" class="mt-0 mb-0">Masculino</label>
+								</div>
+								<div>
+									<input type="radio" id="radio-feminine" name="gender" value="Feminino"/>
+									<label for="radio-feminine" class="mt-0 mb-0">Feminino</label>
+								</div>
+							</div>
+					</div>
 					<div class="form-box row align-items-left">
 						<label class="d-flex align-self-center">Justificativas para o usuário</label>
 						<div class="align-items-left">
