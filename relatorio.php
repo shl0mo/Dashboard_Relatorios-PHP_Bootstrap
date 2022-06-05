@@ -156,6 +156,10 @@
 		$perc_justification = $total_justification/$total_contacts;
 		array_push($dataPoints_justifications, array('label' => $i, 'y' => $perc_justification));
 	}
+
+	$query_user_gender = $pdo->prepare('SELECT sexo FROM usuarios WHERE usuario = "'.$_SESSION['session'].'";');
+	$query_user_gender->execute();
+	$gender = $query_user_gender->fetch()['sexo'];
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -347,7 +351,14 @@
 	<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
 		<nav class="navbar navbar-dark d-flex flex-direction-column w-100 align-items-center">
 			<div class="container-fluid col w-100 text-light">
-				<h1><?php echo '&bull; Dr. '.$_SESSION['name'];?></h1>
+				<h1><?php
+					$dr_name = '';
+					$dr_name .= '&bull; ';
+					if ($gender == 'Masculino') $dr_name .= 'Dr. ';
+					else $dr_name .= 'Dra. ';
+					$dr_name .= $_SESSION['name'];
+					echo $dr_name;
+				?></h1>
 			</div>
 			<div class="container-fluid col-md-1 d-flex w-100">
 				<form method="post" class="d-flex w-100">
