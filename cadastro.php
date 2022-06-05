@@ -22,12 +22,13 @@
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$usertype = $_POST['usertype'];
+		$gender = $_POST['gender'];
 		$query = $pdo->prepare('SELECT * FROM usuarios WHERE usuario = "'.$username.'"');
 		$query->execute();
 		$registered = count($query->fetchAll());
 		if (!$registered) {
-			$query = $pdo->prepare('INSERT INTO usuarios VALUES(?,?,?,?)');
-			$query->execute(array($username, $password, $usertype, $name));
+			$query = $pdo->prepare('INSERT INTO usuarios VALUES(?,?,?,?,?)');
+			$query->execute(array($username, $password, $usertype, $name, $gender));
 			$query = $pdo->prepare('SELECT * FROM usuarios_motivos');
 			$query->execute();
 			$id_array = $query->fetchAll();
