@@ -13,9 +13,68 @@
 		exit();
 	}
 
+	if (isset($_POST['save'])) {
+		$session = $_SESSION['session'];
+		$id = $_POST['id'];
+		$date = $_POST['date'];
+		$name = $_POST['name'];
+		$phone = $_POST['phone'];
+		$state = $_POST['state'];
+		$city = $_POST['city'];
+		$channel = $_POST['channel'];
+		$contact_type = $_POST['contact-type'];
+		$status = $_POST['status'];
+		$field = $_POST['field'];
+		$fk_user = $session;
+		switch ($status) {
+			case 'Agendou':
+				$status = 'Agendado';
+				break;
+			case 'Não agendou':
+				$status = 'Não agendado';
+				break;
+			case 'Cancelou':
+				$status = 'Cancelado';
+				break;
+		}
+		$justification_schedule = null;
+		$justification_cancellation = null;
+		$justification_missing = null;
+		foreach ($_POST as $key => $value) {
+			if (strpos($key, 'justification') !== false) {
+				switch ($key) {
+					case $key == 'justification-schedule':
+						$justification_schedule = $_POST['justification-schedule'];
+						break;
+					case $key == 'justification-cancellation':
+						$justification_cancellation = $_POST['justification-cancellation'];
+						break;
+					case $key == 'justification-missing':
+						$justification_missing = $_POST['justification-missing'];
+						break;
+				}
+			}
+		}
+		$others_schedule = null;
+		$others_cancellation = null;
+		$others_missing = null;
+		if ($justification_schedule == 'Outros') {
+			$others_schedule = $_POST['others-schedule'];
+		} else if ($justification_cancellation == 'Outros') {
+			$others_cancellation = $_POST['others-cancellation'];
+		} else if ($justification_missing == 'Outros') {
+			$others_missing = $_POST['others-missing'];
+		}
+		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
+		$query = $pdo->prepare('UPDATE dados SET data_agendamento = ?, nome = ?, telefone = ?, estado = ?, cidade = ?, canal_origem = ?, tipo_contato = ?, status = ?, area = ?, fk_usuario = ?, motivo_agendamento = ?, motivo_cancelamento = ?, motivo_comparecimento = ?, outros_agendamento = ?, outros_cancelamento = ?, outros_comparecimento = ? WHERE id = ?');
+		$query->execute(array($date, $name, $phone, $state, $city, $channel, $contact_type, $status, $field, $fk_user, $justification_schedule, $justification_cancellation, $justification_missing, $others_schedule, $others_cancellation, $others_missing, $id));
+		echo '<script>alert("Dados atualizados com sucesso!")</script>';
+	}
+
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 	$query = $pdo->prepare('SELECT * FROM dados WHERE id = ?');
-	$query->execute(array($_POST['id-edit']));
+	$id = $_POST['id-edit'];
+	$query->execute(array($id));
 	$data_array = $query->fetchAll()[0];
 	$name = $data_array['nome'];
 	$phone = $data_array['telefone'];
@@ -324,6 +383,7 @@
 									<label for="name-input">Nome completo</label>
 								</div>
 								<div>
+									<input type="hidden" name="id" value="<?php echo $id?>">
 									<input id="name-input" type="text" name="name" class="w-25 ml-3 rounded w-100" placeholder="Ex.: João da Silva"  value="<?php echo $name?>" required/>
 								</div>
 							</div>
