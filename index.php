@@ -215,17 +215,17 @@
 						if (name_justification === 'justification-schedule') {
 							html += `
 								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
+									<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;" required></textarea>
 							`
 						} else if (name_justification === 'justification-cancellation') {
 							html += `
 								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;"></textarea>
+									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;" required></textarea>
 							`
 						} else if (name_justification === 'justification-missing') {
 							html += `
 								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;"></textarea>
+									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;" required></textarea>
 							`
 						}
 						html += '</div>'

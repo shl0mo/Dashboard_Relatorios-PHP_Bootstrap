@@ -241,17 +241,17 @@
 						if (name_justification === 'justification-schedule') {
 							html += `
 								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
+									<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;" required></textarea>
 							`
 						} else if (name_justification === 'justification-cancellation') {
 							html += `
 								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;"></textarea>
+									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;" required></textarea>
 							`
 						} else if (name_justification === 'justification-missing') {
 							html += `
 								<label for="justification-others">Especifique o motivo</label>
-									<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;"></textarea>
+										<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;" required></textarea>
 							`
 						}
 						html += '</div>'
@@ -502,7 +502,10 @@
 														<label id="label-justification" for="justification-select">Motivo de não ter agendado</label>
 														<select id="justification-select" name="justification-schedule" class="w-100 ml-3 rounded" required>
 															<option value="">-- Selecione --</option>
-															<option value="'.$justification.'" selected>'.$justification.'</option>';
+													';
+													if ($justification != null) {
+															'<option value="'.$justification.'" selected>'.$justification.'</option>';
+													}
 													foreach ($user_justifications_array as $justification) {		
 														$div_justification .= '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
 													}
@@ -519,7 +522,10 @@
 													<label id="label-justification" for="justification-select">Motivo da falta</label>
 														<select id="justification-select" name="justification-missing" class="w-100 ml-3 rounded" required>
 															<option value="">-- Selecione --</option>
-															<option value="'.$justification.'" selected>'.$justification.'</option>';
+													';
+													if ($justification != null) {
+														$div_justification .= '<option value="'.$justification.'" selected>'.$justification.'</option>';
+													}
 													foreach ($user_justifications_array as $justification) {		
 														$div_justification .= '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
 													}
@@ -536,7 +542,10 @@
 													<label id="label-justification" for="justification-select">Motivo do cancelamento</label>
 														<select id="justification-select" name="justification-cancellation" class="w-100 ml-3 rounded" required>
 															<option value="">-- Selecione --</option>
-															<option value="'.$justification.'" selected>'.$justification.'</option>';
+													';
+													if ($justification != null) {
+															$div_justification .= '<option value="'.$justification.'" selected>'.$justification.'</option>';
+													}
 													foreach ($user_justifications_array as $justification) {		
 														$div_justification .= '<option value="'.$justification['motivo'].'">'.$justification['motivo'].'</option>';
 													}
@@ -566,7 +575,7 @@
 									case 'Não agendado':
 										$div_justification_others .= '
 											<label for="justification-others">Especifique o motivo</label>
-												<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;">'.$justification_others.'</textarea>
+												<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;" required>'.$justification_others.'</textarea>
 											</div>
 										</div>';
 										echo $div_justification_others;
@@ -574,7 +583,7 @@
 									case 'Não compareceu':
 										$div_justification_others .= '
 											<label for="justification-others">Especifique o motivo</label>
-												<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;"></textarea>
+												<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-missing" style="resize: none; height: 80px;" required></textarea>
 											</div>
 										</div>';
 										echo $div_justification_others;
@@ -582,7 +591,7 @@
 									case 'Cancelado':
 										$div_justification_others .= ' 
 											<label for="justification-others">Especifique o motivo</label>
-												<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;"></textarea>
+												<textarea id="justification-cancellation" class="align-self-center ml-3 w-100" name="others-cancellation" style="resize: none; height: 80px;" required></textarea>
 											</div>
 										</div>';
 										echo $div_justification_others;
