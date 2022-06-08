@@ -81,14 +81,24 @@
 	$state = $data_array['estado'];
 	$city = $data_array['cidade'];
 	$channel_origin = $data_array['canal_origem'];
+	$contact_type = $data_array['tipo_contato'];
 	$status = $data_array['status'];
-	$justification = '';
+	$field = $data_array['area'];
+	$justification = null;
 	if ($data_array['motivo_agendamento'] != null) {
 		$justification = $data_array['motivo_agendamento'];
 	} else if ($data_array['motivo_cancelamento'] != null) {
 		$justification = $data_array['motivo_cancelamento'];
 	} else if ($data_array['motivo_comparecimento'] != null) {
 		$justification = $data_array['motivo_comparecimento'];
+	}
+	$justification_others = null;
+	if ($data_array['outros_agendamento'] != null) {
+		$justification_others = $data_array['outros_agendamento'];
+	} else if ($data_array['outros_cancelamento'] != null) {
+		$justification_others = $data_array['outros_cancelamento'];
+	} else if ($data_array['outros_comparecimento'] != null) {
+		$justification_others = $data_array['outros_comparecimento'];
 	}
 	$query_user_gender = $pdo->prepare('SELECT sexo FROM usuarios WHERE usuario = "'.$_SESSION['session'].'";');
 	$query_user_gender->execute();
@@ -465,6 +475,7 @@
 							<div class="col-md-12 ml-3">
 								<label for="contact-type-select">Forma de contato</label>
 									<select id="contact-type-select" name="contact-type" class="w-100 ml-3 rounded" required>
+									<option value="<?php echo $contact_type?>" selected><?php echo $contact_type?></option>
 										<option value="">-- Selecione --</option>
 										<option>Tipo contato 1</option>
 										<option>Tipo contato 2</option>
@@ -555,7 +566,7 @@
 									case 'Não agendado':
 										$div_justification_others .= '
 											<label for="justification-others">Especifique o motivo</label>
-												<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;"></textarea>
+												<textarea id="justification-others" class="align-self-center ml-3 w-100" name="others-schedule" style="resize: none; height: 80px;">'.$justification_others.'</textarea>
 											</div>
 										</div>';
 										echo $div_justification_others;
@@ -585,6 +596,7 @@
 								<label for="field">Área</label>
 									<select id="field" name="field" class="w-100 ml-3 rounded" required>
 										<option value="">-- Selecione --</option>
+										<option value="<?php echo $field?>" selected><?php echo $field ?></option>
 										<option value="Dermatologia estética">Dermatologia estética</option>
 										<option value="Dermatologia clínica">Dermatologia clínica</option>
 									</select>
