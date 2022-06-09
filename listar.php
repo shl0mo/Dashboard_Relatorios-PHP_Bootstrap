@@ -31,17 +31,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 	<script>
-	function defineWindowHeight () {
-
-			alert('Loaded!')
-			const html = document.querySelector('html')
-				const table_container_height = document.querySelector('.table-container').offSetHeight
-				console.log(table_container_height)
-			const search_input_height = document.querySelector('#search-input').offSetHeight
-			const new_height = table_container_height + search_input_height + 100 + 'px'
-			html.style.height = new_height
-		}
-
 		function contactNotFound () {
 			const table = document.querySelector('table')
 			table.remove()
@@ -52,6 +41,17 @@
 			not_found_div.appendChild(not_found_message)
 			document.querySelector('#content-container').appendChild(not_found_div)
 		}
+
+		const interval_sidebar = setInterval(function () {
+			if (document.contains(document.querySelector('.table-container'))) {
+				const html = document.querySelector('html')
+				const table_container_height = document.querySelector('.table-container').offsetHeight
+				const search_input_height = document.querySelector('#search-input').offsetHeight
+				const new_height = table_container_height + search_input_height + 50 + 'px'
+				html.style.height = new_height
+				clearInterval(interval_sidebar)
+			}
+		}, 500)
 	</script>
 </head>
 <body class="h-100">
