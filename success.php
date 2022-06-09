@@ -1,5 +1,9 @@
 <?php require_once('./views/header-sidebar.php');?>
 	<?php
+		if (!isset($_GET['status'])) {
+			header('Location: http://localhost/Relatorios');
+			exit();
+		}
 		if (isset($_POST['confirm'])) {
 			header('Location: http://localhost/Relatorios/listar.php');
 		}
@@ -13,7 +17,7 @@
 	<div id="success-container" class="d-flex align-self-center w-75 justify-content-center flex-column rounded py-5">
 		<form method="post">
 			<div class="w-100 d-flex justify-content-center mb-2">
-				<h2>Cadastro efetuado com sucesso</h2>
+				<h2>Alterações efetuadas com sucesso</h2>
 			</div>
 			<div class="w-100 d-flex justify-content-center">
 				<button type="submit" name="confirm" class="btn btn-primary px-2 px-5">OK</button>
