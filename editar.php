@@ -68,7 +68,8 @@
 		$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
 		$query = $pdo->prepare('UPDATE dados SET data_agendamento = ?, nome = ?, telefone = ?, estado = ?, cidade = ?, canal_origem = ?, tipo_contato = ?, status = ?, area = ?, fk_usuario = ?, motivo_agendamento = ?, motivo_cancelamento = ?, motivo_comparecimento = ?, outros_agendamento = ?, outros_cancelamento = ?, outros_comparecimento = ? WHERE id = ?');
 		$query->execute(array($date, $name, $phone, $state, $city, $channel, $contact_type, $status, $field, $fk_user, $justification_schedule, $justification_cancellation, $justification_missing, $others_schedule, $others_cancellation, $others_missing, $id));
-		echo '<script>alert("Dados atualizados com sucesso!")</script>';
+		header('Location: http://localhost/Relatorios/success.php');
+		exit();
 	}
 
 	$pdo = new PDO('mysql:host=localhost;dbname=dados_clientes', 'root', '');
