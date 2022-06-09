@@ -31,13 +31,15 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 	<script>
-		function defineWindowHeight () {
-			const body = document.getElementsByTagName('body')[0]
-			const sidebar = document.querySelector('#sidebar')
-			const window_height = window.screen.height
-			const new_window_height = window_height + 40 + 'px'
-			body.style.height = new_window_height
-			sidebar.style.height = new_window_height
+	function defineWindowHeight () {
+
+			alert('Loaded!')
+			const html = document.querySelector('html')
+				const table_container_height = document.querySelector('.table-container').offSetHeight
+				console.log(table_container_height)
+			const search_input_height = document.querySelector('#search-input').offSetHeight
+			const new_height = table_container_height + search_input_height + 100 + 'px'
+			html.style.height = new_height
 		}
 
 		function contactNotFound () {
@@ -52,7 +54,7 @@
 		}
 	</script>
 </head>
-<body onload="defineWindowHeight()">
+<body class="h-100">
 	<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
 		<nav class="navbar navbar-dark d-flex flex-direction-column w-100 align-items-center">
 			<div class="container-fluid col w-100 text-light">
@@ -72,8 +74,8 @@
 			</div>
 		</nav>
 	</header>
-	<div class="main-container d-flex flex-direction-row h-100 mb-0 w-100">
-		<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-md-2" style="width: 280px;">
+	<div class="main-container d-flex flex-direction-row h-100 mb-0 w-100 h-100">
+		<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-md-2 h-100" style="width: 280px;">
 		    <ul class="nav nav-pills flex-column mb-auto">
 	  	      <hr>
 			<li>
@@ -109,7 +111,7 @@
 			<form>
 			<div class="container d-flex flex-row mt-2 mb-2 ml-0 mr-0 w-100">
 					<div class="col-md-9 pl-0 pr-0">
-						<input type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo" name="name-search" required>
+						<input id="search-input" type="text" class="w-100 ml-0 mr-0" placeholder="Nome completo" name="name-search" required>
 					</div>
 					<button class="btn btn-primary p-2 d-flex h-100 w-100 align-items-center justify-content-center" name="search" style="border-radius: 0 5px 5px 0;">
 						<div class="mr-2">
@@ -122,7 +124,8 @@
 			</div>
 			</form>
 			<?php
-				echo '<table class="border rounded" style="margin-bottom: 200px;">
+				echo '<div class="table-container w-100">
+					<table class="border rounded w-100">
 					<thead>
 						<th class="border p-2">Código</th>
 						<th class="border p-2">Nome</Nome>
@@ -190,7 +193,7 @@
 						';
 						$i++;
 					}
-					echo '</table>';
+					echo '</table></div>';
 				} else {
 					$i = 0;
 					$found = false;
@@ -254,7 +257,7 @@
 							$i++;
 						}
 					}
-					echo '</table>';
+					echo '</table></div>';
 					if (!$found) {
 						echo '<script>contactNotFound()</script>';
 					}
