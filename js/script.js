@@ -199,12 +199,10 @@ function activeSection() {
 	array_uri = uri.split('/')
 	if (array_uri[array_uri.length - 1] === '' || array_uri[array_uri.length - 1] === 'Relatorios') {
 		document.querySelector('[href="./"]').classList.add('active')
-		return
-	}
-	if (uri.includes('editar.php') || uri.includes('listar.php')) {
+	} else if (uri.includes('editar.php') || uri.includes('listar.php')) {
 		document.querySelector('[href="./listar.php"]').classList.add('active')
 		return
+	} else if (uri.inclues('relatorio.php')) {
+		document.querySelector('[href="./relatorio.php"]').classList.add('active')
 	}
-	document.querySelector('[href="./relatorio.php"]').classList.add('active')
-	return
 }

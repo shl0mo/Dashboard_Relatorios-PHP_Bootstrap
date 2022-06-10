@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	if (!isset($_POST['id-edit'])) {
+		header('Location: http://localhost/Relatorios');
+		exit();
+	}
 	if (!isset($_SESSION['session'])) {
 		header('Location: http://localhost/Relatorios/login.php');
 		exit();
