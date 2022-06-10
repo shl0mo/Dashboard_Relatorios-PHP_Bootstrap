@@ -1,9 +1,9 @@
 <?php require_once('./views/header-sidebar.php');?>
 	<?php
-		if (!isset($_GET['status'])) {
+		/*if (!isset($_GET['status'])) {
 			header('Location: http://localhost/Relatorios');
 			exit();
-		}
+}*/
 		if (isset($_POST['confirm'])) {
 			header('Location: http://localhost/Relatorios/listar.php');
 		}
@@ -14,15 +14,17 @@
 			box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
 		}
 	</style>
-	<div id="success-container" class="d-flex align-self-center w-75 justify-content-center flex-column rounded py-5">
-		<form method="post">
-			<div class="w-100 d-flex justify-content-center mb-2">
-				<h2>Alterações efetuadas com sucesso</h2>
-			</div>
-			<div class="w-100 d-flex justify-content-center">
-				<button type="submit" name="confirm" class="btn btn-primary px-2 px-5">OK</button>
-			</div>
-		</form>
+	<div id="content-container" class="w-100 d-flex container flex-column" style="flex: 1;">
+		<div id="success-container" class="d-flex align-self-center w-75 justify-content-center flex-column rounded py-5">
+			<form method="post">
+				<div class="w-100 d-flex justify-content-center mb-2">
+					<h2>Alterações efetuadas com sucesso</h2>
+				</div>
+				<div class="w-100 d-flex justify-content-center">
+					<button type="submit" name="confirm" class="btn btn-primary px-2 px-5">OK</button>
+				</div>
+			</form>
+		</div>
 	</div>
-</div>
+</body>
 </html>
