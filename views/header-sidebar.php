@@ -32,7 +32,15 @@
 		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 		<link rel="stylesheet" href="./css/style.css"/>
 		<script type="text/javascript" src="./js/script.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 		<script>
+			function generatePDF() {
+				document.querySelector('header').remove()
+				document.querySelector('#sidebar').remove()
+				window.print()
+				location.reload()
+
+			}
 		</script>
 	</head>
 	<body onload="activeSection()">
@@ -65,7 +73,7 @@
 			</nav>
 		</header>
 		<div class="main-container d-flex flex-direction-row h-100 mb-0 w-100">
-			<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-md-2" style="width: 280px;">
+			<div id="sidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-md-2" style="width: 280px;">
 			    <ul class="nav nav-pills flex-column mb-auto">
 	  		      <hr>
 			      <li>
@@ -97,4 +105,3 @@
 			      <hr/>
 			    </ul>
 			</div>
-

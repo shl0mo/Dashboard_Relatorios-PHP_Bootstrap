@@ -166,7 +166,6 @@
 	require_once('./views/header-sidebar.php');
 ?>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 	<style>
 		table {
 			width: 65%;
@@ -345,7 +344,7 @@
 		document.querySelector('[href="./relatorio.php"]').classList.add('active')
 	</script>
 
-	<div class="w-100 d-flex justify-content-center flex-column">
+	<div id="content" class="w-100 d-flex justify-content-center flex-column">
 		<div>
 			<div class="d-flex flex-column justify-center text-center mt-5">
 				<h2>Números principais</h2>
