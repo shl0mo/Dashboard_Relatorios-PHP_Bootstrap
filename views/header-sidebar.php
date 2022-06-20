@@ -21,6 +21,7 @@
 	$query_user_gender = $pdo->prepare('SELECT sexo FROM usuarios WHERE usuario = "'.$_SESSION['session'].'";');
 	$query_user_gender->execute();
 	$gender = $query_user_gender->fetch()['sexo'];
+	$page = explode('/', $_SERVER['REQUEST_URI'])[2];
 ?>
 <html>
 	<head>
@@ -31,6 +32,8 @@
 		<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
 		<link rel="stylesheet" href="./css/style.css"/>
 		<script type="text/javascript" src="./js/script.js"></script>
+		<script>
+		</script>
 	</head>
 	<body onload="activeSection()">
 		<header class="mb-0 bg-dark w-100 p-2" style="height: 100px;">
@@ -45,7 +48,16 @@
 						echo $dr_name;
 					?></h1>
 				</div>
-				<div class="container-fluid col-md-1 d-flex w-100">
+				<div class="col-md-1 d-flex w-100 flex flex-row">
+					<?php
+						if ($page == 'relatorio.php') {
+							echo '
+							<div class="generate-pdf-container w-100 mr-2">
+								<button class="btn btn-success p-2 w-100" onclick="generatePDF()">Gerar PDF</button>
+							</div>
+							';
+						}
+					?>
 					<form method="post" class="d-flex w-100">
 						<button type="submit" name="logout" class="btn btn-danger text-center p-2 w-100">Sair</button>
 					</form>
