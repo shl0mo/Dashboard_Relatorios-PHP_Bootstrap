@@ -105,7 +105,7 @@
 				if ($i == $j) $total_justification++;
 				$total_occurrences++;	
 			}
-			$percentage = round($total_justification/$total_occurrences * 100, 2);
+			$percentage = round($total_justification/$total_occurrences, 2);
 			array_push($dataPoint_line, array('label' => $i, 'y' => $percentage));
 		}
 		array_push($dataPoints_channels_justifications, $dataPoint_line);
