@@ -98,7 +98,8 @@
 	$dataPoints_channels_justifications = array();
 	foreach ($matrix_justifications as $line) {
 		$dataPoint_line = array();
-		foreach ($line as $i) {
+		$unique_line = array_unique($line);
+		foreach ($unique_line as $i) {
 			$total_justification = 0;
 			$total_occurrences = 0;
 			foreach ($line as $j) {
